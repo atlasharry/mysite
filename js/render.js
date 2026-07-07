@@ -188,7 +188,8 @@
     intro.innerHTML = '<h3>' + esc(ex.titleZh) + '</h3>' +
       '<p class="en-title">' + esc(ex.titleEn) + '</p>' +
       '<p class="credit">' + esc(t(ex.credit)) + '</p>' +
-      t(ex.statement).split("\n").map(function(p){ return "<p>" + esc(p) + "</p>"; }).join("");
+      t(ex.statement).split("\n").map(function(p){ return "<p>" + esc(p) + "</p>"; }).join("") +
+      '<a class="map-cue" href="#mapWrap"><span>' + esc(t(SITE.i18n.travel.goto)) + '</span><span class="story-arrow" aria-hidden="true">↓</span></a>';
     wall.innerHTML = "";
     /* 第一排：横-竖-横（竖幅居中），第二排：竖-横 */
     var rows = [[ex.works[1], ex.works[0], ex.works[2]], [ex.works[3], ex.works[4]]];
@@ -241,15 +242,20 @@
     observeReveals(grid);
   }
 
-  /* ---- 关于 ---- */
+  /* ---- 关于（左文右照） ---- */
   function renderAbout(){
     var box = $("#aboutBody"); if(!box) return;
-    box.innerHTML = '<div class="bio reveal"><p>' + esc(t(SITE.about.bio)) + '</p></div>' +
-      '<div class="contact-row reveal">' +
+    box.innerHTML = '<div class="about-main">' +
+      '<div class="bio reveal"><p>' + esc(t(SITE.about.bio)) + '</p>' +
+      '<div class="contact-row">' +
       '<a href="resume/" target="_blank" rel="noopener">' + esc(t(SITE.i18n.about.resume)) + '</a>' +
       SITE.about.contact.map(function(c){
         return '<a href="' + c.url + '" target="_blank" rel="noopener">' + esc(t(c.label)) + '</a>';
-      }).join("") + '</div>';
+      }).join("") + '</div></div>' +
+      '<figure class="about-photo reveal"><picture>' +
+      '<source srcset="' + SITE.about.portrait + '.webp" type="image/webp">' +
+      '<img src="' + SITE.about.portrait + '.jpg" alt="余城宇 Harry Yu" loading="lazy" style="aspect-ratio:' + SITE.about.portraitAr + '">' +
+      '</picture></figure></div>';
     observeReveals(box);
   }
 

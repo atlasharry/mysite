@@ -69,7 +69,7 @@ heroCards: [
   { href:"#aigc",     img:"assets/films/suisui-poster",   label:{zh:"AI × 创作",en:"AI × Art"}, tag:{zh:"生成。再创造。",en:"Generate. Create."} },
   { href:"#research", img:"assets/world/world-05",        label:{zh:"研究",en:"Research"}, tag:{zh:"提问。求解。",en:"Ask. Solve."} },
   { href:"#astro",    img:"assets/astro/astro-06",        label:{zh:"星空",en:"Astro"},   tag:{zh:"仰望。追光。",en:"Look up. Chase light."} },
-  { href:"#travel",   img:"assets/world/world-02",        label:{zh:"旅行",en:"Travel"},  tag:{zh:"出发。抵达。",en:"Depart. Arrive."} }
+  { href:"#travel",   img:"assets/travel/iceland-falls",  label:{zh:"旅行",en:"Travel"},  tag:{zh:"出发。抵达。",en:"Depart. Arrive."} }
 ],
 
 aigc: [
@@ -167,6 +167,7 @@ locations: [
 ],
 
 about: {
+  portrait:"assets/me/portrait", portraitAr:"1086/1290",
   bio:{
     zh:"余城宇，青年导演、AI算法研究者。现于卡内基梅隆大学（Carnegie Mellon University）攻读MSCS计算机科学硕士，本科以弗里曼亚洲学者身份毕业于卫斯理大学（Wesleyan University）电影与计算机科学双专业，获高荣誉学位。他长期关注影像、人工智能与艺术创作之间的关系，擅长从技术与人文的交界处探索 AI 对叙事、感知和创作者能力边界的拓展。其作品关注家庭、记忆与身份，在克制的影像中呈现人物细腻的情感流动。",
     en:"Harry Yu is a young filmmaker and AI researcher, currently pursuing an M.S. in Computer Science at Carnegie Mellon University. He graduated from Wesleyan University as a Freeman Asian Scholar with High Honors, double-majoring in Film Studies and Computer Science. His work has long explored the relationship between moving images, artificial intelligence and artistic creation — probing, from the intersection of technology and the humanities, how AI expands the boundaries of narrative, perception and creative authorship. His films dwell on family, memory and identity, capturing subtle emotional currents through a restrained visual language."
