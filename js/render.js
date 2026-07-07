@@ -260,7 +260,16 @@
       '<img src="' + SITE.about.portrait + '.jpg" alt="余城宇 Harry Yu" loading="lazy">' +
       '</picture></figure></div>';
     observeReveals(box);
+    requestAnimationFrame(sizeAboutPhoto);
   }
+  /* 照片高度 = 左栏（标题→按钮）高度，两端严格对齐 */
+  function sizeAboutPhoto(){
+    var left = document.querySelector("#about .bio"), ph = document.querySelector(".about-photo");
+    if(!left || !ph) return;
+    ph.style.height = (innerWidth < 760) ? "" : left.getBoundingClientRect().height + "px";
+  }
+  addEventListener("resize", sizeAboutPhoto);
+  addEventListener("load", sizeAboutPhoto);
 
   /* ---- 渲染调度：后续任务往这里注册 ---- */
   var renderers = [renderHeroCards, renderFilms, renderAigc, renderResearch, renderExhibit, renderAstro, renderAbout];

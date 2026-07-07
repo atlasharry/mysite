@@ -1,6 +1,7 @@
 window.SITE = {
 i18n: {
   nav: {
+    home:{zh:"首页",en:"Home"},
     films:{zh:"影像",en:"Films"}, aigc:{zh:"AI × 创作",en:"AI × Art"},
     research:{zh:"研究",en:"Research"}, astro:{zh:"星空",en:"Astro"},
     travel:{zh:"旅行",en:"Travel"}, about:{zh:"关于",en:"About"}

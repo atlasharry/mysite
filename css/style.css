@@ -254,13 +254,15 @@ button{font-family:inherit}
   color:var(--ink-dim);letter-spacing:.22em;font-size:.85rem}
 
 /* ========== about（左文右照，撑满章节宽度） ========== */
-.about-main{display:grid;grid-template-columns:1fr minmax(240px,300px);gap:clamp(3rem,8vw,7rem);align-items:center}
+.about-main{display:grid;grid-template-columns:1fr auto;gap:clamp(3rem,8vw,7rem);align-items:start}
 .bio p{max-width:46rem}
-/* 照片：2:3 竖裁，与左栏（标题→按钮）互相垂直居中 */
-.about-photo{margin:0;padding:6px;border:1px solid var(--hairline-strong);border-radius:14px}
-.about-photo img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:9px;display:block}
+/* 照片：2:3 竖裁，高度由 JS 精确设为左栏高度（标题顶、按钮底对齐） */
+.about-photo{margin:0;padding:6px;border:1px solid var(--hairline-strong);border-radius:14px;
+  display:flex}
+.about-photo img{height:100%;width:auto;aspect-ratio:2/3;object-fit:cover;border-radius:9px;display:block}
 @media (max-width:760px){.about-main{grid-template-columns:1fr}
-  .about-photo{max-width:300px;margin:0 auto;transform:none}}
+  .about-photo{max-width:300px;margin:0 auto;height:auto!important}
+  .about-photo img{width:100%;height:auto}}
 .bio p{color:var(--ink-dim);text-align:justify;font-size:.95rem}
 .contact-row{display:flex;flex-wrap:wrap;gap:1.2rem;margin-top:2.6rem}
 .contact-row a{border:1px solid var(--accent-dim);color:var(--accent);padding:.5rem 1.4rem;
