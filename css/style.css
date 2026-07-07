@@ -1,0 +1,70 @@
+/* ========== tokens ========== */
+:root{
+  --bg:#141413; --bg-deep:#0e0d0c; --ink:#faf9f5; --ink-dim:#b0aea5;
+  --accent:#ebdbbc; --accent-dim:rgba(235,219,188,.4); --hairline:rgba(235,219,188,.12);
+  --serif:"Noto Serif SC",Lora,Georgia,"Songti SC","SimSun",serif;
+  --sans:"Noto Sans SC",-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+  --lat-serif:Lora,Georgia,"Times New Roman",serif;
+  --w:min(72rem,92vw);
+}
+html[lang^="en"]{--serif:Lora,"Noto Serif SC",Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1rem;line-height:1.95;-webkit-font-smoothing:antialiased}
+/* 极稀疏星点底纹，若有若无 */
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:radial-gradient(rgba(250,249,245,.045) 1px,transparent 1px);background-size:210px 190px}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.35}
+button{font-family:inherit}
+::selection{background:var(--accent);color:var(--bg)}
+
+/* ========== nav ========== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
+  padding:1rem clamp(1rem,4vw,2.5rem);transition:background .4s ease}
+.nav.scrolled{background:rgba(14,13,12,.82);backdrop-filter:blur(12px)}
+.nav-name{font-family:var(--serif);letter-spacing:.14em;font-size:1.02rem}
+.nav nav{display:flex;gap:clamp(.7rem,2vw,1.6rem);align-items:center;font-size:.84rem;color:var(--ink-dim)}
+.nav nav a{padding:.15rem 0;border-bottom:1px solid transparent;transition:color .3s,border-color .3s;letter-spacing:.06em}
+.nav nav a:hover{color:var(--ink)}
+.nav nav a.active{color:var(--accent);border-color:var(--accent-dim)}
+#langToggle{background:none;border:1px solid var(--accent-dim);color:var(--accent);font-size:.72rem;
+  padding:.18rem .6rem;border-radius:2px;cursor:pointer;letter-spacing:.1em}
+#langToggle:hover{background:var(--accent);color:var(--bg)}
+
+/* ========== hero ========== */
+.hero{position:relative;height:100svh;display:grid;place-items:center;overflow:hidden;background:var(--bg-deep)}
+#stars{position:absolute;inset:0;width:100%;height:100%}
+.hero-inner{position:relative;text-align:center;padding:0 1rem}
+.hero-inner h1{font-size:clamp(2.5rem,6.5vw,4.4rem);letter-spacing:.2em;font-weight:600}
+.hero-en{display:block;font-family:var(--lat-serif);font-size:.32em;letter-spacing:.55em;color:var(--ink-dim);margin-top:1.2rem;font-weight:400}
+.tagline{margin-top:2.4rem;font-family:var(--serif);font-size:clamp(1rem,2vw,1.2rem);letter-spacing:.18em}
+.tagline-sub{margin-top:.9rem;color:var(--ink-dim);font-size:.82rem;letter-spacing:.34em}
+.scroll-cue{position:absolute;bottom:2.2rem;left:50%;width:1px;height:3.4rem;
+  background:linear-gradient(var(--accent),transparent);animation:cue 2.6s ease-in-out infinite}
+@keyframes cue{0%,100%{opacity:.15}50%{opacity:.9}}
+
+/* ========== 章节 / title card / 暗场 ========== */
+.chapter{position:relative;max-width:var(--w);margin:0 auto;padding:7.5rem 0 6rem}
+.fade-band{height:16vh;background:linear-gradient(180deg,var(--bg),var(--bg-deep) 55%,var(--bg))}
+.titlecard{display:flex;align-items:baseline;gap:1.2rem;margin-bottom:4.2rem}
+.tc-num{font-family:var(--lat-serif);color:var(--accent);font-size:.95rem;letter-spacing:.22em}
+.tc-line{flex:0 0 clamp(2.5rem,8vw,6rem);height:1px;background:var(--accent-dim);align-self:center}
+.titlecard h2{font-size:clamp(1.6rem,3.4vw,2.3rem);letter-spacing:.22em}
+.tc-en{font-family:var(--lat-serif);font-size:.52em;letter-spacing:.5em;color:var(--ink-dim);margin-left:1.1rem;font-weight:400}
+
+/* ========== reveal 入场 ========== */
+.reveal{opacity:0;transform:translateY(24px);
+  transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
+.reveal.on{opacity:1;transform:none}
+
+/* ========== footer ========== */
+footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.74rem;letter-spacing:.22em}
+
+/* ========== reduced motion ========== */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .scroll-cue{animation:none}
+  .reveal{opacity:1;transform:none;transition:none}
+}
