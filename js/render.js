@@ -246,7 +246,10 @@
   function renderAbout(){
     var box = $("#aboutBody"); if(!box) return;
     box.innerHTML = '<div class="about-main">' +
-      '<div class="bio reveal"><p>' + esc(t(SITE.about.bio)) + '</p>' +
+      '<div class="bio reveal">' +
+      '<header class="titlecard"><span class="tc-num">01</span><span class="tc-line"></span>' +
+      '<h2>' + esc(t(SITE.i18n.about.title)) + '<span class="tc-en">ABOUT</span></h2></header>' +
+      '<p>' + esc(t(SITE.about.bio)) + '</p>' +
       '<div class="contact-row">' +
       '<a href="resume/" target="_blank" rel="noopener">' + esc(t(SITE.i18n.about.resume)) + '</a>' +
       SITE.about.contact.map(function(c){
@@ -254,7 +257,7 @@
       }).join("") + '</div></div>' +
       '<figure class="about-photo reveal"><picture>' +
       '<source srcset="' + SITE.about.portrait + '.webp" type="image/webp">' +
-      '<img src="' + SITE.about.portrait + '.jpg" alt="余城宇 Harry Yu" loading="lazy" style="aspect-ratio:' + SITE.about.portraitAr + '">' +
+      '<img src="' + SITE.about.portrait + '.jpg" alt="余城宇 Harry Yu" loading="lazy">' +
       '</picture></figure></div>';
     observeReveals(box);
   }
