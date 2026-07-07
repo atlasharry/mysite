@@ -7,13 +7,69 @@
       '<img src="' + base + '.jpg" alt="' + esc(alt) + '" loading="lazy"></picture>';
   }
 
+  /* ---- 共用：大图滑动组件（中心舞台 + 两侧露出 + 原始宽高） ---- */
+  function createViewer(items, opts){
+    opts = opts || {};
+    var idx = 0;
+    var v = document.createElement("div");
+    v.className = "viewer" + (opts.small ? " small" : "");
+    v.innerHTML = '<div class="viewer-main"><div class="vw-track"></div>' +
+      '<button class="vw-arr vw-prev" aria-label="Previous">‹</button>' +
+      '<button class="vw-arr vw-next" aria-label="Next">›</button></div>' +
+      '<div class="vw-dock"></div><p class="vw-cap"></p>';
+    var main = v.querySelector(".viewer-main"), track = v.querySelector(".vw-track"),
+        dock = v.querySelector(".vw-dock"), cap = v.querySelector(".vw-cap");
+    items.forEach(function(it, i){
+      var s = document.createElement("div");
+      s.className = "vw-slide";
+      s.innerHTML = '<img src="' + it.src + '.webp" loading="lazy" alt=""' +
+        (it.ar ? ' style="aspect-ratio:' + it.ar + '"' : "") + '>';
+      s.addEventListener("click", function(){
+        if(i === idx){
+          openLightbox(items.map(function(x){ return { src: x.src + ".webp", cap: x.cap }; }), idx);
+        } else {
+          go(i);
+        }
+      });
+      track.appendChild(s);
+      var th = document.createElement("img");
+      th.src = it.src + "-thumb.webp"; th.loading = "lazy"; th.className = "vw-th"; th.alt = "";
+      th.addEventListener("click", function(e){ e.stopPropagation(); go(i); });
+      dock.appendChild(th);
+    });
+    function center(){
+      var slide = track.children[idx];
+      if(!slide) return;
+      var off = slide.offsetLeft + slide.offsetWidth/2 - main.clientWidth/2;
+      track.style.transform = "translateX(" + (-off).toFixed(1) + "px)";
+    }
+    function go(i){
+      idx = (i + items.length) % items.length;
+      Array.prototype.forEach.call(track.children, function(s, k){ s.classList.toggle("on", k === idx); });
+      center();
+      var ths = dock.querySelectorAll(".vw-th");
+      ths.forEach(function(t2, k){ t2.classList.toggle("on", k === idx); });
+      var active = ths[idx];
+      if(active) dock.scrollTo({ left: active.offsetLeft - dock.clientWidth/2 + active.clientWidth/2, behavior: "smooth" });
+      var c = items[idx].cap || "";
+      cap.textContent = c; cap.style.display = c ? "" : "none";
+    }
+    v.querySelector(".vw-prev").addEventListener("click", function(){ go(idx - 1); });
+    v.querySelector(".vw-next").addEventListener("click", function(){ go(idx + 1); });
+    addEventListener("resize", center);
+    go(0);
+    /* 图片加载后重新对中一次，保证初始定位精确 */
+    track.querySelectorAll("img").forEach(function(im){ im.addEventListener("load", center); });
+    return v;
+  }
+
   /* ---- hero 板块卡片栏 ---- */
   function renderHeroCards(){
     var box = $("#heroCards"); if(!box) return;
     box.innerHTML = "";
-    SITE.heroCards.forEach(function(c){
+    SITE.heroCards.forEach(function(c, i){
       var a = document.createElement("a");
-      a.className = "hero-card";
+      a.className = "hero-card hc-" + i;
       a.href = c.href;
       a.innerHTML = '<span class="hc-frame"><img src="' + c.img + '-thumb.webp" alt="' + esc(t(c.label)) + '"></span>' +
         '<span class="hc-label">' + esc(t(c.label)) + '<span class="arr">→</span></span>' +
@@ -60,22 +116,17 @@
           '<p class="film-sub">' + esc([f.year, t(f.info), t(f.roles)].filter(Boolean).join(" · ") || t(SITE.i18n.films.wip)) + '</p>' +
           f.badges.map(function(b){ return '<span class="badge">' + esc(t(b)) + '</span>'; }).join("") +
           (t(f.synopsis) ? '<p class="sheet-syn">' + esc(t(f.synopsis)) + '</p>' : "") +
-          (f.stills.length ? '<p class="sheet-label">' + esc(t(SITE.i18n.films.stills)) + '</p><div class="stills">' +
-            f.stills.map(function(s, i){
-              return '<img src="' + s + '-thumb.webp" loading="lazy" alt="" data-i="' + i + '">';
-            }).join("") + '</div>' : "") +
+          (f.stills.length ? '<p class="sheet-label">' + esc(t(SITE.i18n.films.stills)) + '</p><div class="sheet-stills"></div>' : "") +
         '</div></div>';
+    if(f.stills.length){
+      var viewer = createViewer(f.stills.map(function(s){ return { src: s.src, ar: s.ar, cap: "" }; }), { small: true });
+      ov.querySelector(".sheet-stills").appendChild(viewer);
+    }
     document.body.appendChild(ov);
     document.body.style.overflow = "hidden";
     function closeSheet(){ ov.remove(); document.body.style.overflow = ""; }
     ov.querySelector(".sheet-close").addEventListener("click", closeSheet);
     ov.addEventListener("click", function(e){ if(e.target === ov) closeSheet(); });
-    ov.querySelectorAll(".stills img").forEach(function(im){
-      im.addEventListener("click", function(){
-        openLightbox(f.stills.map(function(s){ return { src: s + ".webp", cap: t(f.title) }; }),
-          parseInt(im.dataset.i, 10));
-      });
-    });
   }
 
   /* ---- AIGC ---- */
@@ -128,24 +179,35 @@
       '<p class="credit">' + esc(t(ex.credit)) + '</p>' +
       t(ex.statement).split("\n").map(function(p){ return "<p>" + esc(p) + "</p>"; }).join("");
     wall.innerHTML = "";
-    ex.works.forEach(function(w, i){
-      var fig = document.createElement("figure");
-      fig.className = "artwork reveal " + (i < 3 ? "w2" : "w3");
-      fig.innerHTML = '<div class="frame">' + pic(w.src, ex.titleEn + " " + w.num) + '</div>' +
-        '<figcaption><span class="art-num">' + w.num + '</span>' + esc(ex.titleZh) + ' · ' + esc(ex.titleEn) + '</figcaption>';
-      fig.querySelector(".frame").addEventListener("click", function(){
-        openLightbox(ex.works.map(function(x){ return { src: x.src + ".webp", cap: ex.titleZh + " · " + ex.titleEn + " " + x.num }; }), i);
+    var rows = [ex.works.slice(0, 3), ex.works.slice(3)];
+    var offset = 0;
+    rows.forEach(function(rowWorks){
+      var row = document.createElement("div");
+      row.className = "wall-row";
+      rowWorks.forEach(function(w, k){
+        var i = offset + k;
+        var fig = document.createElement("figure");
+        fig.className = "artwork reveal";
+        var parts = w.ar.split("/");
+        fig.style.flexGrow = (parseFloat(parts[0]) / parseFloat(parts[1])).toFixed(3);
+        fig.innerHTML = '<div class="frame"><span class="mat">' +
+          '<picture><source srcset="' + w.src + '.webp" type="image/webp">' +
+          '<img src="' + w.src + '.jpg" alt="' + esc(ex.titleEn + " " + w.num) + '" loading="lazy" style="aspect-ratio:' + w.ar + '"></picture>' +
+          '</span></div>' +
+          '<figcaption><span class="art-num">' + w.num + '</span></figcaption>';
+        fig.querySelector(".frame").addEventListener("click", function(){
+          openLightbox(ex.works.map(function(x){ return { src: x.src + ".webp", cap: ex.titleZh + " · " + ex.titleEn + " " + x.num }; }), i);
+        });
+        row.appendChild(fig);
       });
-      wall.appendChild(fig);
+      offset += rowWorks.length;
+      wall.appendChild(row);
     });
     observeReveals(wall.parentElement);
   }
 
-  /* ---- 星空：太阳系轨道画廊 ---- */
+  /* ---- 星空：大图滑动画廊 ---- */
   var astroCanvasDone = false;
-  function astroLightbox(i){
-    openLightbox(SITE.astro.map(function(x){ return { src: x.src + ".webp", cap: t(x.cap) }; }), i);
-  }
   function renderAstro(){
     var grid = $("#astroGrid"); if(!grid) return;
     if(!astroCanvasDone){
@@ -161,54 +223,9 @@
       observeReveals(grid);
       return;
     }
-    var sys = document.createElement("div");
-    sys.className = "orbit-sys reveal";
-    /* 轨道配置：直径%、卫星尺寸%、公转周期 */
-    var ORBITS = [
-      { d: 46, size: 12,   dur: "90s"  },
-      { d: 68, size: 10.5, dur: "150s" },
-      { d: 90, size: 9,    dur: "210s" }
-    ];
-    ORBITS.forEach(function(o){
-      var ring = document.createElement("div");
-      ring.className = "orbit-ring";
-      ring.style.width = o.d + "%";
-      ring.style.height = o.d + "%";
-      sys.appendChild(ring);
-    });
-    /* 太阳 = 第一张，其余按 3/3/4 分布到三条轨道 */
-    var sun = document.createElement("a");
-    sun.className = "orbit-sun";
-    sun.style.width = "21%"; sun.style.height = "21%";
-    sun.innerHTML = '<img src="' + SITE.astro[0].src + '-thumb.webp" loading="lazy" alt="">';
-    sun.addEventListener("click", function(){ astroLightbox(0); });
-    sys.appendChild(sun);
-    var groups = [[1,2,3],[4,5,6],[7,8,9,10]];
-    groups.forEach(function(idxs, gi){
-      var conf = ORBITS[gi];
-      var orbit = document.createElement("div");
-      orbit.className = "orbit";
-      orbit.style.setProperty("--dur", conf.dur);
-      idxs.forEach(function(idx, k){
-        if(!SITE.astro[idx]) return;
-        var ang = (k / idxs.length) * Math.PI * 2 + gi * 0.9;
-        var R = conf.d / 2;
-        var x = 50 + R * Math.cos(ang), y = 50 + R * Math.sin(ang);
-        var sat = document.createElement("div");
-        sat.className = "orbit-sat";
-        sat.style.left = x + "%"; sat.style.top = y + "%";
-        sat.style.width = conf.size + "%"; sat.style.height = conf.size + "%";
-        var p = document.createElement("a");
-        p.className = "p";
-        p.style.setProperty("--dur", conf.dur);
-        p.innerHTML = '<img src="' + SITE.astro[idx].src + '-thumb.webp" loading="lazy" alt="">';
-        p.addEventListener("click", function(){ astroLightbox(idx); });
-        sat.appendChild(p);
-        orbit.appendChild(sat);
-      });
-      sys.appendChild(orbit);
-    });
-    grid.appendChild(sys);
+    var viewer = createViewer(SITE.astro.map(function(x){ return { src: x.src, ar: x.ar, cap: t(x.cap) }; }));
+    viewer.classList.add("reveal");
+    grid.appendChild(viewer);
     observeReveals(grid);
   }
 
@@ -219,7 +236,7 @@
       '<div class="contact-row reveal">' +
       '<a href="resume/" target="_blank" rel="noopener">' + esc(t(SITE.i18n.about.resume)) + '</a>' +
       SITE.about.contact.map(function(c){
-        return '<a href="' + c.url + '" target="_blank" rel="noopener">' + esc(c.label) + '</a>';
+        return '<a href="' + c.url + '" target="_blank" rel="noopener">' + esc(t(c.label)) + '</a>';
       }).join("") + '</div>';
     observeReveals(box);
   }

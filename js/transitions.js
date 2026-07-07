@@ -108,6 +108,28 @@
   resize();
   addEventListener("resize", resize);
   addEventListener("themechange", draw);
+})();
+
+/* ===== 画展 → 地图：飞机从右下飞向左上，留尾迹云 ===== */
+(function(){
+  var bridge = document.getElementById("travelBridge");
+  if(!bridge) return;
+  var flight = document.getElementById("flight");
+  if(!flight || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  function onScroll(){
+    var r = bridge.getBoundingClientRect(), vh = innerHeight;
+    var p = (vh - r.top) / (vh + r.height);
+    if(p < 0 || p > 1){ flight.style.opacity = 0; return; }
+    var sx = innerWidth + 120, sy = r.height * 0.96;   /* 右下入场 */
+    var ex = -160,             ey = r.height * 0.02;   /* 左上离场 */
+    var x = sx + (ex - sx) * p;
+    var y = sy + (ey - sy) * p;
+    var ang = Math.atan2(ey - sy, ex - sx) * 180 / Math.PI;  /* 机头沿航向 */
+    flight.style.opacity = Math.min(1, Math.sin(p * Math.PI) * 1.5) * .95;
+    flight.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px) rotate(" + ang.toFixed(1) + "deg)";
+  }
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
   if(!reduced){
     new IntersectionObserver(function(en){
       var vis = en[0].isIntersecting;

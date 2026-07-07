@@ -1,51 +1,168 @@
 (function(){
   var W = 1000, H = 500, NS = "http://www.w3.org/2000/svg";
-  var current = null, card = null;
+  var DEFAULT = { x: 0, y: 10, w: 1000, h: 400 };
+  var view = { x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h };
+  var CLUSTER_DIST = 55;
+  var current = null, card = null, svg = null, pinLayer = null, zoomed = false, resetBtn = null, outline = null;
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* 细节层懒加载：放大时换 50m 高精度大陆轮廓 */
+  var detailLoading = false;
+  function loadDetail(cb){
+    if(window.WORLD_MAP_PATH_DETAIL){ cb(); return; }
+    if(detailLoading) return;
+    detailLoading = true;
+    var s = document.createElement("script");
+    s.src = "js/worldmap-detail.js";
+    s.onload = cb;
+    document.head.appendChild(s);
+  }
 
   function proj(lat, lon){ return [(lon + 180)/360*W, (90 - lat)/180*H]; }
 
-  function showCard(g, loc){
+  /* ---- 聚合：投影距离小于阈值的图钉归为一组 ---- */
+  function clusters(){
+    var groups = [];
+    SITE.locations.forEach(function(loc){
+      var p = proj(loc.lat, loc.lon);
+      var g = null;
+      for(var i = 0; i < groups.length; i++){
+        var c = groups[i].center;
+        if(Math.hypot(c[0]-p[0], c[1]-p[1]) < CLUSTER_DIST){ g = groups[i]; break; }
+      }
+      if(g){
+        g.locs.push(loc); g.pts.push(p);
+        var sx = 0, sy = 0;
+        g.pts.forEach(function(q){ sx += q[0]; sy += q[1]; });
+        g.center = [sx/g.pts.length, sy/g.pts.length];
+      } else {
+        groups.push({ locs: [loc], pts: [p], center: p });
+      }
+    });
+    return groups;
+  }
+
+  /* ---- hover 小卡片 ---- */
+  function showCard(el, title, sub){
     var wrap = document.getElementById("mapWrap");
     if(!card){
       card = document.createElement("div");
       card.className = "pin-card";
       wrap.appendChild(card);
     }
-    var n = (loc.items || []).length;
-    card.innerHTML = '<h5>' + I18N.t(loc.name) + '</h5>' +
-      '<p>' + (n ? n + " · " + I18N.t(SITE.i18n.travel.view) : I18N.t(SITE.i18n.travel.empty)) + '</p>';
+    card.innerHTML = '<h5>' + title + '</h5>' + (sub ? '<p>' + sub + '</p>' : "");
     var wr = wrap.getBoundingClientRect();
-    var gr = g.getBoundingClientRect();
+    var gr = el.getBoundingClientRect();
     card.style.left = (gr.left + gr.width/2 - wr.left) + "px";
     card.style.top  = (gr.top - wr.top) + "px";
     requestAnimationFrame(function(){ card.classList.add("show"); });
   }
   function hideCard(){ if(card) card.classList.remove("show"); }
 
+  /* ---- viewBox 平滑缩放 ---- */
+  function setViewBox(v){ svg.setAttribute("viewBox", v.x.toFixed(1) + " " + v.y.toFixed(1) + " " + v.w.toFixed(1) + " " + v.h.toFixed(1)); }
+  function animateTo(target, done){
+    if(reduced){ view = target; setViewBox(view); if(done) done(); return; }
+    var from = { x: view.x, y: view.y, w: view.w, h: view.h };
+    var t0 = performance.now(), DUR = 850;
+    function ease(p){ return p < .5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3)/2; }
+    function step(now){
+      var p = Math.min(1, (now - t0)/DUR), e = ease(p);
+      view = {
+        x: from.x + (target.x - from.x)*e, y: from.y + (target.y - from.y)*e,
+        w: from.w + (target.w - from.w)*e, h: from.h + (target.h - from.h)*e
+      };
+      setViewBox(view);
+      if(p < 1) requestAnimationFrame(step); else if(done) done();
+    }
+    requestAnimationFrame(step);
+  }
+  function zoomTo(group){
+    var xs = group.pts.map(function(p){ return p[0]; }), ys = group.pts.map(function(p){ return p[1]; });
+    var cx = (Math.min.apply(0,xs)+Math.max.apply(0,xs))/2, cy = (Math.min.apply(0,ys)+Math.max.apply(0,ys))/2;
+    var spanX = Math.max.apply(0,xs)-Math.min.apply(0,xs), spanY = Math.max.apply(0,ys)-Math.min.apply(0,ys);
+    var w = Math.max(spanX*2.4, spanY*2.4*2.5, 170), h = w/2.5;
+    var target = { x: cx - w/2, y: cy - h/2, w: w, h: h };
+    zoomed = true;
+    renderPins(target.w / W);   /* 图钉按目标缩放比预先补偿，保证放大后屏幕尺寸不变 */
+    resetBtn.classList.add("show");
+    hideCard();
+    loadDetail(function(){
+      if(zoomed && outline) outline.setAttribute("d", WORLD_MAP_PATH_DETAIL);
+    });
+    animateTo(target);
+  }
+  function resetZoom(){
+    zoomed = false;
+    resetBtn.classList.remove("show");
+    hideCard();
+    if(outline) outline.setAttribute("d", WORLD_MAP_PATH);
+    animateTo({ x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h }, function(){ renderPins(1); });
+  }
+
+  /* ---- 图钉 / 聚合点渲染 ---- */
+  function makePin(loc, s){
+    var p = proj(loc.lat, loc.lon);
+    var g = document.createElementNS(NS, "g");
+    g.setAttribute("class", "pin");
+    g.setAttribute("transform", "translate(" + p[0].toFixed(1) + "," + p[1].toFixed(1) + ") scale(" + s.toFixed(3) + ")");
+    g.innerHTML = '<circle class="halo" r="9"></circle><circle class="core" r="3.2"></circle>' +
+      '<circle r="12" fill="transparent"></circle>';
+    g.addEventListener("click", function(){ select(loc); });
+    g.addEventListener("mouseenter", function(){
+      var n = (loc.items || []).length;
+      showCard(g, I18N.t(loc.name), n ? n + " · " + I18N.t(SITE.i18n.travel.view) : I18N.t(SITE.i18n.travel.empty));
+    });
+    g.addEventListener("mouseleave", hideCard);
+    return g;
+  }
+  function renderPins(scale){
+    if(!pinLayer) return;
+    pinLayer.innerHTML = "";
+    var s = scale || view.w / W;
+    if(zoomed){
+      /* 放大后：显示全部独立图钉，按缩放比例保持屏幕尺寸 */
+      SITE.locations.forEach(function(loc){ pinLayer.appendChild(makePin(loc, s)); });
+      return;
+    }
+    clusters().forEach(function(g){
+      if(g.locs.length === 1){
+        pinLayer.appendChild(makePin(g.locs[0], 1));
+      } else {
+        var c = document.createElementNS(NS, "g");
+        c.setAttribute("class", "cluster");
+        c.setAttribute("transform", "translate(" + g.center[0].toFixed(1) + "," + g.center[1].toFixed(1) + ")");
+        c.innerHTML = '<circle r="13"></circle><text>' + g.locs.length + '</text>';
+        c.addEventListener("click", function(){ zoomTo(g); });
+        c.addEventListener("mouseenter", function(){
+          var names = g.locs.map(function(l){ return I18N.t(l.name); }).join(" · ");
+          showCard(c, names, I18N.t(SITE.i18n.travel.zoom));
+        });
+        c.addEventListener("mouseleave", hideCard);
+        pinLayer.appendChild(c);
+      }
+    });
+  }
+
   function build(){
     var wrap = document.getElementById("mapWrap");
     if(!wrap || !window.WORLD_MAP_PATH) return;
     wrap.innerHTML = ""; card = null;
-    var svg = document.createElementNS(NS, "svg");
-    svg.setAttribute("viewBox", "0 10 1000 400");
-    var outline = document.createElementNS(NS, "path");
-    outline.setAttribute("d", WORLD_MAP_PATH);
+    svg = document.createElementNS(NS, "svg");
+    setViewBox(view);
+    outline = document.createElementNS(NS, "path");
+    outline.setAttribute("d", (zoomed && window.WORLD_MAP_PATH_DETAIL) ? WORLD_MAP_PATH_DETAIL : WORLD_MAP_PATH);
     outline.setAttribute("class", "map-outline");
     svg.appendChild(outline);
-    SITE.locations.forEach(function(loc){
-      var p = proj(loc.lat, loc.lon);
-      var g = document.createElementNS(NS, "g");
-      g.setAttribute("class", "pin" + (loc.items.length ? " has" : ""));
-      g.setAttribute("transform", "translate(" + p[0].toFixed(1) + "," + p[1].toFixed(1) + ")");
-      g.innerHTML = '<g class="pg"><circle class="dot" r="2"></circle>' +
-        '<line x1="0" y1="0" x2="5" y2="-13"></line>' +
-        '<circle class="head" cx="5" cy="-15" r="4.2"></circle></g>';
-      g.addEventListener("click", function(){ select(loc); });
-      g.addEventListener("mouseenter", function(){ showCard(g, loc); });
-      g.addEventListener("mouseleave", hideCard);
-      svg.appendChild(g);
-    });
+    pinLayer = document.createElementNS(NS, "g");
+    svg.appendChild(pinLayer);
     wrap.appendChild(svg);
+    resetBtn = document.createElement("button");
+    resetBtn.className = "map-reset" + (zoomed ? " show" : "");
+    resetBtn.textContent = "↩ " + I18N.t(SITE.i18n.travel.back);
+    resetBtn.addEventListener("click", resetZoom);
+    wrap.appendChild(resetBtn);
+    renderPins();
   }
 
   function select(loc){

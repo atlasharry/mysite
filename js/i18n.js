@@ -3,6 +3,9 @@
   var stored = null;
   try { stored = localStorage.getItem(KEY); } catch(e){}
   var lang = stored || (((navigator.language||"").toLowerCase().indexOf("zh")===0) ? "zh" : "en");
+  var q = null;
+  try { q = new URLSearchParams(location.search).get("lang"); } catch(e){}
+  if(q === "zh" || q === "en") lang = q;
   var subs = [];
 
   function t(o){

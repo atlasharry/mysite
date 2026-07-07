@@ -22,7 +22,9 @@ i18n: {
     title:{zh:"旅行",en:"Travel"},
     hint:{zh:"点击图钉，看看我在那里看见的世界",en:"Click a pin to see what I saw there"},
     empty:{zh:"整理中",en:"Coming soon"},
-    view:{zh:"点击查看",en:"Click to view"}
+    view:{zh:"点击查看",en:"Click to view"},
+    zoom:{zh:"点击放大",en:"Click to zoom"},
+    back:{zh:"返回全图",en:"Full map"}
   },
   about: { title:{zh:"关于",en:"About"}, resume:{zh:"查看简历",en:"Résumé"} },
   footer: { line:{zh:"© 2026 余城宇 · Harry Yu",en:"© 2026 Harry Yu"} }
@@ -36,7 +38,7 @@ films: [
     badges:[{zh:"申报中",en:"In submission"}],
     synopsis:{zh:"母亲生日当天，一通来自内江老家的电话打破了平静：患阿尔茨海默症的外婆走失了。她随即踏上归乡寻母之路。一次寻找，也是女儿、母亲与外婆三代女性之间情感的传递。",
       en:"On her own birthday, a mother receives a call from her hometown: her mother, living with Alzheimer’s, has gone missing. She sets out at once on a journey home — a search that traces the bonds among three generations of women."},
-    poster:"assets/films/birthday-poster", stills:["assets/films/birthday-still-01"] },
+    poster:"assets/films/birthday-poster", stills:[{ src:"assets/films/birthday-still-01", ar:"2000/853" }] },
   { id:"suisui",
     title:{zh:"岁岁平安",en:"岁岁平安"}, year:"2026",
     info:{zh:"AIGC 短片",en:"AIGC short film"},
@@ -56,7 +58,9 @@ films: [
     badges:[{zh:"申报中",en:"In submission"}],
     synopsis:{zh:"",en:""},
     poster:"assets/films/doubleblind-poster",
-    stills:["assets/films/doubleblind-still-01","assets/films/doubleblind-still-02","assets/films/doubleblind-still-03"] }
+    stills:[{ src:"assets/films/doubleblind-still-01", ar:"2000/856" },
+            { src:"assets/films/doubleblind-still-02", ar:"1668/740" },
+            { src:"assets/films/doubleblind-still-03", ar:"2000/825" }] }
 ],
 
 heroCards: [
@@ -125,26 +129,26 @@ exhibition: {
     en:"“Is the world we understand an objective, complete and continuous whole — or an illusion pieced together from countless vivid, fleeting moments?\nHere I weave the contours of my world from these instants of light and shadow. Imperfect and impermanent, they mirror my journey in fragments of beauty — collisions of gaze and heart, memory carved by time. This is not an end: as the years turn, these moments will settle into something deeper, and my eyes will keep chasing landscapes not yet defined.\nMay you find here not only my world, but fragments of your own time, resonating with your own life.”"
   },
   works: [
-    { src:"assets/world/world-01", num:"Ⅰ" },
-    { src:"assets/world/world-02", num:"Ⅱ" },
-    { src:"assets/world/world-03", num:"Ⅲ" },
-    { src:"assets/world/world-04", num:"Ⅳ" },
-    { src:"assets/world/world-05", num:"Ⅴ" }
+    { src:"assets/world/world-01", num:"Ⅰ", ar:"1336/2000" },
+    { src:"assets/world/world-02", num:"Ⅱ", ar:"2000/1334" },
+    { src:"assets/world/world-03", num:"Ⅲ", ar:"2000/1334" },
+    { src:"assets/world/world-04", num:"Ⅳ", ar:"1334/2000" },
+    { src:"assets/world/world-05", num:"Ⅴ", ar:"2000/1333" }
   ]
 },
 
 astro: [
-  { src:"assets/astro/astro-01", cap:{zh:"",en:""} },
-  { src:"assets/astro/astro-02", cap:{zh:"",en:""} },
-  { src:"assets/astro/astro-03", cap:{zh:"",en:""} },
-  { src:"assets/astro/astro-04", cap:{zh:"",en:""} },
-  { src:"assets/astro/astro-05", cap:{zh:"",en:""} },
-  { src:"assets/astro/astro-06", cap:{zh:"",en:""} },
-  { src:"assets/astro/astro-07", cap:{zh:"",en:""} },
-  { src:"assets/astro/astro-08", cap:{zh:"",en:""} },
-  { src:"assets/astro/astro-09", cap:{zh:"",en:""} },
-  { src:"assets/astro/astro-10", cap:{zh:"",en:""} },
-  { src:"assets/astro/astro-11", cap:{zh:"",en:""} }
+  { src:"assets/astro/astro-01", ar:"2000/1512", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-02", ar:"2000/1336", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-03", ar:"1910/1967", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-04", ar:"1902/1270", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-05", ar:"1428/2000", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-06", ar:"2000/1333", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-07", ar:"2000/1381", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-08", ar:"1512/2000", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-09", ar:"2000/1500", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-10", ar:"2000/1600", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-11", ar:"2000/1512", cap:{zh:"",en:""} }
 ],
 
 locations: [
@@ -163,12 +167,14 @@ locations: [
 
 about: {
   bio:{
-    zh:"余城宇，青年导演，毕业于卫斯理大学（Wesleyan University），获电影研究与计算机科学双专业学士学位，现就读于卡内基梅隆大学（Carnegie Mellon University）计算机科学硕士项目。他长期关注影像、人工智能与艺术创作之间的关系，擅长从技术与人文的交界处探索 AI 对叙事、感知和创作者能力边界的拓展。其作品关注家庭、记忆与身份，在克制的影像中呈现人物细腻的情感流动。",
-    en:"Harry Yu is an emerging filmmaker who graduated from Wesleyan University with a double major in Film Studies and Computer Science, and is currently pursuing a Master’s in Computer Science at Carnegie Mellon University. Working at the intersection of technology and the humanities, he explores how AI expands the boundaries of narrative, perception and creative authorship. His films examine family, memory and identity, capturing subtle emotional currents through a restrained visual language."
+    zh:"余城宇，青年导演、AI算法研究者。现于卡内基梅隆大学（Carnegie Mellon University）攻读MSCS计算机科学硕士，本科以弗里曼亚洲学者身份毕业于卫斯理大学（Wesleyan University）电影与计算机科学双专业，获高荣誉学位。他长期关注影像、人工智能与艺术创作之间的关系，擅长从技术与人文的交界处探索 AI 对叙事、感知和创作者能力边界的拓展。其作品关注家庭、记忆与身份，在克制的影像中呈现人物细腻的情感流动。",
+    en:"Harry Yu is a young filmmaker and AI researcher, currently pursuing an M.S. in Computer Science at Carnegie Mellon University. He graduated from Wesleyan University as a Freeman Asian Scholar with High Honors, double-majoring in Film Studies and Computer Science. His work has long explored the relationship between moving images, artificial intelligence and artistic creation — probing, from the intersection of technology and the humanities, how AI expands the boundaries of narrative, perception and creative authorship. His films dwell on family, memory and identity, capturing subtle emotional currents through a restrained visual language."
   },
   contact:[
     { label:"Email",    url:"mailto:yuchengyu.ycy@gmail.com" },
-    { label:"LinkedIn", url:"https://www.linkedin.com/in/chengyu-yu" }
+    { label:"LinkedIn", url:"https://www.linkedin.com/in/chengyu-yu" },
+    { label:"Bilibili", url:"https://space.bilibili.com/393862013" },
+    { label:{zh:"小红书",en:"RED"}, url:"https://www.xiaohongshu.com/user/profile/5eab75930000000001001642" }
   ]
 }
 };
