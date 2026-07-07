@@ -24,7 +24,8 @@ i18n: {
     empty:{zh:"整理中",en:"Coming soon"},
     view:{zh:"点击查看",en:"Click to view"},
     zoom:{zh:"点击放大",en:"Click to zoom"},
-    back:{zh:"返回全图",en:"Full map"}
+    back:{zh:"返回全图",en:"Full map"},
+    goto:{zh:"去看看我走过的世界",en:"See the world I have walked"}
   },
   about: { title:{zh:"关于",en:"About"}, resume:{zh:"查看简历",en:"Résumé"} },
   footer: { line:{zh:"© 2026 余城宇 · Harry Yu",en:"© 2026 Harry Yu"} }

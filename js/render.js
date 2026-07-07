@@ -45,18 +45,16 @@
     }
     function go(i){
       idx = (i + items.length) % items.length;
-      /* coverflow：按与当前的距离设置旋转/纵深/明暗 */
+      /* 中心亮、两侧露出并压暗（纯平，无翻转） */
       Array.prototype.forEach.call(track.children, function(s, k){
         var d = k - idx, abs = Math.abs(d);
         s.classList.toggle("on", d === 0);
         if(d === 0){
-          s.style.transform = "rotateY(0deg) translateZ(0)";
+          s.style.transform = "scale(1)";
           s.style.opacity = "1";
         } else {
-          /* 凸面圆弧：从圆外看，侧图外缘向后退 */
-          s.style.transform = "rotateY(" + (d < 0 ? -35 : 35) + "deg) translateZ(" +
-            (-(70 + 55 * Math.min(abs, 2))) + "px) scale(.94)";
-          s.style.opacity = abs === 1 ? ".45" : ".22";
+          s.style.transform = "scale(.94)";
+          s.style.opacity = abs === 1 ? ".4" : ".2";
         }
       });
       center();
@@ -87,17 +85,6 @@
       a.innerHTML = '<span class="hc-frame"><img src="' + c.img + '-thumb.webp" alt="' + esc(t(c.label)) + '"></span>' +
         '<span class="hc-label">' + esc(t(c.label)) + '<span class="arr">→</span></span>' +
         '<span class="hc-tag">' + esc(t(c.tag)) + '</span>';
-      /* 点击：卡牌翻转后下滑跳转 */
-      a.addEventListener("click", function(e){
-        if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        e.preventDefault();
-        a.classList.add("flipping");
-        setTimeout(function(){
-          var target = document.querySelector(c.href);
-          if(target) target.scrollIntoView({ behavior: "smooth" });
-          setTimeout(function(){ a.classList.remove("flipping"); }, 700);
-        }, 400);
-      });
       box.appendChild(a);
     });
   }
