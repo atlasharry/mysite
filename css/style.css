@@ -1,3 +1,8 @@
+@font-face{font-family:"Noto Serif SC";src:url("../assets/fonts/noto-serif-sc-subset.woff2") format("woff2");
+  font-weight:200 900;font-display:swap}
+@font-face{font-family:Lora;src:url("../assets/fonts/lora-subset.woff2") format("woff2");
+  font-weight:400 700;font-display:swap}
+
 /* ========== tokens ========== */
 :root{
   --bg:#141413; --bg-deep:#0e0d0c; --ink:#faf9f5; --ink-dim:#b0aea5;
