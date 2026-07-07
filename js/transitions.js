@@ -39,6 +39,12 @@
   document.addEventListener("DOMContentLoaded", function(){
     document.querySelectorAll("section[id]").forEach(function(s){ secIO.observe(s); });
     observeReveals();
+    /* 章节过渡带铺细星 */
+    document.querySelectorAll(".fade-band").forEach(function(b){
+      var c = document.createElement("canvas");
+      b.appendChild(c);
+      createStarfield(c, { density: 10000 });
+    });
     lb().querySelector(".lb-close").addEventListener("click", close);
     lb().querySelector(".lb-prev").addEventListener("click", function(){ step(-1); });
     lb().querySelector(".lb-next").addEventListener("click", function(){ step(1); });
