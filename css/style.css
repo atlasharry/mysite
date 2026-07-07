@@ -137,6 +137,25 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
 .art-num{color:var(--accent);margin-right:.9rem;font-family:var(--lat-serif)}
 @media (max-width:860px){.exhibit{grid-template-columns:1fr}.exhibit-intro{position:static}}
 
+/* ========== 世界地图 ========== */
+.worldmap{margin-top:7rem}
+.map-hint{color:var(--ink-dim);font-size:.82rem;letter-spacing:.2em;margin-bottom:1.2rem}
+.map-wrap{border:1px solid var(--hairline);background:var(--bg-deep);padding:clamp(.6rem,2vw,1.6rem)}
+.map-wrap svg{width:100%;height:auto;display:block}
+.map-outline{fill:rgba(235,219,188,.04);stroke:rgba(235,219,188,.3);stroke-width:.7}
+.pin{cursor:pointer}
+.pin line{stroke:var(--accent);stroke-width:1;opacity:.7}
+.pin .head{fill:var(--accent);opacity:.85;transition:opacity .3s}
+.pin .dot{fill:var(--ink);opacity:.9}
+.pin:hover .head{opacity:1}
+.pin.has .head{animation:pinpulse 2.8s ease-in-out infinite}
+@keyframes pinpulse{0%,100%{opacity:.85}50%{opacity:.45}}
+.loc-panel{margin-top:2rem;border:1px solid var(--hairline);padding:2rem;background:#171614}
+.loc-panel h4{letter-spacing:.2em;font-size:1.05rem}
+.loc-empty{color:var(--ink-dim);letter-spacing:.16em;font-size:.83rem;margin-top:.8rem}
+.loc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;margin-top:1.2rem}
+.loc-grid img,.loc-grid video{width:100%;aspect-ratio:3/2;object-fit:cover;cursor:pointer;border:1px solid var(--hairline)}
+
 /* ========== lightbox ========== */
 .lightbox{position:fixed;inset:0;z-index:90;background:rgba(8,7,6,.97);display:grid;place-items:center}
 .lightbox[hidden]{display:none}
@@ -152,4 +171,5 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
   html{scroll-behavior:auto}
   .scroll-cue{animation:none}
   .reveal{opacity:1;transform:none;transition:none}
+  .pin.has .head{animation:none}
 }
