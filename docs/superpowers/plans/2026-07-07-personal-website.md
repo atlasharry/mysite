@@ -1617,8 +1617,8 @@ git commit -m "feat: 标题字体子集化自托管（Noto Serif SC + Lora）"
 
 - [ ] **Step 2: 隐私红线扫描**
 
-Run: `Get-ChildItem -Recurse -File -Include *.html,*.js,*.css,*.md | Where-Object {$_.FullName -notmatch '\\\.git\\|\\assets\\raw\\|\\films\\'} | Select-String -Pattern "[redacted]","[redacted]","[redacted]","[redacted]","[redacted]","[redacted]" | Select-Object Path, LineNumber`
-Expected: 无输出（`docs/` 中如出现属于设计文档引用也必须清理为无输出）。
+Run: 对全站文本文件（排除 .git / assets/raw / films）执行 Select-String 扫描，模式为既定隐私清单：两个手机号前 7 位、家庭住址街道名、私人邮箱前缀两个、邮编。模式串本身不写入任何入库文件。
+Expected: 无输出。
 
 - [ ] **Step 3: 性能检查**
 

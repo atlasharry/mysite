@@ -193,6 +193,17 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
 .lb-prev{left:.4rem}.lb-next{right:.4rem}
 .lb-close{top:1.4rem;right:1rem;transform:none;font-size:1.9rem}
 
+/* ========== 移动端 ========== */
+@media (max-width:640px){
+  .nav nav{gap:.65rem;font-size:.74rem}
+  .nav nav a[href="#aigc"],.nav nav a[href="#astro"]{display:none} /* 窄屏收纳次要锚点 */
+  .chapter{padding:5rem 0 4rem}
+  .titlecard{flex-wrap:wrap;gap:.8rem}
+  .films{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1.4rem}
+  .exhibit-wall{gap:3.5rem}
+  .overlay{padding:3.5rem 1rem 2rem}
+}
+
 /* ========== reduced motion ========== */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
