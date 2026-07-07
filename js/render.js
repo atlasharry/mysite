@@ -45,7 +45,20 @@
     }
     function go(i){
       idx = (i + items.length) % items.length;
-      Array.prototype.forEach.call(track.children, function(s, k){ s.classList.toggle("on", k === idx); });
+      /* coverflow：按与当前的距离设置旋转/纵深/明暗 */
+      Array.prototype.forEach.call(track.children, function(s, k){
+        var d = k - idx, abs = Math.abs(d);
+        s.classList.toggle("on", d === 0);
+        if(d === 0){
+          s.style.transform = "rotateY(0deg) translateZ(0)";
+          s.style.opacity = "1";
+        } else {
+          /* 凸面圆弧：从圆外看，侧图外缘向后退 */
+          s.style.transform = "rotateY(" + (d < 0 ? -35 : 35) + "deg) translateZ(" +
+            (-(70 + 55 * Math.min(abs, 2))) + "px) scale(.94)";
+          s.style.opacity = abs === 1 ? ".45" : ".22";
+        }
+      });
       center();
       var ths = dock.querySelectorAll(".vw-th");
       ths.forEach(function(t2, k){ t2.classList.toggle("on", k === idx); });
@@ -74,6 +87,17 @@
       a.innerHTML = '<span class="hc-frame"><img src="' + c.img + '-thumb.webp" alt="' + esc(t(c.label)) + '"></span>' +
         '<span class="hc-label">' + esc(t(c.label)) + '<span class="arr">→</span></span>' +
         '<span class="hc-tag">' + esc(t(c.tag)) + '</span>';
+      /* 点击：卡牌翻转后下滑跳转 */
+      a.addEventListener("click", function(e){
+        if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        e.preventDefault();
+        a.classList.add("flipping");
+        setTimeout(function(){
+          var target = document.querySelector(c.href);
+          if(target) target.scrollIntoView({ behavior: "smooth" });
+          setTimeout(function(){ a.classList.remove("flipping"); }, 700);
+        }, 400);
+      });
       box.appendChild(a);
     });
   }
@@ -179,17 +203,19 @@
       '<p class="credit">' + esc(t(ex.credit)) + '</p>' +
       t(ex.statement).split("\n").map(function(p){ return "<p>" + esc(p) + "</p>"; }).join("");
     wall.innerHTML = "";
-    var rows = [ex.works.slice(0, 3), ex.works.slice(3)];
-    var offset = 0;
+    /* 第一排：横-竖-横（竖幅居中），第二排：竖-横 */
+    var rows = [[ex.works[1], ex.works[0], ex.works[2]], [ex.works[3], ex.works[4]]];
     rows.forEach(function(rowWorks){
       var row = document.createElement("div");
       row.className = "wall-row";
-      rowWorks.forEach(function(w, k){
-        var i = offset + k;
+      rowWorks.forEach(function(w){
+        var i = ex.works.indexOf(w);
         var fig = document.createElement("figure");
         fig.className = "artwork reveal";
         var parts = w.ar.split("/");
-        fig.style.flexGrow = (parseFloat(parts[0]) / parseFloat(parts[1])).toFixed(3);
+        var grow = parseFloat(parts[0]) / parseFloat(parts[1]);
+        if(w === ex.works[0]) grow *= 1.55;   /* 第一排居中竖幅加权，作为视觉主角 */
+        fig.style.flexGrow = grow.toFixed(3);
         fig.innerHTML = '<div class="frame"><span class="mat">' +
           '<picture><source srcset="' + w.src + '.webp" type="image/webp">' +
           '<img src="' + w.src + '.jpg" alt="' + esc(ex.titleEn + " " + w.num) + '" loading="lazy" style="aspect-ratio:' + w.ar + '"></picture>' +
@@ -200,7 +226,6 @@
         });
         row.appendChild(fig);
       });
-      offset += rowWorks.length;
       wall.appendChild(row);
     });
     observeReveals(wall.parentElement);

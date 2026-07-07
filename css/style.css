@@ -69,34 +69,25 @@ button{font-family:inherit}
 .tagline{margin-top:2.2rem;font-family:var(--serif);font-size:clamp(1rem,2vw,1.2rem);letter-spacing:.18em}
 .tagline-sub{margin-top:.9rem;color:var(--ink-dim);font-size:.82rem;letter-spacing:.34em}
 
-/* hero 板块卡片栏：高度阶梯 + 浅弧 3D 纵深（中卡为轴，两侧内倾后退） */
-.hero-cards{display:flex;justify-content:center;align-items:flex-start;flex-wrap:wrap;
-  gap:clamp(1rem,2.4vw,2rem);margin-top:3.8rem;perspective:1100px}
-.hero-card{text-align:left;transform-style:preserve-3d;
-  transition:transform .55s cubic-bezier(.22,.61,.36,1)}
-.hero-card.hc-0{transform:rotateY(16deg) translateZ(-42px)}
-.hero-card.hc-1{transform:rotateY(8deg) translateZ(-14px)}
-.hero-card.hc-3{transform:rotateY(-8deg) translateZ(-14px)}
-.hero-card.hc-4{transform:rotateY(-16deg) translateZ(-42px)}
-.hero-card:hover{transform:rotateY(0) translateZ(26px)}
-.hero-card.hc-0{width:clamp(104px,9vw,144px)}     /* 2/3  -> 高 216 */
-.hero-card.hc-1{width:clamp(102px,8.9vw,142px)}   /* 3/4  -> 高 189 */
-.hero-card.hc-2{width:clamp(117px,10.1vw,162px)}  /* 1/1  -> 高 162 */
-.hero-card.hc-3{width:clamp(132px,11.5vw,184px)}  /* 4/3  -> 高 138 */
-.hero-card.hc-4{width:clamp(138px,12vw,192px)}    /* 16/10-> 高 120 */
-.hero-card.hc-0 .hc-frame img{aspect-ratio:2/3}
-.hero-card.hc-1 .hc-frame img{aspect-ratio:3/4}
-.hero-card.hc-2 .hc-frame img{aspect-ratio:1/1}
-.hero-card.hc-3 .hc-frame img{aspect-ratio:4/3}
-.hero-card.hc-4 .hc-frame img{aspect-ratio:16/10}
+/* hero 板块卡片栏：等大卡片 coverflow 旋钮——中间亮、两侧转角变暗后退 */
+.hero-cards{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;
+  gap:clamp(.8rem,1.8vw,1.5rem);margin-top:3.8rem;perspective:1200px}
+.hero-card{text-align:left;width:clamp(152px,13.5vw,198px);transform-style:preserve-3d;
+  transition:transform .55s cubic-bezier(.22,.61,.36,1),opacity .55s ease}
+.hero-card .hc-frame img{aspect-ratio:3/4}
+/* 凸面圆弧：像从圆外看，侧卡外缘向后退 */
+.hero-card.hc-0{transform:rotateY(-26deg) translateZ(-85px);opacity:.42}
+.hero-card.hc-1{transform:rotateY(-14deg) translateZ(-32px);opacity:.68}
+.hero-card.hc-2{transform:scale(1.07);z-index:2}
+.hero-card.hc-3{transform:rotateY(14deg) translateZ(-32px);opacity:.68}
+.hero-card.hc-4{transform:rotateY(26deg) translateZ(-85px);opacity:.42}
+.hero-card:hover{transform:scale(1.13) translateZ(34px);opacity:1;z-index:3}
+.hero-card.flipping{transform:rotateY(88deg) scale(1.06);opacity:1;z-index:3}
 .hero-card .hc-frame{display:block;border:1px solid var(--hairline-strong);border-radius:12px;padding:5px;
-  box-shadow:0 18px 34px rgba(0,0,0,.38);
-  transition:border-color .4s ease,transform .45s cubic-bezier(.22,.61,.36,1)}
+  box-shadow:0 18px 34px rgba(0,0,0,.38);transition:border-color .4s ease}
 :root[data-theme="light"] .hero-card .hc-frame{box-shadow:0 14px 28px rgba(20,20,19,.14)}
-.hero-card .hc-frame img{width:100%;object-fit:cover;border-radius:8px;display:block;
-  filter:sepia(.32) saturate(.6) contrast(.96) brightness(.94);transition:filter .5s ease}
-.hero-card:hover .hc-frame{border-color:var(--accent-dim);transform:translateY(-5px)}
-.hero-card:hover .hc-frame img{filter:none}
+.hero-card .hc-frame img{width:100%;object-fit:cover;border-radius:8px;display:block}
+.hero-card:hover .hc-frame{border-color:var(--accent-dim)}
 .hero-card .hc-label{display:block;margin-top:.6rem;font-size:.82rem;letter-spacing:.1em;font-weight:600}
 .hero-card .hc-label .arr{color:var(--accent);display:inline-block;margin-left:.35rem;transition:transform .35s ease}
 .hero-card:hover .hc-label .arr{transform:translateX(4px)}
@@ -186,8 +177,8 @@ button{font-family:inherit}
 .exhibit-intro p{color:var(--ink-dim);font-size:.83rem;line-height:2.15;text-align:justify;margin-top:.6rem}
 .exhibit-wall{display:flex;flex-direction:column;gap:clamp(3rem,5vh,4.5rem);padding-top:1.5rem}
 .wall-row{display:flex;align-items:flex-start;gap:clamp(1.6rem,3vw,2.6rem)}
-/* 对齐画廊行：flex-grow = 宽高比（JS 内联），每行等高铺满 */
-.artwork{position:relative;margin:0;min-width:0;text-align:center;flex-shrink:1;flex-basis:0}
+/* 对齐画廊行：flex-grow = 宽高比（JS 内联），basis 抵消画框固定内边距，每行等高铺满 */
+.artwork{position:relative;margin:0;min-width:0;text-align:center;flex-shrink:1;flex-basis:56px}
 /* 射灯光锥 */
 .artwork::before{content:"";position:absolute;left:50%;top:-3.5rem;transform:translateX(-50%);
   width:135%;height:calc(100% + 7rem);pointer-events:none;
@@ -222,17 +213,16 @@ button{font-family:inherit}
   background:linear-gradient(270deg,var(--trail),transparent 88%)}
 .flight .trail.t2{top:27px;width:27vw}
 
-/* ========== 大图滑动组件（中心舞台 + 两侧露出 + 原始宽高） ========== */
+/* ========== 大图滑动组件（3D coverflow：中间亮平面，两侧转角退深变暗） ========== */
 .viewer{margin:0 auto;max-width:100%}
-.viewer-main{position:relative;height:clamp(300px,54vh,560px);overflow:hidden}
+.viewer-main{position:relative;height:clamp(300px,54vh,560px);overflow:hidden;perspective:1400px}
 .vw-track{display:flex;align-items:center;gap:clamp(1.2rem,2.5vw,2.2rem);height:100%;
-  transition:transform .7s cubic-bezier(.22,.61,.36,1);will-change:transform}
-.vw-slide{flex:0 0 auto;height:100%;display:flex;align-items:center;cursor:pointer}
+  transition:transform .7s cubic-bezier(.22,.61,.36,1);will-change:transform;transform-style:preserve-3d}
+.vw-slide{flex:0 0 auto;height:100%;display:flex;align-items:center;cursor:pointer;
+  transition:transform .65s cubic-bezier(.22,.61,.36,1),opacity .65s ease}
 .vw-slide img{height:100%;width:auto;display:block;border-radius:clamp(12px,1.6vw,22px);
-  box-shadow:var(--shadow);opacity:.3;filter:brightness(.75);
-  transition:opacity .55s ease,filter .55s ease}
+  box-shadow:var(--shadow)}
 .vw-slide.on{cursor:zoom-in}
-.vw-slide.on img{opacity:1;filter:none}
 .vw-arr{position:absolute;top:50%;transform:translateY(-50%);width:2.6rem;height:2.6rem;border-radius:50%;
   border:none;cursor:pointer;background:rgba(10,9,8,.45);color:#faf9f5;font-size:1.5rem;line-height:1;
   opacity:0;transition:opacity .35s,background .3s;backdrop-filter:blur(6px);z-index:2}
@@ -335,7 +325,7 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
   .overlay{padding:3.5rem 1rem 2rem}
   .hero{padding-top:6rem}
   .hero-cards{gap:.7rem;perspective:none}
-  .hero-card{width:calc(33.3% - .7rem)!important;transform:none}
+  .hero-card{width:calc(33.3% - .7rem)!important;transform:none!important;opacity:1!important}
 }
 
 /* ========== reduced motion ========== */
@@ -344,6 +334,6 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
   .reveal{opacity:1;transform:none;transition:none}
   .pin .halo{animation:none}
   .hero-story .story-arrow,.down-cue{animation:none}
-  .vw-track{transition:none}
+  .vw-track,.vw-slide{transition:none}
   .flight{display:none}
 }
