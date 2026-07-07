@@ -13,6 +13,8 @@ EXPLICIT = [
     ("films/双盲/7d944e340c10bc7561dcbf8f64d0e509.jpg",        "assets/films", "doubleblind-still-01"),
     ("films/双盲/812888bae619bbe411d2eb733950ccd1.jpg",        "assets/films", "doubleblind-still-02"),
     ("films/双盲/edd66e92f21fb58f95f158f769f3a6da.jpg",        "assets/films", "doubleblind-still-03"),
+    ("films/岁岁平安.jpg",                                      "assets/films", "suisui-poster"),
+    ("films/归栖/c91e6e59e4b208124cb14e0b04c11ad5.jpg",         "assets/films", "guiqi-poster"),
 ]
 # the world I see 五张按文件名排序 -> world-01..05
 world = sorted(glob.glob("assets/raw/the world I see/*.jpg"))

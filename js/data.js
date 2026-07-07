@@ -7,7 +7,8 @@ i18n: {
   },
   hero: {
     tagline:{zh:"以镜头与模型，讲述同一个世界",en:"Telling one world — through lenses and models"},
-    sub:{zh:"导演 · 计算机科学研究者",en:"Filmmaker · Computer Scientist"}
+    sub:{zh:"导演 · 计算机科学研究者",en:"Filmmaker · Computer Scientist"},
+    story:{zh:"听听我的故事",en:"Hear my story"}
   },
   films: {
     title:{zh:"影像",en:"Films"},
@@ -20,7 +21,8 @@ i18n: {
   travel: {
     title:{zh:"旅行",en:"Travel"},
     hint:{zh:"点击图钉，看看我在那里看见的世界",en:"Click a pin to see what I saw there"},
-    empty:{zh:"整理中",en:"Coming soon"}
+    empty:{zh:"整理中",en:"Coming soon"},
+    view:{zh:"点击查看",en:"Click to view"}
   },
   about: { title:{zh:"关于",en:"About"}, resume:{zh:"查看简历",en:"Résumé"} },
   footer: { line:{zh:"© 2026 余城宇 · Harry Yu",en:"© 2026 Harry Yu"} }
@@ -31,7 +33,7 @@ films: [
     title:{zh:"生日礼物",en:"Birthday Present"}, year:"2026",
     info:{zh:"剧情短片 · 12 分钟 · 彩色",en:"Narrative short · 12 min · Color"},
     roles:{zh:"编剧 / 导演 / 摄影 / 剪辑",en:"Writer / Director / DP / Editor"},
-    badges:[{zh:"FIRST 申报中 · 世界首映待定",en:"Submitted to FIRST · World premiere pending"}],
+    badges:[{zh:"申报中",en:"In submission"}],
     synopsis:{zh:"母亲生日当天，一通来自内江老家的电话打破了平静：患阿尔茨海默症的外婆走失了。她随即踏上归乡寻母之路。一次寻找，也是女儿、母亲与外婆三代女性之间情感的传递。",
       en:"On her own birthday, a mother receives a call from her hometown: her mother, living with Alzheimer’s, has gone missing. She sets out at once on a journey home — a search that traces the bonds among three generations of women."},
     poster:"assets/films/birthday-poster", stills:["assets/films/birthday-still-01"] },
@@ -41,19 +43,28 @@ films: [
     roles:{zh:"AIGC 艺术家",en:"AIGC Artist"},
     badges:[{zh:"AI 电影大奖 官方入围 · 西班牙 2026",en:"AI Movie Awards · Official Selection · Spain 2026"},
             {zh:"首尔国际 AI 电影节 官方入围 2026",en:"Seoul Int’l AI Film Festival · Official Selection 2026"}],
-    synopsis:{zh:"",en:""}, poster:"", stills:[] },
+    synopsis:{zh:"",en:""}, poster:"assets/films/suisui-poster", stills:[] },
   { id:"guiqi",
     title:{zh:"归栖",en:"Finding Home"}, year:"2025",
     info:{zh:"短片",en:"Short film"},
     roles:{zh:"摄影指导",en:"Director of Photography"},
     badges:[{zh:"澳门国际微电影节 官方入围 2025",en:"Macau Int’l Micro Film Festival · Official Selection 2025"}],
-    synopsis:{zh:"",en:""}, poster:"", stills:[] },
+    synopsis:{zh:"",en:""}, poster:"assets/films/guiqi-poster", stills:[] },
   { id:"doubleblind",
-    title:{zh:"双盲",en:"双盲"}, year:"",
-    info:{zh:"",en:""}, roles:{zh:"",en:""}, badges:[],
+    title:{zh:"双盲",en:"双盲"}, year:"2026",
+    info:{zh:"剧情短片",en:"Narrative short"}, roles:{zh:"导演",en:"Director"},
+    badges:[{zh:"申报中",en:"In submission"}],
     synopsis:{zh:"",en:""},
     poster:"assets/films/doubleblind-poster",
     stills:["assets/films/doubleblind-still-01","assets/films/doubleblind-still-02","assets/films/doubleblind-still-03"] }
+],
+
+heroCards: [
+  { href:"#films",    img:"assets/films/birthday-poster", label:{zh:"影像",en:"Films"},    tag:{zh:"看见。被看见。",en:"See. Be seen."} },
+  { href:"#aigc",     img:"assets/films/suisui-poster",   label:{zh:"AI × 创作",en:"AI × Art"}, tag:{zh:"生成。再创造。",en:"Generate. Create."} },
+  { href:"#research", img:"assets/world/world-05",        label:{zh:"研究",en:"Research"}, tag:{zh:"提问。求解。",en:"Ask. Solve."} },
+  { href:"#astro",    img:"assets/astro/astro-06",        label:{zh:"星空",en:"Astro"},   tag:{zh:"仰望。追光。",en:"Look up. Chase light."} },
+  { href:"#travel",   img:"assets/world/world-02",        label:{zh:"旅行",en:"Travel"},  tag:{zh:"出发。抵达。",en:"Depart. Arrive."} }
 ],
 
 aigc: [

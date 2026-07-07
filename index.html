@@ -17,6 +17,7 @@
     <a href="#astro" data-i18n="nav.astro">星空</a>
     <a href="#travel" data-i18n="nav.travel">旅行</a>
     <a href="#about" data-i18n="nav.about">关于</a>
+    <button id="themeToggle" aria-label="Switch theme">☀</button>
     <button id="langToggle" aria-label="Switch language">EN</button>
   </nav>
 </header>
@@ -27,8 +28,9 @@
     <h1>余城宇<span class="hero-en">HARRY YU</span></h1>
     <p class="tagline" data-i18n="hero.tagline">以镜头与模型，讲述同一个世界</p>
     <p class="tagline-sub" data-i18n="hero.sub">导演 · 计算机科学研究者</p>
+    <div class="hero-cards" id="heroCards"></div>
+    <a class="hero-story" href="#films"><span data-i18n="hero.story">听听我的故事</span><span class="story-arrow" aria-hidden="true">↓</span></a>
   </div>
-  <div class="scroll-cue" aria-hidden="true"></div>
 </section>
 
 <div class="fade-band" aria-hidden="true"></div>
@@ -99,6 +101,7 @@
 </div>
 
 <script src="js/data.js"></script>
+<script src="js/theme.js"></script>
 <script src="js/i18n.js"></script>
 <script src="js/starfield.js"></script>
 <script src="js/transitions.js"></script>

@@ -7,6 +7,21 @@
       '<img src="' + base + '.jpg" alt="' + esc(alt) + '" loading="lazy"></picture>';
   }
 
+  /* ---- hero 板块卡片栏 ---- */
+  function renderHeroCards(){
+    var box = $("#heroCards"); if(!box) return;
+    box.innerHTML = "";
+    SITE.heroCards.forEach(function(c){
+      var a = document.createElement("a");
+      a.className = "hero-card";
+      a.href = c.href;
+      a.innerHTML = '<span class="hc-frame"><img src="' + c.img + '-thumb.webp" alt="' + esc(t(c.label)) + '"></span>' +
+        '<span class="hc-label">' + esc(t(c.label)) + '<span class="arr">→</span></span>' +
+        '<span class="hc-tag">' + esc(t(c.tag)) + '</span>';
+      box.appendChild(a);
+    });
+  }
+
   /* ---- 影像 ---- */
   function renderFilms(){
     var box = $("#filmList"); if(!box) return;
@@ -115,7 +130,7 @@
     wall.innerHTML = "";
     ex.works.forEach(function(w, i){
       var fig = document.createElement("figure");
-      fig.className = "artwork reveal";
+      fig.className = "artwork reveal " + (i < 3 ? "w2" : "w3");
       fig.innerHTML = '<div class="frame">' + pic(w.src, ex.titleEn + " " + w.num) + '</div>' +
         '<figcaption><span class="art-num">' + w.num + '</span>' + esc(ex.titleZh) + ' · ' + esc(ex.titleEn) + '</figcaption>';
       fig.querySelector(".frame").addEventListener("click", function(){
@@ -126,8 +141,11 @@
     observeReveals(wall.parentElement);
   }
 
-  /* ---- 星空画廊 ---- */
+  /* ---- 星空：太阳系轨道画廊 ---- */
   var astroCanvasDone = false;
+  function astroLightbox(i){
+    openLightbox(SITE.astro.map(function(x){ return { src: x.src + ".webp", cap: t(x.cap) }; }), i);
+  }
   function renderAstro(){
     var grid = $("#astroGrid"); if(!grid) return;
     if(!astroCanvasDone){
@@ -140,21 +158,57 @@
     grid.innerHTML = "";
     if(!SITE.astro.length){
       grid.innerHTML = '<p class="empty-state reveal">' + esc(t(SITE.i18n.astro.empty)) + '</p>';
-    } else {
-      var g = document.createElement("div");
-      g.className = "gallery";
-      SITE.astro.forEach(function(a, i){
-        var el = document.createElement("a");
-        el.className = "reveal";
-        el.innerHTML = '<img src="' + a.src + '-thumb.webp" loading="lazy" alt="' + esc(t(a.cap)) + '">' +
-          (t(a.cap) ? '<span class="cap">' + esc(t(a.cap)) + '</span>' : "");
-        el.addEventListener("click", function(){
-          openLightbox(SITE.astro.map(function(x){ return { src: x.src + ".webp", cap: t(x.cap) }; }), i);
-        });
-        g.appendChild(el);
-      });
-      grid.appendChild(g);
+      observeReveals(grid);
+      return;
     }
+    var sys = document.createElement("div");
+    sys.className = "orbit-sys reveal";
+    /* 轨道配置：直径%、卫星尺寸%、公转周期 */
+    var ORBITS = [
+      { d: 46, size: 12,   dur: "90s"  },
+      { d: 68, size: 10.5, dur: "150s" },
+      { d: 90, size: 9,    dur: "210s" }
+    ];
+    ORBITS.forEach(function(o){
+      var ring = document.createElement("div");
+      ring.className = "orbit-ring";
+      ring.style.width = o.d + "%";
+      ring.style.height = o.d + "%";
+      sys.appendChild(ring);
+    });
+    /* 太阳 = 第一张，其余按 3/3/4 分布到三条轨道 */
+    var sun = document.createElement("a");
+    sun.className = "orbit-sun";
+    sun.style.width = "21%"; sun.style.height = "21%";
+    sun.innerHTML = '<img src="' + SITE.astro[0].src + '-thumb.webp" loading="lazy" alt="">';
+    sun.addEventListener("click", function(){ astroLightbox(0); });
+    sys.appendChild(sun);
+    var groups = [[1,2,3],[4,5,6],[7,8,9,10]];
+    groups.forEach(function(idxs, gi){
+      var conf = ORBITS[gi];
+      var orbit = document.createElement("div");
+      orbit.className = "orbit";
+      orbit.style.setProperty("--dur", conf.dur);
+      idxs.forEach(function(idx, k){
+        if(!SITE.astro[idx]) return;
+        var ang = (k / idxs.length) * Math.PI * 2 + gi * 0.9;
+        var R = conf.d / 2;
+        var x = 50 + R * Math.cos(ang), y = 50 + R * Math.sin(ang);
+        var sat = document.createElement("div");
+        sat.className = "orbit-sat";
+        sat.style.left = x + "%"; sat.style.top = y + "%";
+        sat.style.width = conf.size + "%"; sat.style.height = conf.size + "%";
+        var p = document.createElement("a");
+        p.className = "p";
+        p.style.setProperty("--dur", conf.dur);
+        p.innerHTML = '<img src="' + SITE.astro[idx].src + '-thumb.webp" loading="lazy" alt="">';
+        p.addEventListener("click", function(){ astroLightbox(idx); });
+        sat.appendChild(p);
+        orbit.appendChild(sat);
+      });
+      sys.appendChild(orbit);
+    });
+    grid.appendChild(sys);
     observeReveals(grid);
   }
 
@@ -171,7 +225,7 @@
   }
 
   /* ---- 渲染调度：后续任务往这里注册 ---- */
-  var renderers = [renderFilms, renderAigc, renderResearch, renderExhibit, renderAstro, renderAbout];
+  var renderers = [renderHeroCards, renderFilms, renderAigc, renderResearch, renderExhibit, renderAstro, renderAbout];
   window.registerRenderer = function(fn){ renderers.push(fn); };
   function renderAll(){ renderers.forEach(function(fn){ fn(); }); }
   document.addEventListener("DOMContentLoaded", function(){

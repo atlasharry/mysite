@@ -80,6 +80,9 @@
     return Math.max(0, Math.min(1, (innerHeight - r.top)/(innerHeight + r.height)));
   }
   function draw(){
+    var light = document.documentElement.dataset.theme === "light";
+    var base = light ? "rgba(20,20,19,0.75)" : "#faf9f5";
+    var warm = light ? "#9c7c47" : "#ebdbbc";
     var e = ease(reduced ? 1 : progress());
     ctx.clearRect(0, 0, W, H);
     for(var i = 0; i < parts.length; i++){
@@ -88,12 +91,12 @@
       q._x = q.rx + (q.gx - q.rx)*e + jx;
       q._y = q.ry + (q.gy - q.ry)*e;
       ctx.globalAlpha = .3 + .55*e;
-      ctx.fillStyle = e > .7 ? "#ebdbbc" : "#faf9f5";
+      ctx.fillStyle = e > .7 ? warm : base;
       var s = e > .7 ? 1.7 : 1.1;
       ctx.fillRect(q._x, q._y, s, s);
     }
     if(e > .6){
-      ctx.globalAlpha = (e - .6)/.4*.25; ctx.strokeStyle = "#ebdbbc"; ctx.beginPath();
+      ctx.globalAlpha = (e - .6)/.4*.25; ctx.strokeStyle = warm; ctx.beginPath();
       for(var k = 0; k < parts.length - 1; k++){
         if(k % COLS < COLS - 1){ ctx.moveTo(parts[k]._x, parts[k]._y); ctx.lineTo(parts[k+1]._x, parts[k+1]._y); }
       }
@@ -104,6 +107,7 @@
   function loop(){ if(running){ draw(); requestAnimationFrame(loop); } }
   resize();
   addEventListener("resize", resize);
+  addEventListener("themechange", draw);
   if(!reduced){
     new IntersectionObserver(function(en){
       var vis = en[0].isIntersecting;
