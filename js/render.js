@@ -77,8 +77,57 @@
     observeReveals(box);
   }
 
+  /* ---- 研究与工程 ---- */
+  function renderResearch(){
+    var box = $("#researchBody"); if(!box) return;
+    box.innerHTML = "";
+    var tl = document.createElement("div");
+    tl.className = "timeline";
+    SITE.research.timeline.forEach(function(item){
+      var it = document.createElement("div");
+      it.className = "tl-item reveal";
+      it.innerHTML = '<p class="tl-time">' + esc(t(item.time)) + '</p>' +
+        '<h3 class="tl-title">' + esc(t(item.title)) + '</h3>' +
+        (t(item.desc) ? '<p class="tl-desc">' + esc(t(item.desc)) + '</p>' : "");
+      tl.appendChild(it);
+    });
+    box.appendChild(tl);
+    var pp = document.createElement("div");
+    pp.className = "papers reveal";
+    pp.innerHTML = '<p class="sheet-label">' + esc(t(SITE.i18n.research.papers)) + '</p>' +
+      SITE.research.papers.map(function(p){
+        return '<a class="paper" href="' + p.url + '" target="_blank" rel="noopener">' +
+          '<span class="p-title">' + esc(p.title) + '</span><br>' + esc(t(p.meta)) + '</a>';
+      }).join("");
+    box.appendChild(pp);
+    observeReveals(box);
+  }
+
+  /* ---- The World I See 画展厅 ---- */
+  function renderExhibit(){
+    var intro = $("#exhibitIntro"), wall = $("#exhibitWall");
+    if(!intro || !wall) return;
+    var ex = SITE.exhibition;
+    intro.innerHTML = '<h3>' + esc(ex.titleZh) + '</h3>' +
+      '<p class="en-title">' + esc(ex.titleEn) + '</p>' +
+      '<p class="credit">' + esc(t(ex.credit)) + '</p>' +
+      t(ex.statement).split("\n").map(function(p){ return "<p>" + esc(p) + "</p>"; }).join("");
+    wall.innerHTML = "";
+    ex.works.forEach(function(w, i){
+      var fig = document.createElement("figure");
+      fig.className = "artwork reveal";
+      fig.innerHTML = '<div class="frame">' + pic(w.src, ex.titleEn + " " + w.num) + '</div>' +
+        '<figcaption><span class="art-num">' + w.num + '</span>' + esc(ex.titleZh) + ' · ' + esc(ex.titleEn) + '</figcaption>';
+      fig.querySelector(".frame").addEventListener("click", function(){
+        openLightbox(ex.works.map(function(x){ return { src: x.src + ".webp", cap: ex.titleZh + " · " + ex.titleEn + " " + x.num }; }), i);
+      });
+      wall.appendChild(fig);
+    });
+    observeReveals(wall.parentElement);
+  }
+
   /* ---- 渲染调度：后续任务往这里注册 ---- */
-  var renderers = [renderFilms, renderAigc];
+  var renderers = [renderFilms, renderAigc, renderResearch, renderExhibit];
   window.registerRenderer = function(fn){ renderers.push(fn); };
   function renderAll(){ renderers.forEach(function(fn){ fn(); }); }
   document.addEventListener("DOMContentLoaded", function(){

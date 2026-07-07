@@ -103,6 +103,40 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
 .sheet-close:hover{color:var(--accent)}
 @media (max-width:700px){.film-sheet{grid-template-columns:1fr}}
 
+/* ========== research ========== */
+.timeline{border-left:1px solid rgba(235,219,188,.18);padding-left:2.2rem;display:flex;flex-direction:column;gap:2.6rem;max-width:46rem}
+.tl-item{position:relative}
+.tl-item::before{content:"";position:absolute;left:calc(-2.2rem - 3.5px);top:.6rem;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.tl-time{color:var(--accent);font-size:.74rem;letter-spacing:.18em;font-family:var(--lat-serif)}
+.tl-title{font-size:1.05rem;margin-top:.3rem;letter-spacing:.05em}
+.tl-desc{color:var(--ink-dim);font-size:.85rem;margin-top:.3rem}
+.papers{margin-top:3.6rem;max-width:46rem}
+.paper{display:block;padding:1.1rem 0;border-top:1px solid var(--hairline);color:var(--ink-dim);font-size:.82rem;transition:color .3s;line-height:1.7}
+.paper:hover{color:var(--ink)}
+.paper .p-title{color:var(--ink);font-size:.92rem}
+
+/* ========== The World I See 画展厅 ========== */
+.exhibit{display:grid;grid-template-columns:minmax(240px,330px) 1fr;gap:3.5rem;align-items:start}
+.exhibit-intro{position:sticky;top:6rem;padding:2.4rem;border:1px solid var(--hairline);
+  background:linear-gradient(160deg,#1a1917,var(--bg))}
+.exhibit-intro h3{font-size:1.45rem;letter-spacing:.28em}
+.exhibit-intro .en-title{font-family:var(--lat-serif);color:var(--ink-dim);letter-spacing:.22em;font-size:.8rem;margin-top:.6rem}
+.exhibit-intro .credit{color:var(--accent);font-size:.76rem;margin:1.5rem 0 1.2rem;letter-spacing:.16em}
+.exhibit-intro p{color:var(--ink-dim);font-size:.83rem;line-height:2.15;text-align:justify;margin-top:.6rem}
+.exhibit-wall{display:flex;flex-direction:column;gap:5.5rem;padding-top:1rem}
+.artwork{margin:0 auto;max-width:min(44rem,100%);position:relative}
+/* 射灯光锥 */
+.artwork::before{content:"";position:absolute;left:50%;top:-4.5rem;transform:translateX(-50%);
+  width:130%;height:calc(100% + 9rem);pointer-events:none;
+  background:radial-gradient(ellipse 48% 42% at 50% 13%,rgba(235,219,188,.11),transparent 68%)}
+.artwork .frame{position:relative;padding:12px;background:#1c1b18;border:1px solid #2b2925;
+  box-shadow:0 22px 55px rgba(0,0,0,.6);cursor:pointer;transition:transform .6s ease}
+.artwork .frame:hover{transform:scale(1.012)}
+.artwork .frame img{width:100%;height:auto;max-height:74vh;object-fit:contain;background:var(--bg-deep)}
+.artwork figcaption{margin-top:1.15rem;text-align:center;color:var(--ink-dim);font-size:.73rem;letter-spacing:.22em}
+.art-num{color:var(--accent);margin-right:.9rem;font-family:var(--lat-serif)}
+@media (max-width:860px){.exhibit{grid-template-columns:1fr}.exhibit-intro{position:static}}
+
 /* ========== lightbox ========== */
 .lightbox{position:fixed;inset:0;z-index:90;background:rgba(8,7,6,.97);display:grid;place-items:center}
 .lightbox[hidden]{display:none}
