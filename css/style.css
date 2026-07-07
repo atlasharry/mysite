@@ -62,6 +62,16 @@ button{font-family:inherit}
 /* ========== footer ========== */
 footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.74rem;letter-spacing:.22em}
 
+/* ========== lightbox ========== */
+.lightbox{position:fixed;inset:0;z-index:90;background:rgba(8,7,6,.97);display:grid;place-items:center}
+.lightbox[hidden]{display:none}
+.lightbox img{max-width:92vw;max-height:84vh;object-fit:contain}
+.lb-cap{position:absolute;bottom:1.6rem;left:0;right:0;text-align:center;color:var(--ink-dim);font-size:.8rem;letter-spacing:.16em}
+.lb-btn{position:absolute;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--ink-dim);font-size:2.4rem;cursor:pointer;padding:1rem;line-height:1}
+.lb-btn:hover{color:var(--accent)}
+.lb-prev{left:.4rem}.lb-next{right:.4rem}
+.lb-close{top:1.4rem;right:1rem;transform:none;font-size:1.9rem}
+
 /* ========== reduced motion ========== */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
