@@ -69,22 +69,30 @@ button{font-family:inherit}
 .tagline{margin-top:2.2rem;font-family:var(--serif);font-size:clamp(1rem,2vw,1.2rem);letter-spacing:.18em}
 .tagline-sub{margin-top:.9rem;color:var(--ink-dim);font-size:.82rem;letter-spacing:.34em}
 
-/* hero 板块卡片栏：错落尺寸 + 暖调影调 */
+/* hero 板块卡片栏：高度阶梯 + 浅弧 3D 纵深（中卡为轴，两侧内倾后退） */
 .hero-cards{display:flex;justify-content:center;align-items:flex-start;flex-wrap:wrap;
-  gap:clamp(1rem,2.4vw,2rem);margin-top:3.8rem}
-.hero-card{text-align:left}
-.hero-card.hc-0{width:clamp(112px,10.5vw,144px);margin-top:1.4rem}
-.hero-card.hc-1{width:clamp(100px,9.5vw,130px);margin-top:0}
-.hero-card.hc-2{width:clamp(150px,14vw,196px);margin-top:2.6rem}
-.hero-card.hc-3{width:clamp(120px,11vw,152px);margin-top:.7rem}
-.hero-card.hc-4{width:clamp(158px,14.5vw,204px);margin-top:1.9rem}
+  gap:clamp(1rem,2.4vw,2rem);margin-top:3.8rem;perspective:1100px}
+.hero-card{text-align:left;transform-style:preserve-3d;
+  transition:transform .55s cubic-bezier(.22,.61,.36,1)}
+.hero-card.hc-0{transform:rotateY(16deg) translateZ(-42px)}
+.hero-card.hc-1{transform:rotateY(8deg) translateZ(-14px)}
+.hero-card.hc-3{transform:rotateY(-8deg) translateZ(-14px)}
+.hero-card.hc-4{transform:rotateY(-16deg) translateZ(-42px)}
+.hero-card:hover{transform:rotateY(0) translateZ(26px)}
+.hero-card.hc-0{width:clamp(104px,9vw,144px)}     /* 2/3  -> 高 216 */
+.hero-card.hc-1{width:clamp(102px,8.9vw,142px)}   /* 3/4  -> 高 189 */
+.hero-card.hc-2{width:clamp(117px,10.1vw,162px)}  /* 1/1  -> 高 162 */
+.hero-card.hc-3{width:clamp(132px,11.5vw,184px)}  /* 4/3  -> 高 138 */
+.hero-card.hc-4{width:clamp(138px,12vw,192px)}    /* 16/10-> 高 120 */
 .hero-card.hc-0 .hc-frame img{aspect-ratio:2/3}
 .hero-card.hc-1 .hc-frame img{aspect-ratio:3/4}
-.hero-card.hc-2 .hc-frame img{aspect-ratio:16/10}
-.hero-card.hc-3 .hc-frame img{aspect-ratio:1/1}
-.hero-card.hc-4 .hc-frame img{aspect-ratio:3/2}
+.hero-card.hc-2 .hc-frame img{aspect-ratio:1/1}
+.hero-card.hc-3 .hc-frame img{aspect-ratio:4/3}
+.hero-card.hc-4 .hc-frame img{aspect-ratio:16/10}
 .hero-card .hc-frame{display:block;border:1px solid var(--hairline-strong);border-radius:12px;padding:5px;
+  box-shadow:0 18px 34px rgba(0,0,0,.38);
   transition:border-color .4s ease,transform .45s cubic-bezier(.22,.61,.36,1)}
+:root[data-theme="light"] .hero-card .hc-frame{box-shadow:0 14px 28px rgba(20,20,19,.14)}
 .hero-card .hc-frame img{width:100%;object-fit:cover;border-radius:8px;display:block;
   filter:sepia(.32) saturate(.6) contrast(.96) brightness(.94);transition:filter .5s ease}
 .hero-card:hover .hc-frame{border-color:var(--accent-dim);transform:translateY(-5px)}
@@ -326,8 +334,8 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
   .films{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1.4rem}
   .overlay{padding:3.5rem 1rem 2rem}
   .hero{padding-top:6rem}
-  .hero-cards{gap:.7rem}
-  .hero-card{width:calc(33.3% - .7rem)}
+  .hero-cards{gap:.7rem;perspective:none}
+  .hero-card{width:calc(33.3% - .7rem)!important;transform:none}
 }
 
 /* ========== reduced motion ========== */
