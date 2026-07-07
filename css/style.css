@@ -137,6 +137,28 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
 .art-num{color:var(--accent);margin-right:.9rem;font-family:var(--lat-serif)}
 @media (max-width:860px){.exhibit{grid-template-columns:1fr}.exhibit-intro{position:static}}
 
+/* ========== 星空章节 & 通用画廊 ========== */
+#astro{overflow:visible}
+#astroWrap{position:absolute;inset:0;left:50%;width:100vw;transform:translateX(-50%);z-index:-1;overflow:hidden}
+#astroWrap canvas{width:100%;height:100%}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.2rem}
+.gallery a{position:relative;overflow:hidden;aspect-ratio:3/2;background:var(--bg-deep);cursor:pointer}
+.gallery img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.gallery a:hover img{transform:scale(1.05)}
+.gallery .cap{position:absolute;left:0;right:0;bottom:0;padding:1.6rem .8rem .6rem;
+  background:linear-gradient(transparent,rgba(10,9,8,.82));font-size:.72rem;letter-spacing:.16em;opacity:0;transition:opacity .4s}
+.gallery a:hover .cap{opacity:1}
+.empty-state{border:1px dashed rgba(235,219,188,.25);padding:3.6rem 1rem;text-align:center;
+  color:var(--ink-dim);letter-spacing:.22em;font-size:.85rem}
+
+/* ========== about ========== */
+.about-grid{max-width:46rem}
+.bio p{color:var(--ink-dim);text-align:justify;font-size:.95rem}
+.contact-row{display:flex;flex-wrap:wrap;gap:1.2rem;margin-top:2.6rem}
+.contact-row a{border:1px solid var(--accent-dim);color:var(--accent);padding:.5rem 1.4rem;
+  font-size:.8rem;letter-spacing:.14em;transition:background .3s,color .3s}
+.contact-row a:hover{background:var(--accent);color:var(--bg)}
+
 /* ========== 世界地图 ========== */
 .worldmap{margin-top:7rem}
 .map-hint{color:var(--ink-dim);font-size:.82rem;letter-spacing:.2em;margin-bottom:1.2rem}

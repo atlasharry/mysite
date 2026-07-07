@@ -122,7 +122,19 @@ exhibition: {
   ]
 },
 
-astro: [],
+astro: [
+  { src:"assets/astro/astro-01", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-02", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-03", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-04", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-05", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-06", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-07", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-08", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-09", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-10", cap:{zh:"",en:""} },
+  { src:"assets/astro/astro-11", cap:{zh:"",en:""} }
+],
 
 locations: [
   { id:"chengdu",    name:{zh:"成都",en:"Chengdu"},        lat:30.57, lon:104.07, items:[] },

@@ -126,8 +126,52 @@
     observeReveals(wall.parentElement);
   }
 
+  /* ---- 星空画廊 ---- */
+  var astroCanvasDone = false;
+  function renderAstro(){
+    var grid = $("#astroGrid"); if(!grid) return;
+    if(!astroCanvasDone){
+      var wrap = $("#astroWrap");
+      var cv = document.createElement("canvas");
+      wrap.appendChild(cv);
+      createStarfield(cv, { density: 9000 });
+      astroCanvasDone = true;
+    }
+    grid.innerHTML = "";
+    if(!SITE.astro.length){
+      grid.innerHTML = '<p class="empty-state reveal">' + esc(t(SITE.i18n.astro.empty)) + '</p>';
+    } else {
+      var g = document.createElement("div");
+      g.className = "gallery";
+      SITE.astro.forEach(function(a, i){
+        var el = document.createElement("a");
+        el.className = "reveal";
+        el.innerHTML = '<img src="' + a.src + '-thumb.webp" loading="lazy" alt="' + esc(t(a.cap)) + '">' +
+          (t(a.cap) ? '<span class="cap">' + esc(t(a.cap)) + '</span>' : "");
+        el.addEventListener("click", function(){
+          openLightbox(SITE.astro.map(function(x){ return { src: x.src + ".webp", cap: t(x.cap) }; }), i);
+        });
+        g.appendChild(el);
+      });
+      grid.appendChild(g);
+    }
+    observeReveals(grid);
+  }
+
+  /* ---- 关于 ---- */
+  function renderAbout(){
+    var box = $("#aboutBody"); if(!box) return;
+    box.innerHTML = '<div class="bio reveal"><p>' + esc(t(SITE.about.bio)) + '</p></div>' +
+      '<div class="contact-row reveal">' +
+      '<a href="resume/" target="_blank" rel="noopener">' + esc(t(SITE.i18n.about.resume)) + '</a>' +
+      SITE.about.contact.map(function(c){
+        return '<a href="' + c.url + '" target="_blank" rel="noopener">' + esc(c.label) + '</a>';
+      }).join("") + '</div>';
+    observeReveals(box);
+  }
+
   /* ---- 渲染调度：后续任务往这里注册 ---- */
-  var renderers = [renderFilms, renderAigc, renderResearch, renderExhibit];
+  var renderers = [renderFilms, renderAigc, renderResearch, renderExhibit, renderAstro, renderAbout];
   window.registerRenderer = function(fn){ renderers.push(fn); };
   function renderAll(){ renderers.forEach(function(fn){ fn(); }); }
   document.addEventListener("DOMContentLoaded", function(){
