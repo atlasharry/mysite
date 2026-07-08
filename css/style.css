@@ -35,6 +35,9 @@
 html[lang^="en"]{--serif:Lora,"Noto Serif SC",Georgia,serif}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:5rem}
+/* 横向溢出保险：任何元素越界都不产生横向平移/缩小空间（clip 不破坏 sticky） */
+html,body{overflow-x:clip}
+@supports not (overflow-x:clip){html,body{overflow-x:hidden}}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1rem;line-height:1.95;
   -webkit-font-smoothing:antialiased;transition:background .5s ease,color .5s ease}
 /* 极稀疏星点底纹，若有若无 */
@@ -219,7 +222,9 @@ button{font-family:inherit}
 
 /* ========== 大图滑动组件（3D coverflow：中间亮平面，两侧转角退深变暗） ========== */
 .viewer{margin:0 auto;max-width:100%}
-.viewer-main{position:relative;height:clamp(300px,54vh,560px);overflow:hidden;perspective:1400px}
+.viewer-main{position:relative;height:clamp(300px,54vh,560px);overflow:hidden;perspective:1400px;
+  touch-action:pan-y}
+.viewer-main.dragging .vw-track{transition:none}
 .vw-track{display:flex;align-items:center;gap:clamp(1.2rem,2.5vw,2.2rem);height:100%;
   transition:transform .7s cubic-bezier(.22,.61,.36,1);will-change:transform;transform-style:preserve-3d}
 .vw-slide{flex:0 0 auto;height:100%;display:flex;align-items:center;cursor:pointer;
@@ -329,7 +334,10 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
 
 /* ========== 移动端 ========== */
 @media (max-width:640px){
-  .nav nav{gap:.65rem;font-size:.74rem}
+  .nav{padding:.8rem .7rem}
+  .nav nav{gap:.5rem;font-size:.72rem;letter-spacing:0}
+  .nav nav a{letter-spacing:.02em}
+  #langToggle,#themeToggle{padding:.14rem .4rem;font-size:.66rem}
   .nav nav a[href="#aigc"],.nav nav a[href="#astro"]{display:none} /* 窄屏收纳次要锚点 */
   /* 移动端全面压紧板块间距 */
   .chapter{padding:2.6rem 0 2.2rem}

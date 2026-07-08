@@ -68,6 +68,37 @@
     v.querySelector(".vw-prev").addEventListener("click", function(){ go(idx - 1); });
     v.querySelector(".vw-next").addEventListener("click", function(){ go(idx + 1); });
     addEventListener("resize", center);
+    /* 触摸/指针拖拽滑动：跟手、松手吸附、拖拽不触发点击 */
+    var dragX = null, dragged = false, baseOff = 0;
+    function trackOffset(){
+      var slide = track.children[idx];
+      return slide ? -(slide.offsetLeft + slide.offsetWidth/2 - main.clientWidth/2) : 0;
+    }
+    main.addEventListener("pointerdown", function(e){
+      dragX = e.clientX; dragged = false; baseOff = trackOffset();
+      main.classList.add("dragging");
+    });
+    main.addEventListener("pointermove", function(e){
+      if(dragX === null) return;
+      var dx = e.clientX - dragX;
+      if(Math.abs(dx) > 8) dragged = true;
+      track.style.transform = "translateX(" + (baseOff + dx).toFixed(1) + "px)";
+    });
+    function endDrag(e){
+      if(dragX === null) return;
+      var dx = e.clientX - dragX;
+      dragX = null;
+      main.classList.remove("dragging");
+      if(dx < -50) go(idx + 1);
+      else if(dx > 50) go(idx - 1);
+      else center();
+    }
+    main.addEventListener("pointerup", endDrag);
+    main.addEventListener("pointercancel", endDrag);
+    main.addEventListener("pointerleave", endDrag);
+    main.addEventListener("click", function(e){
+      if(dragged){ e.stopPropagation(); e.preventDefault(); dragged = false; }
+    }, true);
     go(0);
     /* 图片加载后重新对中一次，保证初始定位精确 */
     track.querySelectorAll("img").forEach(function(im){ im.addEventListener("load", center); });
