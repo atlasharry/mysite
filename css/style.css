@@ -358,7 +358,7 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
   .nav nav{gap:.5rem;font-size:.72rem;letter-spacing:0}
   .nav nav a{letter-spacing:.02em}
   #langToggle,#themeToggle{padding:.14rem .4rem;font-size:.66rem}
-  .nav nav a[href="#aigc"],.nav nav a[href="#astro"]{display:none} /* 窄屏收纳次要锚点 */
+  .nav nav a[href="#astro"]{display:none} /* 窄屏收纳次要锚点 */
   /* 移动端全面压紧板块间距 */
   .chapter{padding:2.6rem 0 2.2rem}
   .fade-band{height:7vh}
@@ -370,8 +370,8 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
   .films{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1.4rem}
   .overlay{padding:3.5rem 1rem 2rem}
   .hero{padding-top:6rem}
-  .hero-cards{gap:.7rem;perspective:none}
-  .hero-card{width:calc(33.3% - .7rem)!important;transform:none!important;opacity:1!important}
+  .hero-cards{gap:.8rem;perspective:none}
+  .hero-card{width:calc(42% - .8rem)!important;transform:none!important;opacity:1!important}
 }
 
 /* ========== 英文排版适配：拉丁文本收字距、长文左对齐 ========== */

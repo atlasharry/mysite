@@ -100,6 +100,26 @@
     animateTo({ x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h }, function(){ renderPins(1); });
   }
 
+  /* 点击地图任意位置：放大到该处（已放大时则平移过去） */
+  function zoomToPoint(cx, cy){
+    var w = zoomed ? view.w : 300, h = w / 2.5;
+    var target = {
+      x: Math.max(-40, Math.min(1040 - w, cx - w/2)),
+      y: Math.max(0,   Math.min(420 - h,  cy - h/2)),
+      w: w, h: h
+    };
+    if(!zoomed){
+      zoomed = true;
+      renderPins(w / W);
+      resetBtn.classList.add("show");
+      loadDetail(function(){
+        if(zoomed && outline) outline.setAttribute("d", WORLD_MAP_PATH_DETAIL);
+      });
+    }
+    hideCard();
+    animateTo(target);
+  }
+
   /* ---- 图钉 / 聚合点渲染 ---- */
   function makePin(loc, s){
     var p = proj(loc.lat, loc.lon);
@@ -108,7 +128,7 @@
     g.setAttribute("transform", "translate(" + p[0].toFixed(1) + "," + p[1].toFixed(1) + ") scale(" + s.toFixed(3) + ")");
     g.innerHTML = '<circle class="halo" r="9"></circle><circle class="core" r="3.2"></circle>' +
       '<circle r="12" fill="transparent"></circle>';
-    g.addEventListener("click", function(){ select(loc); });
+    g.addEventListener("click", function(e){ e.stopPropagation(); select(loc); });
     g.addEventListener("mouseenter", function(){
       var n = (loc.items || []).length;
       showCard(g, I18N.t(loc.name), n ? n + " · " + I18N.t(SITE.i18n.travel.view) : I18N.t(SITE.i18n.travel.empty));
@@ -133,7 +153,7 @@
         c.setAttribute("class", "cluster");
         c.setAttribute("transform", "translate(" + g.center[0].toFixed(1) + "," + g.center[1].toFixed(1) + ")");
         c.innerHTML = '<circle r="13"></circle><text>' + g.locs.length + '</text>';
-        c.addEventListener("click", function(){ zoomTo(g); });
+        c.addEventListener("click", function(e){ e.stopPropagation(); zoomTo(g); });
         c.addEventListener("mouseenter", function(){
           var names = g.locs.map(function(l){ return I18N.t(l.name); }).join(" · ");
           showCard(c, names, I18N.t(SITE.i18n.travel.zoom));
@@ -156,6 +176,13 @@
     svg.appendChild(outline);
     pinLayer = document.createElementNS(NS, "g");
     svg.appendChild(pinLayer);
+    /* 空白处点击 -> 放大到点击位置（图钉/聚合点自行 stopPropagation） */
+    svg.addEventListener("click", function(e){
+      var r = svg.getBoundingClientRect();
+      var cx = view.x + (e.clientX - r.left) / r.width * view.w;
+      var cy = view.y + (e.clientY - r.top) / r.height * view.h;
+      zoomToPoint(cx, cy);
+    });
     wrap.appendChild(svg);
     resetBtn = document.createElement("button");
     resetBtn.className = "map-reset" + (zoomed ? " show" : "");

@@ -69,10 +69,9 @@ films: [
 
 heroCards: [
   { href:"#films",    img:"assets/films/birthday-poster", label:{zh:"影像",en:"Films"},    tag:{zh:"看见。被看见。",en:"See. Be seen."} },
-  { href:"#aigc",     img:"assets/films/suisui-poster",   label:{zh:"AI × 创作",en:"AI × Art"}, tag:{zh:"生成。再创造。",en:"Generate. Create."} },
   { href:"#research", img:"assets/world/world-05",        label:{zh:"研究",en:"Research"}, tag:{zh:"提问。求解。",en:"Ask. Solve."} },
-  { href:"#astro",    img:"assets/astro/astro-06",        label:{zh:"星空",en:"Astro"},   tag:{zh:"仰望。追光。",en:"Look up. Chase light."} },
-  { href:"#travel",   img:"assets/travel/iceland-falls",  label:{zh:"旅行",en:"Travel"},  tag:{zh:"出发。抵达。",en:"Depart. Arrive."} }
+  { href:"#travel",   img:"assets/travel/iceland-falls",  label:{zh:"旅行",en:"Travel"},  tag:{zh:"出发。抵达。",en:"Depart. Arrive."} },
+  { href:"#astro",    img:"assets/astro/astro-06",        label:{zh:"星空",en:"Astro"},   tag:{zh:"仰望。追光。",en:"Look up. Chase light."} }
 ],
 
 aigc: [

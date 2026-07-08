@@ -175,20 +175,6 @@
     ov.addEventListener("click", function(e){ if(e.target === ov) closeSheet(); });
   }
 
-  /* ---- AIGC ---- */
-  function renderAigc(){
-    var box = $("#aigcList"); if(!box) return;
-    box.innerHTML = "";
-    SITE.aigc.forEach(function(c){
-      var card = document.createElement("div");
-      card.className = "aigc-card reveal";
-      card.innerHTML = '<p class="aigc-tag">' + esc(t(c.tag)) + '</p>' +
-        '<h3>' + esc(t(c.title)) + '</h3><p>' + esc(t(c.desc)) + '</p>';
-      box.appendChild(card);
-    });
-    observeReveals(box);
-  }
-
   /* ---- 研究与工程 ---- */
   function renderResearch(){
     var box = $("#researchBody"); if(!box) return;
@@ -307,7 +293,7 @@
   addEventListener("load", sizeAboutPhoto);
 
   /* ---- 渲染调度：后续任务往这里注册 ---- */
-  var renderers = [renderHeroCards, renderFilms, renderAigc, renderResearch, renderExhibit, renderAstro, renderAbout];
+  var renderers = [renderHeroCards, renderFilms, renderResearch, renderExhibit, renderAstro, renderAbout];
   window.registerRenderer = function(fn){ renderers.push(fn); };
   function renderAll(){ renderers.forEach(function(fn){ fn(); }); }
   document.addEventListener("DOMContentLoaded", function(){
