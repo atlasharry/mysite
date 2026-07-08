@@ -21,6 +21,22 @@
     });
   }, { rootMargin: "-45% 0px -50% 0px" });
 
+  /* 滚动锁（可重入；iOS 需 position:fixed 才能真正锁住背景） */
+  var lockCount = 0, lockY = 0;
+  window.lockScroll = function(){
+    if(++lockCount > 1) return;
+    lockY = scrollY;
+    var s = document.body.style;
+    s.position = "fixed"; s.top = (-lockY) + "px"; s.left = "0"; s.right = "0";
+    s.width = "100%"; s.overflow = "hidden";
+  };
+  window.unlockScroll = function(){
+    if(lockCount === 0 || --lockCount > 0) return;
+    var s = document.body.style;
+    s.position = ""; s.top = ""; s.left = ""; s.right = ""; s.width = ""; s.overflow = "";
+    window.scrollTo({ top: lockY, behavior: "instant" });
+  };
+
   /* lightbox */
   var list = [], idx = 0;
   function lb(){ return document.getElementById("lightbox"); }
@@ -31,9 +47,9 @@
   }
   window.openLightbox = function(items, i){
     list = items; idx = i || 0;
-    lb().hidden = false; document.body.style.overflow = "hidden"; show();
+    lb().hidden = false; lockScroll(); show();
   };
-  function close(){ lb().hidden = true; document.body.style.overflow = ""; }
+  function close(){ lb().hidden = true; unlockScroll(); }
   function step(d){ if(!list.length) return; idx = (idx + d + list.length) % list.length; show(); }
 
   document.addEventListener("DOMContentLoaded", function(){
@@ -54,6 +70,35 @@
       if(e.key === "Escape") close();
       if(e.key === "ArrowLeft") step(-1);
       if(e.key === "ArrowRight") step(1);
+    });
+  });
+})();
+
+/* ===== 首访引导：高亮右上角语言/主题开关，一次性 ===== */
+(function(){
+  var KEY = "site-onboarded";
+  try { if(localStorage.getItem(KEY)) return; } catch(e){}
+  document.addEventListener("DOMContentLoaded", function(){
+    var ob = document.getElementById("onboard");
+    if(!ob) return;
+    var done = false;
+    function dismiss(){
+      if(done) return;
+      done = true;
+      try { localStorage.setItem(KEY, "1"); } catch(e){}
+      ob.classList.remove("show");
+      setTimeout(function(){ ob.hidden = true; }, 750);
+    }
+    setTimeout(function(){
+      ob.hidden = false;
+      requestAnimationFrame(function(){ ob.classList.add("show"); });
+    }, 900);
+    setTimeout(dismiss, 10000);
+    ob.addEventListener("pointerdown", dismiss);
+    addEventListener("scroll", dismiss, { passive: true, once: true });
+    ["langToggle", "themeToggle"].forEach(function(id){
+      var btn = document.getElementById(id);
+      if(btn) btn.addEventListener("click", dismiss);
     });
   });
 })();

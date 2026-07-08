@@ -68,14 +68,15 @@
     v.querySelector(".vw-prev").addEventListener("click", function(){ go(idx - 1); });
     v.querySelector(".vw-next").addEventListener("click", function(){ go(idx + 1); });
     addEventListener("resize", center);
-    /* 触摸/指针拖拽滑动：跟手、松手吸附、拖拽不触发点击 */
-    var dragX = null, dragged = false, baseOff = 0;
+    /* 触摸/指针拖拽滑动：指针捕获（出边界不断触）、快甩低阈值、松手吸附 */
+    var dragX = null, dragged = false, baseOff = 0, dragT = 0;
     function trackOffset(){
       var slide = track.children[idx];
       return slide ? -(slide.offsetLeft + slide.offsetWidth/2 - main.clientWidth/2) : 0;
     }
     main.addEventListener("pointerdown", function(e){
-      dragX = e.clientX; dragged = false; baseOff = trackOffset();
+      dragX = e.clientX; dragged = false; baseOff = trackOffset(); dragT = performance.now();
+      try { main.setPointerCapture(e.pointerId); } catch(err){}
       main.classList.add("dragging");
     });
     main.addEventListener("pointermove", function(e){
@@ -87,15 +88,18 @@
     function endDrag(e){
       if(dragX === null) return;
       var dx = e.clientX - dragX;
+      var dt = Math.max(1, performance.now() - dragT);
       dragX = null;
       main.classList.remove("dragging");
-      if(dx < -50) go(idx + 1);
-      else if(dx > 50) go(idx - 1);
+      /* 慢拖：超过舞台宽 10%（上限 56px）即切换；快甩：速度够快 20px 就切换 */
+      var slow = Math.min(56, main.clientWidth * 0.1);
+      var flick = Math.abs(dx) > 20 && Math.abs(dx) / dt > 0.35;
+      if(dx < 0 && (-dx > slow || flick)) go(idx + 1);
+      else if(dx > 0 && (dx > slow || flick)) go(idx - 1);
       else center();
     }
     main.addEventListener("pointerup", endDrag);
     main.addEventListener("pointercancel", endDrag);
-    main.addEventListener("pointerleave", endDrag);
     main.addEventListener("click", function(e){
       if(dragged){ e.stopPropagation(); e.preventDefault(); dragged = false; }
     }, true);
@@ -165,8 +169,8 @@
       ov.querySelector(".sheet-stills").appendChild(viewer);
     }
     document.body.appendChild(ov);
-    document.body.style.overflow = "hidden";
-    function closeSheet(){ ov.remove(); document.body.style.overflow = ""; }
+    lockScroll();
+    function closeSheet(){ ov.remove(); unlockScroll(); }
     ov.querySelector(".sheet-close").addEventListener("click", closeSheet);
     ov.addEventListener("click", function(e){ if(e.target === ov) closeSheet(); });
   }
@@ -279,7 +283,7 @@
     box.innerHTML = '<div class="about-main">' +
       '<div class="bio reveal">' +
       '<header class="titlecard"><span class="tc-num">01</span><span class="tc-line"></span>' +
-      '<h2>' + esc(t(SITE.i18n.about.title)) + '<span class="tc-en">ABOUT</span></h2></header>' +
+      '<h2>' + esc(t(SITE.i18n.about.title)) + '<span class="tc-en">' + esc(t(SITE.i18n.about.alt)) + '</span></h2></header>' +
       '<p>' + esc(t(SITE.about.bio)) + '</p>' +
       '<div class="contact-row">' +
       '<a href="resume/" target="_blank" rel="noopener">' + esc(t(SITE.i18n.about.resume)) + '</a>' +

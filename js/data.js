@@ -12,15 +12,15 @@ i18n: {
     story:{zh:"听听我的故事",en:"Hear my story"}
   },
   films: {
-    title:{zh:"影像",en:"Films"},
+    title:{zh:"影像",en:"Films"}, alt:{zh:"FILMS",en:"影像"},
     wip:{zh:"信息整理中",en:"Details coming soon"},
     stills:{zh:"剧照",en:"Stills"}
   },
-  aigc: { title:{zh:"AI × 创作",en:"AI × Art"} },
-  research: { title:{zh:"研究与工程",en:"Research & Engineering"}, papers:{zh:"论文发表",en:"Publications"} },
-  astro: { title:{zh:"星空",en:"Astronomy"}, empty:{zh:"银河与极光，整理中",en:"Galaxies and aurorae — coming soon"} },
+  aigc: { title:{zh:"AI × 创作",en:"AI × Art"}, alt:{zh:"AI × ART",en:"AI × 创作"} },
+  research: { title:{zh:"研究与工程",en:"Research & Engineering"}, alt:{zh:"RESEARCH",en:"研究与工程"}, papers:{zh:"论文发表",en:"Publications"} },
+  astro: { title:{zh:"星空",en:"Astronomy"}, alt:{zh:"ASTRONOMY",en:"星空"}, empty:{zh:"银河与极光，整理中",en:"Galaxies and aurorae — coming soon"} },
   travel: {
-    title:{zh:"旅行",en:"Travel"},
+    title:{zh:"旅行",en:"Travel"}, alt:{zh:"TRAVEL",en:"旅行"},
     hint:{zh:"点击图钉，看看我在那里看见的世界",en:"Click a pin to see what I saw there"},
     empty:{zh:"整理中",en:"Coming soon"},
     view:{zh:"点击查看",en:"Click to view"},
@@ -28,8 +28,9 @@ i18n: {
     back:{zh:"返回全图",en:"Full map"},
     goto:{zh:"去看看我走过的世界",en:"See the world I have walked"}
   },
-  about: { title:{zh:"关于",en:"About"}, resume:{zh:"查看简历",en:"Résumé"} },
-  footer: { line:{zh:"© 2026 余城宇 · Harry Yu",en:"© 2026 Harry Yu"} }
+  about: { title:{zh:"关于",en:"About"}, alt:{zh:"ABOUT",en:"关于"}, resume:{zh:"查看简历",en:"Résumé"} },
+  footer: { line:{zh:"© 2026 余城宇 · Harry Yu",en:"© 2026 Harry Yu"} },
+  onboard: { tip:{zh:"在这里切换 中 / EN 与明暗主题",en:"Switch language & light / dark theme here"} }
 },
 
 films: [
