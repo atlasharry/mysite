@@ -2,7 +2,6 @@
   var W = 1000, H = 500, NS = "http://www.w3.org/2000/svg";
   var DEFAULT = { x: 0, y: 10, w: 1000, h: 400 };
   var view = { x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h };
-  var CLUSTER_DIST = 55;
   var current = null, card = null, svg = null, pinLayer = null, zoomed = false, resetBtn = null, outline = null;
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -20,15 +19,17 @@
 
   function proj(lat, lon){ return [(lon + 180)/360*W, (90 - lat)/180*H]; }
 
-  /* ---- 聚合：投影距离小于阈值的图钉归为一组 ---- */
-  function clusters(){
+  /* ---- 聚合：按屏幕距离（26px）分组，任何缩放级别都不会挤成一团 ---- */
+  function screenClusters(){
+    var mapPx = (svg && svg.clientWidth) || 800;
+    var threshold = 26 * view.w / mapPx;   /* 26 屏幕像素折算成 viewBox 单位 */
     var groups = [];
     SITE.locations.forEach(function(loc){
       var p = proj(loc.lat, loc.lon);
       var g = null;
       for(var i = 0; i < groups.length; i++){
         var c = groups[i].center;
-        if(Math.hypot(c[0]-p[0], c[1]-p[1]) < CLUSTER_DIST){ g = groups[i]; break; }
+        if(Math.hypot(c[0]-p[0], c[1]-p[1]) < threshold){ g = groups[i]; break; }
       }
       if(g){
         g.locs.push(loc); g.pts.push(p);
@@ -40,6 +41,52 @@
       }
     });
     return groups;
+  }
+
+  /* 模拟放大到 targetW 后，该组会拆成几个可点对象（子聚合数） */
+  function subgroupCount(g, targetW){
+    var mapPx = (svg && svg.clientWidth) || 800;
+    var threshold = 26 * targetW / mapPx;
+    var subs = [];
+    g.pts.forEach(function(p){
+      var s = null;
+      for(var i = 0; i < subs.length; i++){
+        if(Math.hypot(subs[i][0]-p[0], subs[i][1]-p[1]) < threshold){ s = subs[i]; break; }
+      }
+      if(!s) subs.push([p[0], p[1]]);
+    });
+    return subs.length;
+  }
+
+  /* ---- 选择卡：放大也分不开的近邻城市，弹出列表点选 ---- */
+  var chooserEl = null;
+  function closeChooser(){ if(chooserEl){ chooserEl.remove(); chooserEl = null; } }
+  function openChooser(g, anchor){
+    hideCard(); closeChooser();
+    var wrap = document.getElementById("mapWrap");
+    chooserEl = document.createElement("div");
+    chooserEl.className = "pin-chooser";
+    g.locs.forEach(function(loc){
+      var btn = document.createElement("button");
+      btn.textContent = I18N.t(loc.name);
+      btn.addEventListener("click", function(e){
+        e.stopPropagation();
+        closeChooser();
+        select(loc);
+      });
+      chooserEl.appendChild(btn);
+    });
+    var wr = wrap.getBoundingClientRect(), gr = anchor.getBoundingClientRect();
+    chooserEl.style.left = (gr.left + gr.width/2 - wr.left) + "px";
+    chooserEl.style.top = (gr.top - wr.top) + "px";
+    wrap.appendChild(chooserEl);
+    requestAnimationFrame(function(){ if(chooserEl) chooserEl.classList.add("show"); });
+    setTimeout(function(){
+      document.addEventListener("pointerdown", function outside(e){
+        if(chooserEl && !chooserEl.contains(e.target)){ closeChooser(); }
+        else if(chooserEl){ document.addEventListener("pointerdown", outside, { once: true }); }
+      }, { once: true });
+    }, 50);
   }
 
   /* ---- hover 小卡片 ---- */
@@ -81,22 +128,22 @@
     var xs = group.pts.map(function(p){ return p[0]; }), ys = group.pts.map(function(p){ return p[1]; });
     var cx = (Math.min.apply(0,xs)+Math.max.apply(0,xs))/2, cy = (Math.min.apply(0,ys)+Math.max.apply(0,ys))/2;
     var spanX = Math.max.apply(0,xs)-Math.min.apply(0,xs), spanY = Math.max.apply(0,ys)-Math.min.apply(0,ys);
-    var w = Math.max(spanX*2.4, spanY*2.4*2.5, 170), h = w/2.5;
+    var w = Math.max(spanX*2.6, spanY*2.6*2.5, 90), h = w/2.5;
     var target = { x: cx - w/2, y: cy - h/2, w: w, h: h };
     zoomed = true;
-    renderPins(target.w / W);   /* 图钉按目标缩放比预先补偿，保证放大后屏幕尺寸不变 */
     resetBtn.classList.add("show");
     if(svg) svg.classList.add("zoomed");
-    hideCard();
+    hideCard(); closeChooser();
     loadDetail(function(){
       if(zoomed && outline) outline.setAttribute("d", WORLD_MAP_PATH_DETAIL);
     });
-    animateTo(target);
+    renderPins(target.w / W);   /* 图钉按目标缩放比预先补偿 */
+    animateTo(target, function(){ renderPins(); });   /* 到位后按新比例重新聚合 */
   }
   function resetZoom(){
     zoomed = false;
     resetBtn.classList.remove("show");
-    hideCard();
+    hideCard(); closeChooser();
     if(svg) svg.classList.remove("zoomed");
     if(outline) outline.setAttribute("d", WORLD_MAP_PATH);
     animateTo({ x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h }, function(){ renderPins(1); });
@@ -141,27 +188,31 @@
     if(!pinLayer) return;
     pinLayer.innerHTML = "";
     var s = scale || view.w / W;
-    if(zoomed){
-      /* 放大后：显示全部独立图钉，按缩放比例保持屏幕尺寸 */
-      SITE.locations.forEach(function(loc){ pinLayer.appendChild(makePin(loc, s)); });
-      return;
-    }
-    clusters().forEach(function(g){
+    var mapPx = (svg && svg.clientWidth) || 800;
+    screenClusters().forEach(function(g){
       if(g.locs.length === 1){
-        pinLayer.appendChild(makePin(g.locs[0], 1));
-      } else {
-        var c = document.createElementNS(NS, "g");
-        c.setAttribute("class", "cluster");
-        c.setAttribute("transform", "translate(" + g.center[0].toFixed(1) + "," + g.center[1].toFixed(1) + ")");
-        c.innerHTML = '<circle r="13"></circle><text>' + g.locs.length + '</text>';
-        c.addEventListener("click", function(e){ e.stopPropagation(); zoomTo(g); });
-        c.addEventListener("mouseenter", function(){
-          var names = g.locs.map(function(l){ return I18N.t(l.name); }).join(" · ");
-          showCard(c, names, I18N.t(SITE.i18n.travel.zoom));
-        });
-        c.addEventListener("mouseleave", hideCard);
-        pinLayer.appendChild(c);
+        pinLayer.appendChild(makePin(g.locs[0], s));
+        return;
       }
+      var c = document.createElementNS(NS, "g");
+      c.setAttribute("class", "cluster");
+      c.setAttribute("transform", "translate(" + g.center[0].toFixed(1) + "," + g.center[1].toFixed(1) + ") scale(" + s.toFixed(3) + ")");
+      c.innerHTML = '<circle r="13"></circle><text>' + g.locs.length + '</text>';
+      c.addEventListener("click", function(e){
+        e.stopPropagation();
+        /* 放大后能拆成多个可点对象就继续放大，拆不开（如成都/内江）弹选择卡 */
+        var spanX = Math.max.apply(0, g.pts.map(function(p){ return p[0]; })) - Math.min.apply(0, g.pts.map(function(p){ return p[0]; }));
+        var spanY = Math.max.apply(0, g.pts.map(function(p){ return p[1]; })) - Math.min.apply(0, g.pts.map(function(p){ return p[1]; }));
+        var targetW = Math.max(spanX*2.6, spanY*2.6*2.5, 90);
+        if(subgroupCount(g, targetW) >= 2) zoomTo(g);
+        else openChooser(g, c);
+      });
+      c.addEventListener("mouseenter", function(){
+        var names = g.locs.map(function(l){ return I18N.t(l.name); }).join(" · ");
+        showCard(c, names, I18N.t(SITE.i18n.travel.zoom));
+      });
+      c.addEventListener("mouseleave", hideCard);
+      pinLayer.appendChild(c);
     });
   }
 
@@ -193,9 +244,12 @@
       view.x = Math.max(-40, Math.min(1040 - view.w, panStart.vx - dxp * view.w / r.width));
       view.y = Math.max(0,   Math.min(420 - view.h,  panStart.vy - dyp * view.h / r.height));
       setViewBox(view);
-      hideCard();
+      hideCard(); closeChooser();
     });
-    function endPan(){ panning = false; }
+    function endPan(){
+      panning = false;
+      if(panMoved) renderPins();   /* 平移后按新视野重新聚合 */
+    }
     svg.addEventListener("pointerup", endPan);
     svg.addEventListener("pointercancel", endPan);
     svg.addEventListener("click", function(e){

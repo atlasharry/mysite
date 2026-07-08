@@ -324,6 +324,17 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
 .pin-card.show{opacity:1;transform:translate(-50%,-16px)}
 .pin-card h5{font-family:var(--serif);font-size:.92rem;letter-spacing:.12em;line-height:1.5}
 .pin-card p{color:var(--ink-dim);font-size:.7rem;letter-spacing:.1em;margin-top:.15rem}
+/* 近邻城市选择卡 */
+.pin-chooser{position:absolute;z-index:7;display:flex;flex-direction:column;min-width:7.5rem;
+  background:var(--nav-bg);backdrop-filter:blur(10px);border:1px solid var(--accent-dim);
+  border-radius:12px;overflow:hidden;box-shadow:var(--shadow);
+  opacity:0;transform:translate(-50%,calc(-100% - 2px));
+  transition:opacity .35s ease,transform .45s cubic-bezier(.22,.61,.36,1)}
+.pin-chooser.show{opacity:1;transform:translate(-50%,calc(-100% - 14px))}
+.pin-chooser button{background:none;border:none;color:var(--ink);font:inherit;font-size:.88rem;
+  letter-spacing:.12em;padding:.6rem 1.2rem;cursor:pointer;border-bottom:1px solid var(--hairline)}
+.pin-chooser button:last-child{border-bottom:none}
+.pin-chooser button:hover{background:var(--accent);color:var(--bg)}
 .loc-panel{margin-top:2rem;border:1px solid var(--hairline);padding:2rem;background:var(--panel)}
 .loc-panel h4{letter-spacing:.2em;font-size:1.05rem}
 .loc-empty{color:var(--ink-dim);letter-spacing:.16em;font-size:.83rem;margin-top:.8rem}
