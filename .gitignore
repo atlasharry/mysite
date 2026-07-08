@@ -10,3 +10,6 @@ assets/raw/
 # 系统文件
 Thumbs.db
 .DS_Store
+
+# 根目录简历源文件（发布版在 resume/）
+/Harry Yu_Resume2026_06.pdf

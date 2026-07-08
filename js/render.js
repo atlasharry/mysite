@@ -17,7 +17,8 @@
       '<button class="vw-arr vw-prev" aria-label="Previous"><span>‹</span></button>' +
       '<button class="vw-arr vw-next" aria-label="Next"><span>›</span></button></div>' +
       '<div class="vw-dock"></div><p class="vw-cap"></p>';
-    var wrapper = v.querySelector(".swiper-wrapper"),
+    var main = v.querySelector(".viewer-main"),
+        wrapper = v.querySelector(".swiper-wrapper"),
         dock = v.querySelector(".vw-dock"), cap = v.querySelector(".vw-cap");
     items.forEach(function(it, i){
       var s = document.createElement("div");
@@ -53,6 +54,25 @@
       speed: reduced ? 0 : 520,
       on: { slideChange: function(){ update(this.activeIndex); } }
     });
+    /* 按宽高比显式定尺寸：高吃满舞台、宽不超视口，取小者；加载前后布局一致 */
+    function sizeSlides(){
+      var H = main.clientHeight;
+      if(!H){ setTimeout(sizeSlides, 120); return; }   /* 尚未入档时稍后重试 */
+      var maxW = Math.min(innerWidth * 0.92, 960);
+      Array.prototype.forEach.call(wrapper.children, function(s, i){
+        var img = s.querySelector("img");
+        var parts = (items[i].ar || "3/2").split("/");
+        var ar = parseFloat(parts[0]) / parseFloat(parts[1]) || 1.5;
+        var w = Math.min(H * ar, maxW);
+        img.style.width = w.toFixed(1) + "px";
+        img.style.height = (w / ar).toFixed(1) + "px";
+      });
+      sw.update();
+      sw.slideTo(sw.activeIndex, 0);
+    }
+    requestAnimationFrame(sizeSlides);
+    addEventListener("resize", sizeSlides);
+
     /* 点击当前居中的图 -> 大图 */
     wrapper.addEventListener("click", function(e){
       var slide = e.target.closest(".swiper-slide");
@@ -64,10 +84,6 @@
     });
     v.querySelector(".vw-prev").addEventListener("click", function(){ sw.slidePrev(); });
     v.querySelector(".vw-next").addEventListener("click", function(){ sw.slideNext(); });
-    /* 图片加载后刷新布局，保证初始居中精确 */
-    wrapper.querySelectorAll("img").forEach(function(im){
-      im.addEventListener("load", function(){ sw.update(); });
-    });
     update(0);
     return v;
   }

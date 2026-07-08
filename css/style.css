@@ -232,9 +232,8 @@ html[lang^="en"] .tc-en{letter-spacing:.3em}
 .viewer-main .swiper-wrapper{align-items:center;height:100%}
 .viewer-main .swiper-slide{width:auto;height:100%;display:flex;align-items:center;cursor:pointer;
   opacity:.35;filter:brightness(.85);transition:opacity .5s ease,filter .5s ease}
-/* 原始比例完整呈现：高受舞台限制、宽受视口限制，两者取小，绝不裁切 */
-.viewer-main .swiper-slide img{width:auto;height:auto;max-height:100%;max-width:min(92vw,60rem);
-  display:block;border-radius:clamp(12px,1.6vw,22px);
+/* 尺寸由 JS 按宽高比显式计算（加载前后一致，保证居中精确、原比例不裁切） */
+.viewer-main .swiper-slide img{display:block;border-radius:clamp(12px,1.6vw,22px);
   border:1px solid var(--hairline-strong);box-shadow:var(--shadow)}
 .viewer-main .swiper-slide-active{opacity:1;filter:none;cursor:zoom-in}
 .vw-arr{position:absolute;top:50%;transform:translateY(-50%);width:2.6rem;height:2.6rem;border-radius:50%;
