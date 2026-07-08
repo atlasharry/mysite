@@ -4,8 +4,8 @@ films/生日礼物/生日礼物.txt
 
 # 用户投放的原图不进仓库（优化后的进 assets/）
 assets/raw/
-films/
-build/
+/films/
+/build/
 
 # 系统文件
 Thumbs.db
