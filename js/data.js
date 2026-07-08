@@ -17,7 +17,8 @@ i18n: {
     stills:{zh:"剧照",en:"Stills"}
   },
   aigc: { title:{zh:"AI × 创作",en:"AI × Art"}, alt:{zh:"AI × ART",en:"AI × 创作"} },
-  research: { title:{zh:"研究与工程",en:"Research & Engineering"}, alt:{zh:"RESEARCH",en:"研究与工程"}, papers:{zh:"论文发表",en:"Publications"} },
+  research: { title:{zh:"研究与工程",en:"Research & Engineering"}, alt:{zh:"RESEARCH",en:"研究与工程"}, papers:{zh:"论文发表",en:"Publications"},
+    resumeCta:{zh:"查看完整简历",en:"View full résumé"} },
   astro: { title:{zh:"星空",en:"Astronomy"}, alt:{zh:"ASTRONOMY",en:"星空"}, empty:{zh:"银河与极光，整理中",en:"Galaxies and aurorae, coming soon"} },
   travel: {
     title:{zh:"旅行",en:"Travel"}, alt:{zh:"TRAVEL",en:"旅行"},
@@ -102,6 +103,10 @@ research: {
       title:{zh:"Privacy Pioneer · AI 浏览器隐私扫描插件",en:"Privacy Pioneer · AI browser privacy extension"},
       desc:{zh:"privacy-tech-lab 研发核心成员：10+ TinyBERT 模型实时分析网络流量，追踪片段检测 F1 达 96%。",
         en:"Core member at privacy-tech-lab: 10+ TinyBERT models analyze web traffic in real time, reaching 96% F1 on tracking detection."} },
+    { time:{zh:"2024.6 – 2024.8",en:"Jun – Aug 2024"},
+      title:{zh:"同花顺 · AIGC 大模型算法实习生",en:"Hithink RoyalFlush · Generative AI / CV Engineer Intern"},
+      desc:{zh:"独立训练并上线 5+ LoRA 风格模型，端到端流水线累计服务 100 万+ 用户；调研 DiT 与时空 VAE 视频生成架构，输出覆盖 5000+ 员工的技术报告。",
+        en:"Trained and shipped 5+ LoRA style models end to end, serving 1M+ users; researched DiT and spatio-temporal VAE video generation architectures, with an internal report read by 5,000+ employees."} },
     { time:{zh:"2022 – 2024",en:"2022 – 2024"},
       title:{zh:"NSF 跨平台选举广告透明度项目 · 学生科研负责人",en:"NSF cross-platform election-ad transparency project · Student lead"},
       desc:{zh:"处理并标准化 200 万+ 行政治广告数据，成果发表于 Nature 子刊 Scientific Data。",

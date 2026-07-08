@@ -1,3 +1,14 @@
+/* 滚动期间暂停星空重绘，把主线程让给滚动（星点静止 150ms 无感） */
+(function(){
+  var scrolling = false, timer;
+  addEventListener("scroll", function(){
+    scrolling = true;
+    clearTimeout(timer);
+    timer = setTimeout(function(){ scrolling = false; }, 150);
+  }, { passive: true });
+  window.__pageScrolling = function(){ return scrolling; };
+})();
+
 window.createStarfield = function(canvas, opts){
   var o = Object.assign({ density: 6500, twinkle: true }, opts || {});
   var ctx = canvas.getContext("2d");
@@ -32,7 +43,14 @@ window.createStarfield = function(canvas, opts){
     }
     ctx.globalAlpha = 1;
   }
-  function loop(now){ if(visible) draw(now); requestAnimationFrame(loop); }
+  var lastDraw = 0;
+  function loop(now){
+    /* 30fps 足够闪烁质感；滚动中完全跳过绘制 */
+    if(visible && !window.__pageScrolling() && now - lastDraw > 33){
+      draw(now); lastDraw = now;
+    }
+    requestAnimationFrame(loop);
+  }
 
   resize();
   addEventListener("resize", resize);
@@ -51,10 +69,23 @@ document.addEventListener("DOMContentLoaded", function(){
   createStarfield(cv, { density: 6500 });
   var inner = document.querySelector(".hero-inner");
   if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
+    /* rAF 节流 + 滚出首屏后不再写样式 */
+    var ticking = false, faded = false;
     addEventListener("scroll", function(){
-      var y = scrollY, f = Math.max(0, 1 - y/(innerHeight*0.85));
-      cv.style.opacity = f;
-      if(inner){ inner.style.opacity = f; inner.style.transform = "translateY(" + (y*0.18) + "px)"; }
+      if(ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){
+        ticking = false;
+        var y = scrollY, vh = innerHeight;
+        if(y > vh){
+          if(!faded){ cv.style.opacity = 0; if(inner) inner.style.opacity = 0; faded = true; }
+          return;
+        }
+        faded = false;
+        var f = Math.max(0, 1 - y/(vh*0.85));
+        cv.style.opacity = f;
+        if(inner){ inner.style.opacity = f; inner.style.transform = "translateY(" + (y*0.18) + "px)"; }
+      });
     }, { passive: true });
   }
 });

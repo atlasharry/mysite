@@ -43,10 +43,12 @@
       centeredSlides: true,
       spaceBetween: 18,
       grabCursor: true,
-      slideToClickedSlide: true,   /* 点侧边图滑过去 */
-      threshold: 6,                /* 微小抖动不触发 */
-      touchAngle: 30,              /* 手势偏竖向时放行页面滚动 */
+      slideToClickedSlide: true,       /* 点侧边图滑过去 */
+      threshold: 6,                    /* 微小抖动不触发 */
+      touchAngle: 30,                  /* 手势偏竖向时放行页面滚动 */
       touchReleaseOnEdges: true,
+      touchStartPreventDefault: false, /* 不拦截原生滚动起手，竖划不再闪跳 */
+      passiveListeners: true,
       resistanceRatio: .65,
       speed: reduced ? 0 : 520,
       on: { slideChange: function(){ update(this.activeIndex); } }
@@ -140,6 +142,11 @@
   function renderResearch(){
     var box = $("#researchBody"); if(!box) return;
     box.innerHTML = "";
+    var bar = document.createElement("div");
+    bar.className = "resume-bar reveal";
+    bar.innerHTML = '<a href="resume/" target="_blank" rel="noopener">' +
+      esc(t(SITE.i18n.research.resumeCta)) + ' ↗</a>';
+    box.appendChild(bar);
     var tl = document.createElement("div");
     tl.className = "timeline";
     SITE.research.timeline.forEach(function(item){

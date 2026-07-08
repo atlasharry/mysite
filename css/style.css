@@ -155,6 +155,10 @@ html[lang^="en"] .tc-en{letter-spacing:.3em}
 @media (max-width:700px){.film-sheet{grid-template-columns:1fr}}
 
 /* ========== research ========== */
+.resume-bar{margin:-1.8rem 0 3rem}
+.resume-bar a{display:inline-block;border:1px solid var(--accent-dim);color:var(--accent);
+  padding:.45rem 1.3rem;font-size:.8rem;letter-spacing:.14em;transition:background .3s,color .3s}
+.resume-bar a:hover{background:var(--accent);color:var(--bg)}
 .timeline{border-left:1px solid var(--hairline-strong);padding-left:2.2rem;display:flex;flex-direction:column;gap:2.6rem;max-width:46rem}
 .tl-item{position:relative}
 .tl-item::before{content:"";position:absolute;left:calc(-2.2rem - 3.5px);top:.6rem;width:7px;height:7px;border-radius:50%;background:var(--accent)}
@@ -228,8 +232,10 @@ html[lang^="en"] .tc-en{letter-spacing:.3em}
 .viewer-main .swiper-wrapper{align-items:center;height:100%}
 .viewer-main .swiper-slide{width:auto;height:100%;display:flex;align-items:center;cursor:pointer;
   opacity:.35;filter:brightness(.85);transition:opacity .5s ease,filter .5s ease}
-.viewer-main .swiper-slide img{height:100%;width:auto;display:block;border-radius:clamp(12px,1.6vw,22px);
-  box-shadow:var(--shadow)}
+/* 原始比例完整呈现：高受舞台限制、宽受视口限制，两者取小，绝不裁切 */
+.viewer-main .swiper-slide img{width:auto;height:auto;max-height:100%;max-width:min(92vw,60rem);
+  display:block;border-radius:clamp(12px,1.6vw,22px);
+  border:1px solid var(--hairline-strong);box-shadow:var(--shadow)}
 .viewer-main .swiper-slide-active{opacity:1;filter:none;cursor:zoom-in}
 .vw-arr{position:absolute;top:50%;transform:translateY(-50%);width:2.6rem;height:2.6rem;border-radius:50%;
   border:none;cursor:pointer;background:rgba(10,9,8,.45);color:#faf9f5;
@@ -350,6 +356,9 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
 
 /* ========== 移动端 ========== */
 @media (max-width:640px){
+  /* 移动端滚动性能：去掉全屏 fixed 星尘层与导航毛玻璃（两大滚动重绘源） */
+  body::after{display:none}
+  .nav.scrolled{backdrop-filter:none;background:var(--bg)}
   .nav{padding:.8rem .7rem}
   .nav nav{gap:.5rem;font-size:.72rem;letter-spacing:0}
   .nav nav a{letter-spacing:.02em}

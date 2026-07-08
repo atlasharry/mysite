@@ -184,10 +184,15 @@
   if(!bridge) return;
   var flight = document.getElementById("flight");
   if(!flight || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var flightOn = false;
   function onScroll(){
     var r = bridge.getBoundingClientRect(), vh = innerHeight;
     var p = (vh - r.top) / (vh + r.height);
-    if(p < 0 || p > 1){ flight.style.opacity = 0; return; }
+    if(p < 0 || p > 1){
+      if(flightOn){ flight.style.opacity = 0; flightOn = false; }
+      return;
+    }
+    flightOn = true;
     var sx = innerWidth + 120, sy = r.height * 0.96;   /* 右下入场 */
     var ex = -160,             ey = r.height * 0.02;   /* 左上离场 */
     var x = sx + (ex - sx) * p;
