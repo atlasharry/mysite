@@ -14,8 +14,8 @@
     var v = document.createElement("div");
     v.className = "viewer" + (opts.small ? " small" : "");
     v.innerHTML = '<div class="viewer-main swiper"><div class="swiper-wrapper"></div>' +
-      '<button class="vw-arr vw-prev" aria-label="Previous">‹</button>' +
-      '<button class="vw-arr vw-next" aria-label="Next">›</button></div>' +
+      '<button class="vw-arr vw-prev" aria-label="Previous"><span>‹</span></button>' +
+      '<button class="vw-arr vw-next" aria-label="Next"><span>›</span></button></div>' +
       '<div class="vw-dock"></div><p class="vw-cap"></p>';
     var wrapper = v.querySelector(".swiper-wrapper"),
         dock = v.querySelector(".vw-dock"), cap = v.querySelector(".vw-cap");

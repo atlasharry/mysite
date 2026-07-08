@@ -232,8 +232,10 @@ html[lang^="en"] .tc-en{letter-spacing:.3em}
   box-shadow:var(--shadow)}
 .viewer-main .swiper-slide-active{opacity:1;filter:none;cursor:zoom-in}
 .vw-arr{position:absolute;top:50%;transform:translateY(-50%);width:2.6rem;height:2.6rem;border-radius:50%;
-  border:none;cursor:pointer;background:rgba(10,9,8,.45);color:#faf9f5;font-size:1.5rem;line-height:1;
+  border:none;cursor:pointer;background:rgba(10,9,8,.45);color:#faf9f5;
+  display:grid;place-items:center;padding:0;font-size:1.45rem;line-height:0;text-indent:0;
   opacity:0;transition:opacity .35s,background .3s;backdrop-filter:blur(6px);z-index:2}
+.vw-arr span{display:block;transform:translateY(-1px)}
 .viewer-main:hover .vw-arr{opacity:1}
 .vw-arr:hover{background:rgba(10,9,8,.72)}
 .vw-prev{left:.9rem}.vw-next{right:.9rem}
