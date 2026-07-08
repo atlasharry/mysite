@@ -7,105 +7,66 @@
       '<img src="' + base + '.jpg" alt="' + esc(alt) + '" loading="lazy"></picture>';
   }
 
-  /* ---- 共用：大图滑动组件（中心舞台 + 两侧露出 + 原始宽高） ---- */
+  /* ---- 共用：大图滑动组件（Swiper 驱动：方向锁定、触摸物理、中心舞台） ---- */
   function createViewer(items, opts){
     opts = opts || {};
-    var idx = 0;
+    var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     var v = document.createElement("div");
     v.className = "viewer" + (opts.small ? " small" : "");
-    v.innerHTML = '<div class="viewer-main"><div class="vw-track"></div>' +
+    v.innerHTML = '<div class="viewer-main swiper"><div class="swiper-wrapper"></div>' +
       '<button class="vw-arr vw-prev" aria-label="Previous">‹</button>' +
       '<button class="vw-arr vw-next" aria-label="Next">›</button></div>' +
       '<div class="vw-dock"></div><p class="vw-cap"></p>';
-    var main = v.querySelector(".viewer-main"), track = v.querySelector(".vw-track"),
+    var wrapper = v.querySelector(".swiper-wrapper"),
         dock = v.querySelector(".vw-dock"), cap = v.querySelector(".vw-cap");
     items.forEach(function(it, i){
       var s = document.createElement("div");
-      s.className = "vw-slide";
+      s.className = "swiper-slide";
       s.innerHTML = '<img src="' + it.src + '.webp" loading="lazy" alt=""' +
         (it.ar ? ' style="aspect-ratio:' + it.ar + '"' : "") + '>';
-      s.addEventListener("click", function(){
-        if(i === idx){
-          openLightbox(items.map(function(x){ return { src: x.src + ".webp", cap: x.cap }; }), idx);
-        } else {
-          go(i);
-        }
-      });
-      track.appendChild(s);
+      wrapper.appendChild(s);
       var th = document.createElement("img");
       th.src = it.src + "-thumb.webp"; th.loading = "lazy"; th.className = "vw-th"; th.alt = "";
-      th.addEventListener("click", function(e){ e.stopPropagation(); go(i); });
+      th.addEventListener("click", function(e){ e.stopPropagation(); sw.slideTo(i); });
       dock.appendChild(th);
     });
-    function center(){
-      var slide = track.children[idx];
-      if(!slide) return;
-      var off = slide.offsetLeft + slide.offsetWidth/2 - main.clientWidth/2;
-      track.style.transform = "translateX(" + (-off).toFixed(1) + "px)";
-    }
-    function go(i){
-      idx = (i + items.length) % items.length;
-      /* 中心亮、两侧露出并压暗（纯平，无翻转） */
-      Array.prototype.forEach.call(track.children, function(s, k){
-        var d = k - idx, abs = Math.abs(d);
-        s.classList.toggle("on", d === 0);
-        if(d === 0){
-          s.style.transform = "scale(1)";
-          s.style.opacity = "1";
-        } else {
-          s.style.transform = "scale(.94)";
-          s.style.opacity = abs === 1 ? ".4" : ".2";
-        }
-      });
-      center();
+    function update(idx){
       var ths = dock.querySelectorAll(".vw-th");
       ths.forEach(function(t2, k){ t2.classList.toggle("on", k === idx); });
       var active = ths[idx];
       if(active) dock.scrollTo({ left: active.offsetLeft - dock.clientWidth/2 + active.clientWidth/2, behavior: "smooth" });
-      var c = items[idx].cap || "";
+      var c = items[idx] ? (items[idx].cap || "") : "";
       cap.textContent = c; cap.style.display = c ? "" : "none";
     }
-    v.querySelector(".vw-prev").addEventListener("click", function(){ go(idx - 1); });
-    v.querySelector(".vw-next").addEventListener("click", function(){ go(idx + 1); });
-    addEventListener("resize", center);
-    /* 触摸/指针拖拽滑动：指针捕获（出边界不断触）、快甩低阈值、松手吸附 */
-    var dragX = null, dragged = false, baseOff = 0, dragT = 0;
-    function trackOffset(){
-      var slide = track.children[idx];
-      return slide ? -(slide.offsetLeft + slide.offsetWidth/2 - main.clientWidth/2) : 0;
-    }
-    main.addEventListener("pointerdown", function(e){
-      dragX = e.clientX; dragged = false; baseOff = trackOffset(); dragT = performance.now();
-      try { main.setPointerCapture(e.pointerId); } catch(err){}
-      main.classList.add("dragging");
+    var sw = new Swiper(v.querySelector(".swiper"), {
+      slidesPerView: "auto",
+      centeredSlides: true,
+      spaceBetween: 18,
+      grabCursor: true,
+      slideToClickedSlide: true,   /* 点侧边图滑过去 */
+      threshold: 6,                /* 微小抖动不触发 */
+      touchAngle: 30,              /* 手势偏竖向时放行页面滚动 */
+      touchReleaseOnEdges: true,
+      resistanceRatio: .65,
+      speed: reduced ? 0 : 520,
+      on: { slideChange: function(){ update(this.activeIndex); } }
     });
-    main.addEventListener("pointermove", function(e){
-      if(dragX === null) return;
-      var dx = e.clientX - dragX;
-      if(Math.abs(dx) > 8) dragged = true;
-      track.style.transform = "translateX(" + (baseOff + dx).toFixed(1) + "px)";
+    /* 点击当前居中的图 -> 大图 */
+    wrapper.addEventListener("click", function(e){
+      var slide = e.target.closest(".swiper-slide");
+      if(!slide) return;
+      var i = Array.prototype.indexOf.call(wrapper.children, slide);
+      if(i === sw.activeIndex){
+        openLightbox(items.map(function(x){ return { src: x.src + ".webp", cap: x.cap }; }), i);
+      }
     });
-    function endDrag(e){
-      if(dragX === null) return;
-      var dx = e.clientX - dragX;
-      var dt = Math.max(1, performance.now() - dragT);
-      dragX = null;
-      main.classList.remove("dragging");
-      /* 慢拖：超过舞台宽 10%（上限 56px）即切换；快甩：速度够快 20px 就切换 */
-      var slow = Math.min(56, main.clientWidth * 0.1);
-      var flick = Math.abs(dx) > 20 && Math.abs(dx) / dt > 0.35;
-      if(dx < 0 && (-dx > slow || flick)) go(idx + 1);
-      else if(dx > 0 && (dx > slow || flick)) go(idx - 1);
-      else center();
-    }
-    main.addEventListener("pointerup", endDrag);
-    main.addEventListener("pointercancel", endDrag);
-    main.addEventListener("click", function(e){
-      if(dragged){ e.stopPropagation(); e.preventDefault(); dragged = false; }
-    }, true);
-    go(0);
-    /* 图片加载后重新对中一次，保证初始定位精确 */
-    track.querySelectorAll("img").forEach(function(im){ im.addEventListener("load", center); });
+    v.querySelector(".vw-prev").addEventListener("click", function(){ sw.slidePrev(); });
+    v.querySelector(".vw-next").addEventListener("click", function(){ sw.slideNext(); });
+    /* 图片加载后刷新布局，保证初始居中精确 */
+    wrapper.querySelectorAll("img").forEach(function(im){
+      im.addEventListener("load", function(){ sw.update(); });
+    });
+    update(0);
     return v;
   }
 

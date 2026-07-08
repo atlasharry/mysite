@@ -82,6 +82,22 @@
     var ob = document.getElementById("onboard");
     if(!ob) return;
     var done = false;
+    /* 按两个开关按钮的实际位置摆放光圈/光洞/提示语 */
+    function place(){
+      var t = document.getElementById("themeToggle"), l = document.getElementById("langToggle");
+      var ring = ob.querySelector(".onboard-ring"), tip = ob.querySelector(".onboard-tip");
+      if(!t || !l || !ring || !tip) return;
+      var r1 = t.getBoundingClientRect(), r2 = l.getBoundingClientRect();
+      var left = Math.min(r1.left, r2.left) - 14, right = Math.max(r1.right, r2.right) + 14;
+      var top = Math.min(r1.top, r2.top) - 10, bottom = Math.max(r1.bottom, r2.bottom) + 10;
+      ring.style.left = left + "px"; ring.style.top = top + "px";
+      ring.style.width = (right - left) + "px"; ring.style.height = (bottom - top) + "px";
+      ob.style.setProperty("--obx", ((left + right) / 2) + "px");
+      ob.style.setProperty("--oby", ((top + bottom) / 2) + "px");
+      tip.style.top = (bottom + 16) + "px";
+      tip.style.right = Math.max(10, innerWidth - right) + "px";
+    }
+    addEventListener("resize", place);
     function dismiss(){
       if(done) return;
       done = true;
@@ -91,6 +107,7 @@
     }
     setTimeout(function(){
       ob.hidden = false;
+      place();
       requestAnimationFrame(function(){ ob.classList.add("show"); });
     }, 900);
     setTimeout(dismiss, 10000);

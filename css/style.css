@@ -32,7 +32,8 @@
   --spot:rgba(156,124,71,.10); --shadow:0 18px 45px rgba(20,20,19,.16);
   --trail:rgba(20,20,19,.22);
 }
-html[lang^="en"]{--serif:Lora,"Noto Serif SC",Georgia,serif}
+html[lang^="en"]{--serif:Lora,"Noto Serif SC",Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:5rem}
 /* 横向溢出保险：任何元素越界都不产生横向平移/缩小空间（clip 不破坏 sticky） */
@@ -221,18 +222,15 @@ html[lang^="en"] .tc-en{letter-spacing:.3em}
 #astroWrap{position:absolute;inset:0;left:50%;width:100vw;transform:translateX(-50%);z-index:-1;overflow:hidden}
 #astroWrap canvas{width:100%;height:100%}
 
-/* ========== 大图滑动组件（3D coverflow：中间亮平面，两侧转角退深变暗） ========== */
+/* ========== 大图滑动组件（Swiper：中间亮、两侧露出压暗、原始宽高） ========== */
 .viewer{margin:0 auto;max-width:100%}
-.viewer-main{position:relative;height:clamp(300px,54vh,560px);overflow:hidden;perspective:1400px;
-  touch-action:pan-y}
-.viewer-main.dragging .vw-track{transition:none}
-.vw-track{display:flex;align-items:center;gap:clamp(1.2rem,2.5vw,2.2rem);height:100%;
-  transition:transform .7s cubic-bezier(.22,.61,.36,1);will-change:transform;transform-style:preserve-3d}
-.vw-slide{flex:0 0 auto;height:100%;display:flex;align-items:center;cursor:pointer;
-  transition:transform .65s cubic-bezier(.22,.61,.36,1),opacity .65s ease}
-.vw-slide img{height:100%;width:auto;display:block;border-radius:clamp(12px,1.6vw,22px);
+.viewer-main{position:relative;height:clamp(300px,54vh,560px);overflow:hidden}
+.viewer-main .swiper-wrapper{align-items:center;height:100%}
+.viewer-main .swiper-slide{width:auto;height:100%;display:flex;align-items:center;cursor:pointer;
+  opacity:.35;filter:brightness(.85);transition:opacity .5s ease,filter .5s ease}
+.viewer-main .swiper-slide img{height:100%;width:auto;display:block;border-radius:clamp(12px,1.6vw,22px);
   box-shadow:var(--shadow)}
-.vw-slide.on{cursor:zoom-in}
+.viewer-main .swiper-slide-active{opacity:1;filter:none;cursor:zoom-in}
 .vw-arr{position:absolute;top:50%;transform:translateY(-50%);width:2.6rem;height:2.6rem;border-radius:50%;
   border:none;cursor:pointer;background:rgba(10,9,8,.45);color:#faf9f5;font-size:1.5rem;line-height:1;
   opacity:0;transition:opacity .35s,background .3s;backdrop-filter:blur(6px);z-index:2}
@@ -288,6 +286,8 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
 .map-hint{color:var(--ink-dim);font-size:.82rem;letter-spacing:.2em;margin-bottom:1.2rem;text-align:center}
 .map-wrap{position:relative}
 .map-wrap svg{width:100%;height:auto;display:block}
+.map-wrap svg.zoomed{cursor:grab;touch-action:none}
+.map-wrap svg.zoomed:active{cursor:grabbing}
 .map-outline{fill:var(--map-fill);stroke:var(--map-stroke);stroke-width:.8;stroke-linejoin:round;stroke-linecap:round}
 /* 图钉：呼吸光环圆点 */
 .pin{cursor:pointer}
@@ -323,24 +323,18 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
 .loc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;margin-top:1.2rem}
 .loc-grid img,.loc-grid video{width:100%;aspect-ratio:3/2;object-fit:cover;cursor:pointer;border:1px solid var(--hairline)}
 
-/* ========== 首访引导：右上角开关的光亮提示 ========== */
+/* ========== 首访引导：右上角开关的光亮提示（位置由 JS 实测按钮定位） ========== */
 .onboard{position:fixed;inset:0;z-index:48;cursor:pointer;
-  background:radial-gradient(circle 170px at calc(100% - 92px) 38px,transparent 45%,rgba(5,4,3,.62) 100%);
+  background:radial-gradient(circle 170px at var(--obx,calc(100% - 92px)) var(--oby,38px),transparent 45%,rgba(5,4,3,.62) 100%);
   opacity:0;transition:opacity .7s ease}
 .onboard.show{opacity:1}
-.onboard-ring{position:absolute;top:9px;right:5px;width:122px;height:46px;
-  border:1.5px solid var(--accent);border-radius:26px;
+.onboard-ring{position:absolute;border:1.5px solid var(--accent);border-radius:999px;
   box-shadow:0 0 34px 8px var(--accent-dim),inset 0 0 18px rgba(235,219,188,.15);
   animation:onbpulse 1.9s ease-in-out infinite}
 @keyframes onbpulse{0%,100%{transform:scale(1);opacity:.95}50%{transform:scale(1.1);opacity:.45}}
-.onboard-tip{position:absolute;top:70px;right:16px;max-width:16rem;text-align:right;
+.onboard-tip{position:absolute;max-width:16rem;text-align:right;
   color:#faf9f5;font-family:var(--serif);font-size:.9rem;letter-spacing:.12em;line-height:1.9;
   text-shadow:0 2px 14px rgba(0,0,0,.7)}
-@media (max-width:640px){
-  .onboard{background:radial-gradient(circle 140px at calc(100% - 68px) 30px,transparent 42%,rgba(5,4,3,.62) 100%)}
-  .onboard-ring{top:8px;right:3px;width:104px;height:38px}
-  .onboard-tip{top:58px;right:12px}
-}
 
 /* ========== lightbox ========== */
 .lightbox{position:fixed;inset:0;z-index:90;background:var(--overlay-strong);display:grid;place-items:center}
@@ -402,6 +396,6 @@ html[lang^="en"] .sheet-info h3{letter-spacing:.04em}
   .pin .halo{animation:none}
   .onboard-ring{animation:none}
   .hero-story .story-arrow,.map-cue .story-arrow{animation:none}
-  .vw-track,.vw-slide{transition:none}
+  .viewer-main .swiper-slide{transition:none}
   .flight{display:none}
 }

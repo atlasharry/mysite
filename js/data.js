@@ -7,9 +7,9 @@ i18n: {
     travel:{zh:"旅行",en:"Travel"}, about:{zh:"关于",en:"About"}
   },
   hero: {
-    tagline:{zh:"以镜头与模型，讲述同一个世界",en:"Telling one world — through lenses and models"},
-    sub:{zh:"导演 · 计算机科学研究者",en:"Filmmaker · Computer Scientist"},
-    story:{zh:"听听我的故事",en:"Hear my story"}
+    tagline:{zh:"以镜头与模型，讲述同一个世界",en:"The same world, twice: once through a lens, once in code"},
+    sub:{zh:"导演 · 计算机科学研究者",en:"Filmmaker · AI Researcher"},
+    story:{zh:"听听我的故事",en:"The story so far"}
   },
   films: {
     title:{zh:"影像",en:"Films"}, alt:{zh:"FILMS",en:"影像"},
@@ -18,7 +18,7 @@ i18n: {
   },
   aigc: { title:{zh:"AI × 创作",en:"AI × Art"}, alt:{zh:"AI × ART",en:"AI × 创作"} },
   research: { title:{zh:"研究与工程",en:"Research & Engineering"}, alt:{zh:"RESEARCH",en:"研究与工程"}, papers:{zh:"论文发表",en:"Publications"} },
-  astro: { title:{zh:"星空",en:"Astronomy"}, alt:{zh:"ASTRONOMY",en:"星空"}, empty:{zh:"银河与极光，整理中",en:"Galaxies and aurorae — coming soon"} },
+  astro: { title:{zh:"星空",en:"Astronomy"}, alt:{zh:"ASTRONOMY",en:"星空"}, empty:{zh:"银河与极光，整理中",en:"Galaxies and aurorae, coming soon"} },
   travel: {
     title:{zh:"旅行",en:"Travel"}, alt:{zh:"TRAVEL",en:"旅行"},
     hint:{zh:"点击图钉，看看我在那里看见的世界",en:"Click a pin to see what I saw there"},
@@ -26,11 +26,11 @@ i18n: {
     view:{zh:"点击查看",en:"Click to view"},
     zoom:{zh:"点击放大",en:"Click to zoom"},
     back:{zh:"返回全图",en:"Full map"},
-    goto:{zh:"去看看我走过的世界",en:"See the world I have walked"}
+    goto:{zh:"去看看我走过的世界",en:"See where I've been"}
   },
   about: { title:{zh:"关于",en:"About"}, alt:{zh:"ABOUT",en:"关于"}, resume:{zh:"查看简历",en:"Résumé"} },
   footer: { line:{zh:"© 2026 余城宇 · Harry Yu",en:"© 2026 Harry Yu"} },
-  onboard: { tip:{zh:"在这里切换 中 / EN 与明暗主题",en:"Switch language & light / dark theme here"} }
+  onboard: { tip:{zh:"在这里切换 中 / EN 与明暗主题",en:"Language & theme, right up here"} }
 },
 
 films: [
@@ -40,7 +40,7 @@ films: [
     roles:{zh:"编剧 / 导演 / 摄影 / 剪辑",en:"Writer / Director / DP / Editor"},
     badges:[{zh:"申报中",en:"In submission"}],
     synopsis:{zh:"母亲生日当天，一通来自内江老家的电话打破了平静：患阿尔茨海默症的外婆走失了。她随即踏上归乡寻母之路。一次寻找，也是女儿、母亲与外婆三代女性之间情感的传递。",
-      en:"On her own birthday, a mother receives a call from her hometown: her mother, living with Alzheimer’s, has gone missing. She sets out at once on a journey home — a search that traces the bonds among three generations of women."},
+      en:"On her birthday, a mother gets a call from home: her own mother, who has Alzheimer’s, has wandered off. She drops everything and goes back. The search turns into a quiet portrait of three generations of women and the love handed down between them."},
     poster:"assets/films/birthday-poster", stills:[{ src:"assets/films/birthday-still-01", ar:"2000/853" }] },
   { id:"suisui",
     title:{zh:"岁岁平安",en:"岁岁平安"}, year:"2026",
@@ -78,11 +78,11 @@ aigc: [
   { tag:{zh:"AIGC 影片",en:"AIGC FILM"},
     title:{zh:"《岁岁平安》",en:"岁岁平安"},
     desc:{zh:"以生成式模型完成的短片，入围 AI 电影大奖（西班牙·马加鲁夫）与首尔国际 AI 电影节。",
-      en:"A short film made with generative models — official selection at the AI Movie Awards (Magaluf, Spain) and the Seoul International AI Film Festival."} },
+      en:"A short film made with generative models, selected at the AI Movie Awards (Magaluf, Spain) and the Seoul International AI Film Festival."} },
   { tag:{zh:"风格模型",en:"STYLE MODELS"},
     title:{zh:"LoRA 风格模型 × 100 万用户",en:"LoRA style models × 1M users"},
     desc:{zh:"在同花顺独立训练并上线 5+ LoRA 风格模型，搭建从数据处理、训练到服务上线的端到端流水线，累计服务超 100 万用户。",
-      en:"Independently trained and shipped 5+ LoRA style models end-to-end — data, training, inference, deployment — serving over one million users."} },
+      en:"Independently trained and shipped 5+ LoRA style models end to end, from data and training to deployment, serving over one million users."} },
   { tag:{zh:"美学 × 架构",en:"AESTHETICS × ARCHITECTURE"},
     title:{zh:"视频生成的美学标准",en:"Aesthetic criteria for video generation"},
     desc:{zh:"调研 DiT、时空 VAE 等视频生成架构，结合电影专业背景制定美学评判标准，输出覆盖 5000+ 员工的公司级技术报告。",
@@ -129,7 +129,7 @@ exhibition: {
   credit:{zh:"余城宇 · 2021 – 2025",en:"Harry Yu · 2021 – 2025"},
   statement:{
     zh:"“我们所理解的世界，究竟是一个客观、完整、连续的整体，还是由无数鲜活而短暂的瞬间拼凑而成的幻象？\n在这里，我用这些刹那的光影编织出属于我的世界之轮廓。它们或许不完美、不永恒，却以细碎之美映照出我的生命旅程。这些瞬间既是目光与心灵的碰撞，也是时间对记忆的雕琢。这并非终点。随着岁月流转，这些曾经的瞬间将沉淀为某种更深远的意义，而我的目光，也将继续追逐那些未曾定义的风景。\n愿你在这里，看见的不仅是我的世界，也感受到属于你自己的时光碎片与生命共鸣。”",
-    en:"“Is the world we understand an objective, complete and continuous whole — or an illusion pieced together from countless vivid, fleeting moments?\nHere I weave the contours of my world from these instants of light and shadow. Imperfect and impermanent, they mirror my journey in fragments of beauty — collisions of gaze and heart, memory carved by time. This is not an end: as the years turn, these moments will settle into something deeper, and my eyes will keep chasing landscapes not yet defined.\nMay you find here not only my world, but fragments of your own time, resonating with your own life.”"
+    en:"“Is the world we know one continuous whole, or a mosaic of brief, vivid moments?\nThese photographs are my answer: fragments of light picked up along the way. They are imperfect and they don’t last, but together they trace the shape of a life. Each one marks a small collision between what I saw and what I felt. None of this is a finished map. The moments keep settling into meaning, and I keep chasing landscapes I don’t have names for yet.\nI hope you find more than my world here. I hope some of it feels like yours.”"
   },
   works: [
     { src:"assets/world/world-01", num:"Ⅰ", ar:"1336/2000" },
@@ -172,7 +172,7 @@ about: {
   portrait:"assets/me/portrait", portraitAr:"1086/1290",
   bio:{
     zh:"余城宇，青年导演、AI算法研究者。现于卡内基梅隆大学（Carnegie Mellon University）攻读MSCS计算机科学硕士，本科以弗里曼亚洲学者身份毕业于卫斯理大学（Wesleyan University）电影与计算机科学双专业，获高荣誉学位。他长期关注影像、人工智能与艺术创作之间的关系，擅长从技术与人文的交界处探索 AI 对叙事、感知和创作者能力边界的拓展。其作品关注家庭、记忆与身份，在克制的影像中呈现人物细腻的情感流动。",
-    en:"Harry Yu is a young filmmaker and AI researcher, currently pursuing an M.S. in Computer Science at Carnegie Mellon University. He graduated from Wesleyan University as a Freeman Asian Scholar with High Honors, double-majoring in Film Studies and Computer Science. His work has long explored the relationship between moving images, artificial intelligence and artistic creation — probing, from the intersection of technology and the humanities, how AI expands the boundaries of narrative, perception and creative authorship. His films dwell on family, memory and identity, capturing subtle emotional currents through a restrained visual language."
+    en:"Harry Yu is a filmmaker and AI researcher, currently pursuing an M.S. in Computer Science at Carnegie Mellon University. He graduated from Wesleyan University as a Freeman Asian Scholar with High Honors, double majoring in Film Studies and Computer Science. He works between cinema and machine intelligence, and keeps returning to one question: what does AI change about how stories are seen and made? His films stay close to family, memory, and identity, told in a restrained visual language that watches for the quiet currents between people."
   },
   contact:[
     { label:"Email",    url:"mailto:yuchengyu.ycy@gmail.com" },

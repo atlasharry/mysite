@@ -86,6 +86,7 @@
     zoomed = true;
     renderPins(target.w / W);   /* 图钉按目标缩放比预先补偿，保证放大后屏幕尺寸不变 */
     resetBtn.classList.add("show");
+    if(svg) svg.classList.add("zoomed");
     hideCard();
     loadDetail(function(){
       if(zoomed && outline) outline.setAttribute("d", WORLD_MAP_PATH_DETAIL);
@@ -96,26 +97,26 @@
     zoomed = false;
     resetBtn.classList.remove("show");
     hideCard();
+    if(svg) svg.classList.remove("zoomed");
     if(outline) outline.setAttribute("d", WORLD_MAP_PATH);
     animateTo({ x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h }, function(){ renderPins(1); });
   }
 
-  /* 点击地图任意位置：放大到该处（已放大时则平移过去） */
+  /* 全图状态下点击任意位置：放大到该处 */
   function zoomToPoint(cx, cy){
-    var w = zoomed ? view.w : 300, h = w / 2.5;
+    var w = 300, h = w / 2.5;
     var target = {
       x: Math.max(-40, Math.min(1040 - w, cx - w/2)),
       y: Math.max(0,   Math.min(420 - h,  cy - h/2)),
       w: w, h: h
     };
-    if(!zoomed){
-      zoomed = true;
-      renderPins(w / W);
-      resetBtn.classList.add("show");
-      loadDetail(function(){
-        if(zoomed && outline) outline.setAttribute("d", WORLD_MAP_PATH_DETAIL);
-      });
-    }
+    zoomed = true;
+    renderPins(w / W);
+    resetBtn.classList.add("show");
+    if(svg) svg.classList.add("zoomed");
+    loadDetail(function(){
+      if(zoomed && outline) outline.setAttribute("d", WORLD_MAP_PATH_DETAIL);
+    });
     hideCard();
     animateTo(target);
   }
@@ -176,8 +177,30 @@
     svg.appendChild(outline);
     pinLayer = document.createElementNS(NS, "g");
     svg.appendChild(pinLayer);
-    /* 空白处点击 -> 放大到点击位置（图钉/聚合点自行 stopPropagation） */
+    /* 全图：点空白放大到该处；放大后：拖拽平移 */
+    var panning = false, panMoved = false, panStart = null;
+    svg.addEventListener("pointerdown", function(e){
+      if(!zoomed) return;
+      panning = true; panMoved = false;
+      panStart = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y };
+      try { svg.setPointerCapture(e.pointerId); } catch(err){}
+    });
+    svg.addEventListener("pointermove", function(e){
+      if(!panning) return;
+      var r = svg.getBoundingClientRect();
+      var dxp = e.clientX - panStart.x, dyp = e.clientY - panStart.y;
+      if(Math.abs(dxp) + Math.abs(dyp) > 6) panMoved = true;
+      view.x = Math.max(-40, Math.min(1040 - view.w, panStart.vx - dxp * view.w / r.width));
+      view.y = Math.max(0,   Math.min(420 - view.h,  panStart.vy - dyp * view.h / r.height));
+      setViewBox(view);
+      hideCard();
+    });
+    function endPan(){ panning = false; }
+    svg.addEventListener("pointerup", endPan);
+    svg.addEventListener("pointercancel", endPan);
     svg.addEventListener("click", function(e){
+      if(panMoved){ panMoved = false; return; }   /* 拖拽结束的点击不触发 */
+      if(zoomed) return;                          /* 放大后靠拖拽，不再点击跳位 */
       var r = svg.getBoundingClientRect();
       var cx = view.x + (e.clientX - r.left) / r.width * view.w;
       var cy = view.y + (e.clientY - r.top) / r.height * view.h;
