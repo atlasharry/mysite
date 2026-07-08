@@ -212,6 +212,11 @@ button{font-family:inherit}
   background:linear-gradient(270deg,var(--trail),transparent 88%)}
 .flight .trail.t2{top:27px;width:27vw}
 
+/* ========== 星空章节背景（全宽星空，不占文档流） ========== */
+#astro{overflow:visible}
+#astroWrap{position:absolute;inset:0;left:50%;width:100vw;transform:translateX(-50%);z-index:-1;overflow:hidden}
+#astroWrap canvas{width:100%;height:100%}
+
 /* ========== 大图滑动组件（3D coverflow：中间亮平面，两侧转角退深变暗） ========== */
 .viewer{margin:0 auto;max-width:100%}
 .viewer-main{position:relative;height:clamp(300px,54vh,560px);overflow:hidden;perspective:1400px}
@@ -326,8 +331,14 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
 @media (max-width:640px){
   .nav nav{gap:.65rem;font-size:.74rem}
   .nav nav a[href="#aigc"],.nav nav a[href="#astro"]{display:none} /* 窄屏收纳次要锚点 */
-  .chapter{padding:5rem 0 4rem}
-  .titlecard{flex-wrap:wrap;gap:.8rem}
+  /* 移动端全面压紧板块间距 */
+  .chapter{padding:2.6rem 0 2.2rem}
+  .fade-band{height:7vh}
+  .titlecard{flex-wrap:wrap;gap:.8rem;margin-bottom:2rem}
+  .travel-bridge{height:13vh;margin:1.2rem 0 .5rem}
+  .worldmap{margin-top:2rem}
+  .exhibit-wall{gap:2rem}
+  .exhibit{gap:2rem}
   .films{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1.4rem}
   .overlay{padding:3.5rem 1rem 2rem}
   .hero{padding-top:6rem}
