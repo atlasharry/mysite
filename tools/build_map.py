@@ -45,3 +45,25 @@ def build(res, step, min_deg2, varname, outfile):
 
 build("110m/physical/ne_110m_land.json", 2, 18.0, "WORLD_MAP_PATH",        "js/worldmap-data.js")
 build("50m/physical/ne_50m_land.json",   2, 0.8,  "WORLD_MAP_PATH_DETAIL", "js/worldmap-detail.js")
+
+# 球面线框数据：经纬度点环（粗抽稀），供 3D 线框地球 canvas 使用
+def build_globe(res, step, min_deg2, outfile):
+    url = BASE + res
+    geo = json.load(urllib.request.urlopen(url))
+    rings = []
+    for f in geo["features"]:
+        g = f["geometry"]
+        polys = g["coordinates"] if g["type"] == "MultiPolygon" else [g["coordinates"]]
+        for poly in polys:
+            ring = poly[0]
+            xs = [p[0] for p in ring]; ys = [p[1] for p in ring]
+            if (max(xs)-min(xs)) * (max(ys)-min(ys)) < min_deg2: continue
+            if max(ys) < -58: continue
+            pts = [[round(p[0]), round(p[1])] for p in ring[::step]]
+            if len(pts) >= 3: rings.append(pts)
+    js = "window.WORLD_GLOBE=" + json.dumps(rings, separators=(",", ":")) + ";\n"
+    with open(outfile, "w", encoding="utf-8") as fh:
+        fh.write(js)
+    print("ok: %s -> %d rings, %.1f KB" % (outfile, len(rings), len(js) / 1024))
+
+build_globe("110m/physical/ne_110m_land.json", 4, 40.0, "js/worldmap-globe.js")

@@ -176,6 +176,13 @@
   resize();
   addEventListener("resize", resize);
   addEventListener("themechange", draw);
+  if(!reduced){
+    new IntersectionObserver(function(en){
+      var vis = en[0].isIntersecting;
+      if(vis && !running){ running = true; requestAnimationFrame(loop); }
+      if(!vis) running = false;
+    }, { threshold: 0 }).observe(cv);
+  }
 })();
 
 /* ===== 画展 → 地图：飞机从右下飞向左上，留尾迹云 ===== */
@@ -203,11 +210,4 @@
   }
   addEventListener("scroll", onScroll, { passive: true });
   onScroll();
-  if(!reduced){
-    new IntersectionObserver(function(en){
-      var vis = en[0].isIntersecting;
-      if(vis && !running){ running = true; requestAnimationFrame(loop); }
-      if(!vis) running = false;
-    }, { threshold: 0 }).observe(cv);
-  }
 })();

@@ -1,9 +1,27 @@
 (function(){
   var W = 1000, H = 500, NS = "http://www.w3.org/2000/svg";
+  var PHOTO_CENTER_X = 811;   /* 照片最密集经度（约 112°E，中国+东京）的投影 x */
   var DEFAULT = { x: 0, y: 10, w: 1000, h: 400 };
   var view = { x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h };
   var current = null, card = null, svg = null, pinLayer = null, zoomed = false, resetBtn = null, outline = null;
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* 默认视图随舞台宽高比自适应：纬度铺满、经度裁切并居中照片密集区。
+     竖屏手机 -> 只剩左右滑动；宽屏 -> 约 1.2-1.3 倍放大的沉浸全幅 */
+  function computeDefault(){
+    var wrap = document.getElementById("mapWrap");
+    var aspect = wrap && wrap.clientHeight ? wrap.clientWidth / wrap.clientHeight : 2.5;
+    var h = 400, w = h * aspect, y = 10;
+    if(w > 1000){ w = 1000; h = w / aspect; y = 10 + (400 - h) / 2; }
+    var x = Math.max(-20, Math.min(1020 - w, PHOTO_CENTER_X - w / 2));
+    return { x: x, y: y, w: w, h: h };
+  }
+
+  /* 图钉屏幕尺寸恒定：把期望像素折算成当前 viewBox 单位（修手机上 5px 小图钉的根因） */
+  function pinScale(vw){
+    var mapPx = (svg && svg.clientWidth) || 800;
+    return ((vw || view.w) / mapPx) * 1.35;
+  }
 
   /* 细节层懒加载：放大时换 50m 高精度大陆轮廓 */
   var detailLoading = false;
@@ -137,7 +155,7 @@
     loadDetail(function(){
       if(zoomed && outline) outline.setAttribute("d", WORLD_MAP_PATH_DETAIL);
     });
-    renderPins(target.w / W);   /* 图钉按目标缩放比预先补偿 */
+    renderPins(target.w);   /* 图钉按目标缩放比预先补偿 */
     animateTo(target, function(){ renderPins(); });   /* 到位后按新比例重新聚合 */
   }
   function resetZoom(){
@@ -146,7 +164,8 @@
     hideCard(); closeChooser();
     if(svg) svg.classList.remove("zoomed");
     if(outline) outline.setAttribute("d", WORLD_MAP_PATH);
-    animateTo({ x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h }, function(){ renderPins(1); });
+    DEFAULT = computeDefault();
+    animateTo({ x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h }, function(){ renderPins(); });
   }
 
   /* 全图状态下点击任意位置：放大到该处 */
@@ -158,7 +177,7 @@
       w: w, h: h
     };
     zoomed = true;
-    renderPins(w / W);
+    renderPins(w);
     resetBtn.classList.add("show");
     if(svg) svg.classList.add("zoomed");
     loadDetail(function(){
@@ -184,10 +203,10 @@
     g.addEventListener("mouseleave", hideCard);
     return g;
   }
-  function renderPins(scale){
+  function renderPins(wOverride){
     if(!pinLayer) return;
     pinLayer.innerHTML = "";
-    var s = scale || view.w / W;
+    var s = pinScale(wOverride);
     var mapPx = (svg && svg.clientWidth) || 800;
     screenClusters().forEach(function(g){
       if(g.locs.length === 1){
@@ -221,6 +240,7 @@
     if(!wrap || !window.WORLD_MAP_PATH) return;
     wrap.innerHTML = ""; card = null;
     svg = document.createElementNS(NS, "svg");
+    if(!zoomed){ DEFAULT = computeDefault(); view = { x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h }; }
     setViewBox(view);
     outline = document.createElementNS(NS, "path");
     outline.setAttribute("d", (zoomed && window.WORLD_MAP_PATH_DETAIL) ? WORLD_MAP_PATH_DETAIL : WORLD_MAP_PATH);
@@ -231,7 +251,7 @@
     /* 全图：点空白放大到该处；放大后：拖拽平移 */
     var panning = false, panMoved = false, panStart = null;
     svg.addEventListener("pointerdown", function(e){
-      if(!zoomed) return;
+      if(!zoomed && view.w >= 990) return;   /* 只有完整全图才无需平移 */
       panning = true; panMoved = false;
       panStart = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y };
       try { svg.setPointerCapture(e.pointerId); } catch(err){}
@@ -263,11 +283,26 @@
     wrap.appendChild(svg);
     resetBtn = document.createElement("button");
     resetBtn.className = "map-reset" + (zoomed ? " show" : "");
-    resetBtn.textContent = "↩ " + I18N.t(SITE.i18n.travel.back);
+    resetBtn.textContent = I18N.t(SITE.i18n.travel.back);
     resetBtn.addEventListener("click", resetZoom);
     wrap.appendChild(resetBtn);
     renderPins();
   }
+
+  /* 窗口尺寸/横竖屏变化：未放大时重算默认视图 */
+  var rsTimer;
+  addEventListener("resize", function(){
+    clearTimeout(rsTimer);
+    rsTimer = setTimeout(function(){
+      if(!svg) return;
+      if(!zoomed){
+        DEFAULT = computeDefault();
+        view = { x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h };
+        setViewBox(view);
+      }
+      renderPins();
+    }, 150);
+  });
 
   function select(loc){
     current = loc;
