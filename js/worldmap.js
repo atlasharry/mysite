@@ -336,6 +336,27 @@
     });
   }
 
+  /* ---- 宇宙缩放序列接管钩子（cosmos.js）：读取当前视野与图钉，交接时整体隐藏，
+     滚回来原样恢复——真实地图状态全程不被改动 ---- */
+  window.__MAPHOOK = {
+    rect: function(){ return svg ? svg.getBoundingClientRect() : null; },
+    view: function(){ return { x: view.x, y: view.y, w: view.w, h: view.h }; },
+    path: function(){ return outline ? outline.getAttribute("d") : (window.WORLD_MAP_PATH || ""); },
+    markers: function(){
+      if(!svg) return [];
+      var s = pinScale();
+      return screenClusters().map(function(g){
+        return { x: g.center[0], y: g.center[1], s: s, n: g.locs.length };
+      });
+    },
+    hide: function(h){
+      var wrap = document.getElementById("mapWrap"), panel = document.getElementById("locPanel");
+      if(wrap) wrap.style.visibility = h ? "hidden" : "";
+      if(panel) panel.style.visibility = h ? "hidden" : "";
+      if(h){ hideCard(); closeChooser(); }
+    }
+  };
+
   document.addEventListener("DOMContentLoaded", function(){
     build();
     I18N.onChange(function(){ build(); renderPanel(); });
