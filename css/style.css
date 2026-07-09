@@ -222,7 +222,8 @@ html[lang^="en"] .tc-en{letter-spacing:.3em}
 .flight .trail.t2{top:27px;width:27vw}
 
 /* ========== 星空章节背景（全宽星空，不占文档流） ========== */
-#astro{overflow:visible}
+/* 星空章节上叠进宇宙序列尾部：画出的银河下落，与第一张照片重合后淡出 */
+#astro{overflow:visible;z-index:2;margin-top:-92vh}
 #astroWrap{position:absolute;inset:0;left:50%;width:100vw;transform:translateX(-50%);z-index:-1;overflow:hidden}
 #astroWrap canvas{width:100%;height:100%}
 
@@ -358,7 +359,10 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
   text-shadow:0 2px 14px rgba(0,0,0,.7)}
 
 /* ========== 宇宙缩放序列（地图->地球->太阳系->银河->星空） ========== */
-.cosmos{position:relative;width:100vw;margin-left:calc(50% - 50vw);height:360vh}
+/* 负上边距让定幕时刻恰好等于地图居中时刻（86vh = 50vh + 地图半高 36vh，4.5rem = 章节底留白）；
+   pointer-events:none 让下方真实地图保持可交互 */
+.cosmos{position:relative;width:100vw;margin-left:calc(50% - 50vw);height:560vh;
+  margin-top:calc(-86vh - 4.5rem);pointer-events:none}
 .cosmos-stage{position:sticky;top:0;height:100vh;overflow:hidden}
 .cosmos-stage canvas{width:100%;height:100%;display:block}
 .cosmos-cap{position:absolute;left:0;right:0;bottom:12vh;text-align:center;pointer-events:none;
@@ -392,7 +396,8 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
   .travel-bridge{height:13vh;margin:1.2rem 0 .5rem}
   .worldmap{margin-top:2rem}
   .map-wrap{height:clamp(380px,62vh,600px)}
-  .cosmos{height:300vh}
+  .cosmos{height:460vh;margin-top:calc(-81vh - 2.2rem)}
+  #astro{margin-top:-78vh}
   .exhibit-wall{gap:2rem}
   .exhibit{gap:2rem}
   .films{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1.4rem}
