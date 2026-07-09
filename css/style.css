@@ -288,11 +288,12 @@ html[lang^="en"] .tc-en{letter-spacing:.3em}
 /* ========== footer ========== */
 footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.74rem;letter-spacing:.22em}
 
-/* ========== 世界地图（无边框，融入页面） ========== */
+/* ========== 世界地图（全幅沉浸舞台） ========== */
 .worldmap{margin-top:4rem}
 .map-hint{color:var(--ink-dim);font-size:.82rem;letter-spacing:.2em;margin-bottom:1.2rem;text-align:center}
-.map-wrap{position:relative}
-.map-wrap svg{width:100%;height:auto;display:block}
+.map-wrap{position:relative;width:100vw;margin-left:calc(50% - 50vw);
+  height:clamp(420px,72vh,780px)}
+.map-wrap svg{width:100%;height:100%;display:block;touch-action:pan-y}
 .map-wrap svg.zoomed{cursor:grab;touch-action:none}
 .map-wrap svg.zoomed:active{cursor:grabbing}
 .map-outline{fill:var(--map-fill);stroke:var(--map-stroke);stroke-width:.8;stroke-linejoin:round;stroke-linecap:round}
@@ -311,8 +312,10 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
 .cluster:hover circle{transform:scale(1.15)}
 .cluster text{fill:var(--accent);font-family:var(--lat-serif);font-size:11px;text-anchor:middle;dominant-baseline:central}
 /* 返回全图 */
-.map-reset{position:absolute;top:0;right:0;z-index:6;border:1px solid var(--accent-dim);color:var(--accent);
-  background:transparent;font-size:.74rem;letter-spacing:.12em;padding:.35rem .9rem;cursor:pointer;
+.map-reset{position:absolute;top:1rem;right:max(1rem,calc((100vw - min(72rem,92vw))/2));z-index:6;
+  border:1px solid var(--accent-dim);color:var(--accent);
+  background:var(--nav-bg);backdrop-filter:blur(8px);border-radius:3px;
+  font-size:.74rem;letter-spacing:.12em;padding:.4rem 1rem;cursor:pointer;
   opacity:0;pointer-events:none;transition:opacity .5s ease,background .3s,color .3s}
 .map-reset.show{opacity:1;pointer-events:auto}
 .map-reset:hover{background:var(--accent);color:var(--bg)}
@@ -354,6 +357,11 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
   color:#faf9f5;font-family:var(--serif);font-size:.9rem;letter-spacing:.12em;line-height:1.9;
   text-shadow:0 2px 14px rgba(0,0,0,.7)}
 
+/* ========== 3D 线框地球过渡幕 ========== */
+.globe-band{position:relative;left:50%;transform:translateX(-50%);width:100vw;height:52vh;
+  overflow:hidden;margin:2rem 0}
+.globe-band canvas{width:100%;height:100%;display:block}
+
 /* ========== lightbox ========== */
 .lightbox{position:fixed;inset:0;z-index:90;background:var(--overlay-strong);display:grid;place-items:center}
 .lightbox[hidden]{display:none}
@@ -380,6 +388,8 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
   .titlecard{flex-wrap:wrap;gap:.8rem;margin-bottom:2rem}
   .travel-bridge{height:13vh;margin:1.2rem 0 .5rem}
   .worldmap{margin-top:2rem}
+  .map-wrap{height:clamp(380px,62vh,600px)}
+  .globe-band{height:38vh}
   .exhibit-wall{gap:2rem}
   .exhibit{gap:2rem}
   .films{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1.4rem}
