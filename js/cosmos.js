@@ -10,7 +10,7 @@
   if(!wrap || !cv || !window.WORLD_GLOBE) return;
   var ctx = cv.getContext("2d");
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var W = 0, H = 0, spin = 205, gal = 0, visible = false, lastP = 0;
+  var W = 0, H = 0, spin = 0, gal = 0, visible = false, lastP = 0;   /* spin 从 0 起：卷曲保持地图正面 */
   var RAD = Math.PI / 180, TILT = 16 * RAD;
 
   /* ---- 世界模型（艺术比例，非真实尺度），太阳在原点 ----
@@ -145,63 +145,69 @@
     }
   }
 
-  function orthoPt(lon, lat, R, cx, cy){
-    var l = (lon + spin) * RAD, f = lat * RAD;
-    var x = Math.cos(f) * Math.sin(l);
-    var y = Math.sin(f);
-    var z = Math.cos(f) * Math.cos(l);
-    var y2 = y * Math.cos(TILT) - z * Math.sin(TILT);
-    var z2 = y * Math.sin(TILT) + z * Math.cos(TILT);
-    return [cx + R * x, cy - R * y2, z2];
-  }
-
-  /* 环线世界：m=0 平铺（宽 mw），m=1 正交球（半径 R） */
+  /* 环线世界：m=0 平铺（宽 mw）-> m=1 正交球（半径 R）
+     “卷纸成球”投影族：水平/垂直曲率半径从无穷大收到球半径，中央经纬不动，
+     边缘随 m 弯出弧线并绕到球后隐去——m=0 精确等于平铺，m=1 精确等于正交球 */
   function drawLand(m, R, cx, cy, alpha, mw){
     if(alpha <= .01 || R < 1.2) return;
+    var mm = Math.max(m, 0.0001);
+    var Rf = (mw / 6.2832) * (1 - m) + R * m;   /* 平铺尺度 -> 球半径 */
+    var Rm = Rf / mm;
+    var sp = spin * m, T = TILT * m;
+    var cT = Math.cos(T), sT = Math.sin(T);
+    var o = [0, 0, 0];
+    function pt(lon, lat){
+      var lam = (lon + sp) * RAD, phi = lat * RAD;
+      var Cw = 1 - m + m * Math.cos(phi);         /* 纬圈收窄随 m 显现 */
+      var x  = Rm * Math.sin(mm * lam) * Cw;
+      var yf = -Rm * Math.sin(mm * phi);
+      var zf = Rm * (Math.cos(mm * lam) - 1) * Cw + Rm * (Math.cos(mm * phi) - 1);
+      o[0] = cx + x;
+      o[1] = cy + yf * cT + (zf + Rf) * sT;
+      o[2] = -yf * sT / Rf + (zf + Rf) * cT / Rf;  /* >0 朝向观者 */
+    }
     ctx.lineWidth = 1;
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = C.line;
     for(var i = 0; i < WORLD_GLOBE.length; i++){
       var ring = WORLD_GLOBE[i];
-      for(var pass = 0; pass < 2; pass++){
-        var a = pass === 0 ? alpha : alpha * (1 - m);
-        if(a <= .02) continue;
-        ctx.globalAlpha = a;
-        ctx.strokeStyle = C.line;
-        ctx.beginPath();
-        var pen = false;
-        for(var k = 0; k <= ring.length; k++){
-          var q = ring[k % ring.length];
-          var o = orthoPt(q[0], q[1], R, cx, cy);
-          if((pass === 0) !== (o[2] > 0)){ pen = false; continue; }
-          var fx = cx + q[0] / 360 * mw, fy = cy - q[1] / 180 * (mw / 2);
-          var px = fx + (o[0] - fx) * m, py = fy + (o[1] - fy) * m;
-          if(pen) ctx.lineTo(px, py); else { ctx.moveTo(px, py); pen = true; }
-        }
-        ctx.stroke();
+      ctx.beginPath();
+      var pen = false;
+      for(var k = 0; k <= ring.length; k++){
+        var q = ring[k % ring.length];
+        pt(q[0], q[1]);
+        if(o[2] <= 0.001){ pen = false; continue; }
+        if(pen) ctx.lineTo(o[0], o[1]); else { ctx.moveTo(o[0], o[1]); pen = true; }
       }
+      ctx.stroke();
     }
-    if(m > 0.35 && R > 24){
-      ctx.globalAlpha = alpha * (m - 0.35) / 0.65 * 0.5;
+    /* 经纬网随弧度浮现 */
+    if(m > 0.3 && R > 24){
+      ctx.globalAlpha = alpha * (m - 0.3) / 0.7 * 0.5;
       ctx.strokeStyle = C.faint;
       var g, a2;
       for(g = -60; g <= 60; g += 30){
         ctx.beginPath(); var p2 = false;
         for(a2 = -180; a2 <= 180; a2 += 6){
-          var o1 = orthoPt(a2, g, R, cx, cy);
-          if(o1[2] > 0){ if(p2) ctx.lineTo(o1[0], o1[1]); else { ctx.moveTo(o1[0], o1[1]); p2 = true; } }
+          pt(a2, g);
+          if(o[2] > 0.001){ if(p2) ctx.lineTo(o[0], o[1]); else { ctx.moveTo(o[0], o[1]); p2 = true; } }
           else p2 = false;
         }
         ctx.stroke();
       }
-      for(g = 0; g < 360; g += 30){
+      for(g = -180; g < 180; g += 30){
         ctx.beginPath(); var p3 = false;
         for(a2 = -85; a2 <= 85; a2 += 6){
-          var o2 = orthoPt(g, a2, R, cx, cy);
-          if(o2[2] > 0){ if(p3) ctx.lineTo(o2[0], o2[1]); else { ctx.moveTo(o2[0], o2[1]); p3 = true; } }
+          pt(g, a2);
+          if(o[2] > 0.001){ if(p3) ctx.lineTo(o[0], o[1]); else { ctx.moveTo(o[0], o[1]); p3 = true; } }
           else p3 = false;
         }
         ctx.stroke();
       }
-      ctx.globalAlpha = alpha * m;
+    }
+    /* 球体轮廓：完全收成圆后才描 */
+    if(m > 0.85){
+      ctx.globalAlpha = alpha * (m - 0.85) / 0.15;
       ctx.strokeStyle = C.line;
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.stroke();
     }
@@ -375,9 +381,9 @@
     });
   }
 
-  /* 静止微动：地球自转、银河缓旋（滚动中让位；地图接管阶段无需重绘） */
+  /* 静止微动：地球自转、银河缓旋（滚动中让位；卷曲完成前不转，避免半卷的纸横向滑动） */
   function idle(){
-    if(visible && lastP > 0.16 && !window.__pageScrolling() && !reduced){
+    if(visible && lastP > 0.40 && !window.__pageScrolling() && !reduced){
       spin += 0.045; gal += 0.0004;
       draw(lastP);
     }
