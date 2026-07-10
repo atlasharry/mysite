@@ -15,7 +15,7 @@
 
   /* ---- 世界模型（艺术比例，非真实尺度），太阳在原点 ----
      所有天体共用一个侧斜视角：先压扁（SQ）再旋转（ROT），近侧大而亮 */
-  var SQ = 0.46, ROT = -0.52;
+  var SQ = 0.46, ROT = 0.52;   /* 长轴左上->右下，对齐星空章节首图（仙女座）的倾角 */
   var ORB  = [0.20, 0.33, 0.52, 0.70, 0.88];   /* 轨道半径比例（3 号位是地球） */
   var OANG = [0.7, 3.5, 0.72, 5.2, 1.6];
   var OSZ  = [1.1, 1.6, 0, 1.5, 2.4];
@@ -85,8 +85,11 @@
                box: { x: W/2 - 430, y: H/2 - 215, w: 860, h: 430 } };
       return;
     }
+    /* 用相对 cosmos 容器的偏移换算“定幕时刻”的屏幕位置：
+       与当前滚动速度/跳跃无关，快滚、锚点跳转、往回滚都严格对位 */
+    var wr = wrap.getBoundingClientRect();
     hand = { v: hk.view(), d: hk.path(), marks: hk.markers(),
-             box: { x: r.left, y: r.top, w: r.width, h: r.height } };
+             box: { x: r.left, y: r.top - wr.top, w: r.width, h: r.height } };
   }
 
   var P2D = {};
@@ -350,7 +353,7 @@
       if(total <= 0) return;
       var p = Math.max(0, Math.min(1, -r.top / total));
       if(p > 0.002 && !took && window.__MAPHOOK){ capture(); window.__MAPHOOK.hide(true); took = true; }
-      else if(p <= 0.002 && took){ window.__MAPHOOK.hide(false); took = false; }
+      else if(p <= 0.002 && took){ window.__MAPHOOK.hide(false); took = false; hand = null; }
       lastP = p;
       draw(p);
     });
