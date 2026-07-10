@@ -23,7 +23,7 @@ i18n: {
   astro: { title:{zh:"星空",en:"Astronomy"}, alt:{zh:"ASTRONOMY",en:"星空"}, empty:{zh:"银河与极光，整理中",en:"Galaxies and aurorae, coming soon"} },
   travel: {
     title:{zh:"旅行",en:"Travel"}, alt:{zh:"TRAVEL",en:"旅行"},
-    hint:{zh:"点击图钉，看看我在那里看见的世界",en:"Click a pin to see what I saw there"},
+    hint:{zh:"拖动地图 · 点击图钉，看看我在那里看见的世界",en:"Drag to roam · tap a pin to see what I saw there"},
     empty:{zh:"整理中",en:"Coming soon"},
     view:{zh:"点击查看",en:"Click to view"},
     zoom:{zh:"点击放大",en:"Click to zoom"},
