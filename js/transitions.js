@@ -74,6 +74,27 @@
   });
 })();
 
+/* ===== 首屏下滑引导：在顶部时显示，滚动即隐；闲置 7 秒轻微提亮 ===== */
+(function(){
+  var timer = null;
+  function hero(){ return document.querySelector(".hero"); }
+  function arm(){
+    clearTimeout(timer);
+    timer = setTimeout(function(){ var h = hero(); if(h) h.classList.add("cue-urge"); }, 7000);
+  }
+  function update(){
+    var h = hero(); if(!h) return;
+    var top = scrollY < 60;
+    h.classList.toggle("cue-on", top);
+    h.classList.remove("cue-urge");
+    if(top) arm(); else clearTimeout(timer);
+  }
+  addEventListener("scroll", update, { passive: true });
+  document.addEventListener("DOMContentLoaded", function(){
+    setTimeout(update, 1400);   /* 稍晚于首访开关引导亮起，避免同时抢注意力 */
+  });
+})();
+
 /* ===== 首访引导：高亮右上角语言/主题开关，一次性 ===== */
 (function(){
   var KEY = "site-onboarded";

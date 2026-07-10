@@ -9,7 +9,8 @@ i18n: {
   hero: {
     tagline:{zh:"以镜头与模型，讲述同一个世界",en:"The same world, twice: once through a lens, once in code"},
     sub:{zh:"导演 · AI算法码农 · 白日梦想家",en:"Filmmaker · AI Researcher · Daydreamer"},
-    story:{zh:"听听我的故事",en:"The story so far"}
+    story:{zh:"听听我的故事",en:"The story so far"},
+    scroll:{zh:"向下滑动",en:"Scroll"}
   },
   films: {
     title:{zh:"影像",en:"Films"}, alt:{zh:"FILMS",en:"影像"},
