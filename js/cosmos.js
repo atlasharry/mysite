@@ -76,36 +76,51 @@
     };
   }
 
-  /* ---- 真实地图交接：进入序列瞬间捕获视野/轮廓/图钉，canvas 原位接画 ---- */
+  /* ---- 真实地图交接：接管瞬间捕获视野/轮廓/图钉；
+     替身的屏幕位置不靠捕获快照，而是每帧实测真地图（隐藏但保留布局）的实时矩形，
+     因此任何滚动速度/方向下交接都严丝合缝 ---- */
   var hand = null, took = false;
   function capture(){
-    var hk = window.__MAPHOOK, r = hk && hk.rect();
-    if(!r || !r.width){
-      hand = { v: { x: 0, y: 0, w: 1000, h: 500 }, d: window.WORLD_MAP_PATH || "", marks: [],
-               box: { x: W/2 - 430, y: H/2 - 215, w: 860, h: 430 } };
+    var hk = window.__MAPHOOK;
+    if(!hk || !hk.rect()){
+      hand = { v: { x: 0, y: 0, w: 1000, h: 500 }, d: window.WORLD_MAP_PATH || "", marks: [] };
       return;
     }
-    /* 用相对 cosmos 容器的偏移换算“定幕时刻”的屏幕位置：
-       与当前滚动速度/跳跃无关，快滚、锚点跳转、往回滚都严格对位 */
-    var wr = wrap.getBoundingClientRect();
-    hand = { v: hk.view(), d: hk.path(), marks: hk.markers(),
-             box: { x: r.left, y: r.top - wr.top, w: r.width, h: r.height } };
+    hand = { v: hk.view(), d: hk.path(), marks: hk.markers() };
+  }
+  function liveBox(fallback){
+    var hk = window.__MAPHOOK, r = hk && hk.rect();
+    return (r && r.width) ? { x: r.left, y: r.top, w: r.width, h: r.height } : fallback;
   }
 
   var P2D = {};
   function pathFor(d){ var k = d.length; if(!P2D[k]) P2D[k] = new Path2D(d); return P2D[k]; }
 
-  function drawFlat(box, v, d, fillA, strokeA){
-    if(fillA <= .01 && strokeA <= .01) return;
-    ctx.save();
-    ctx.beginPath(); ctx.rect(box.x, box.y, box.w, box.h); ctx.clip();
-    var kx = box.w / v.w, ky = box.h / v.h;
-    ctx.translate(box.x - v.x * kx, box.y - v.y * ky);
-    ctx.scale(kx, ky);
+  /* 平铺地图渲染进离屏位图（每种轮廓/主题只画一次），
+     滚动帧只做一次 drawImage——移动端逐帧矢量填充是卡顿根源 */
+  var OFF = null, offKey = "";
+  function buildOff(d){
+    var key = d.length + "|" + (document.documentElement.dataset.theme || "");
+    if(OFF && offKey === key) return;
+    if(!C) colors();
+    OFF = OFF || document.createElement("canvas");
+    OFF.width = 2048; OFF.height = 1024;
+    var c2 = OFF.getContext("2d");
+    c2.scale(2048 / 1000, 1024 / 500);
     var P = pathFor(d);
-    if(fillA > .01){ ctx.globalAlpha = fillA; ctx.fillStyle = C.mapFill; ctx.fill(P); }
-    if(strokeA > .01){ ctx.globalAlpha = strokeA; ctx.strokeStyle = C.mapStroke; ctx.lineWidth = 0.8; ctx.stroke(P); }
-    ctx.restore();
+    c2.fillStyle = C.mapFill; c2.fill(P);
+    c2.strokeStyle = C.mapStroke; c2.lineWidth = 0.8; c2.stroke(P);
+    offKey = key;
+  }
+
+  function drawFlat(box, v, d, alpha){
+    if(alpha <= .01) return;
+    buildOff(d);
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(OFF,
+      v.x / 1000 * OFF.width, v.y / 500 * OFF.height,
+      v.w / 1000 * OFF.width, v.h / 500 * OFF.height,
+      box.x, box.y, box.w, box.h);
   }
 
   function drawMarks(box, v, alpha){
@@ -201,25 +216,26 @@
     var R0 = minWH * 0.30;
     var mw1 = Math.min(W * 0.72, H * 1.15, 900);
 
-    /* —— 第一幕：真实地图原位接管，收缩到完整世界 —— */
-    var th = ease(seg(p, 0.0, 0.15));
-    var xf = seg(p, 0.15, 0.20);          /* 贝塞尔轮廓 -> 环线 交叉淡化 */
-    var m  = ease(seg(p, 0.20, 0.36));    /* 卷球 */
-    if(p < 0.36 && hand){
+    /* —— 第一幕：真实地图原位接管（p>0.05 才接手，保留可交互余量），收缩到完整世界 —— */
+    var th = ease(seg(p, 0.05, 0.18));
+    var xf = seg(p, 0.18, 0.23);          /* 贝塞尔轮廓 -> 环线 交叉淡化 */
+    var m  = ease(seg(p, 0.23, 0.38));    /* 卷球 */
+    if(p < 0.38 && hand){
       var tb = { x: cx - mw1 / 2, y: cy - mw1 / 4, w: mw1, h: mw1 / 2 };
-      var box = { x: lerp(hand.box.x, tb.x, th), y: lerp(hand.box.y, tb.y, th),
-                  w: lerp(hand.box.w, tb.w, th), h: lerp(hand.box.h, tb.h, th) };
+      var lb2 = liveBox(tb);
+      var box = { x: lerp(lb2.x, tb.x, th), y: lerp(lb2.y, tb.y, th),
+                  w: lerp(lb2.w, tb.w, th), h: lerp(lb2.h, tb.h, th) };
       var v = { x: lerp(hand.v.x, 0, th), y: lerp(hand.v.y, 0, th),
                 w: lerp(hand.v.w, 1000, th), h: lerp(hand.v.h, 500, th) };
-      drawFlat(box, v, hand.d, (1 - seg(p, 0.13, 0.20)) * fade, (1 - xf) * fade);
-      drawMarks(box, v, (1 - seg(p, 0.01, 0.09)) * fade);
+      drawFlat(box, v, hand.d, (1 - xf) * fade);
+      drawMarks(box, v, (1 - seg(p, 0.06, 0.13)) * fade);
     }
     var mw = lerp(mw1, 2.4 * R0, m);
 
     /* —— 连续变焦相机：对数缩放 + 目标点漂移 —— */
     var u = seg(p, 0.38, 0.93);
     var s = R0 * Math.pow((0.36 * minWH / RG) / R0, u);   /* 像素/世界单位 */
-    var c1 = ease(seg(u, 0, 0.30));                       /* 地球 -> 太阳 */
+    var c1 = ease(seg(u, 0.08, 0.36));                    /* 地球 -> 太阳（字幕期先守住居中） */
     var c2 = ease(seg(u, 0.62, 0.95));                    /* 太阳 -> 银心 */
     var Tx = lerp(lerp(EARTH[0], 0, c1), GCEN[0], c2);
     var Ty = lerp(lerp(EARTH[1], 0, c1), GCEN[1], c2);
@@ -323,7 +339,7 @@
     /* 阶段字幕 */
     if(cap){
       var lab = null, o = 0;
-      if(p > .30 && p < .45){ lab = LABELS[0]; o = seg(p, .30, .34) * (1 - seg(p, .41, .45)); }
+      if(p > .35 && p < .49){ lab = LABELS[0]; o = seg(p, .35, .39) * (1 - seg(p, .45, .49)); }
       else if(p > .55 && p < .72){ lab = LABELS[1]; o = seg(p, .55, .59) * (1 - seg(p, .68, .72)); }
       else if(p > .78 && p < .92){ lab = LABELS[2]; o = seg(p, .78, .82) * (1 - seg(p, .88, .92)); }
       if(lab){
@@ -352,8 +368,8 @@
       var total = r.height - innerHeight;
       if(total <= 0) return;
       var p = Math.max(0, Math.min(1, -r.top / total));
-      if(p > 0.002 && !took && window.__MAPHOOK){ capture(); window.__MAPHOOK.hide(true); took = true; }
-      else if(p <= 0.002 && took){ window.__MAPHOOK.hide(false); took = false; hand = null; }
+      if(p > 0.05 && !took && window.__MAPHOOK){ capture(); window.__MAPHOOK.hide(true); took = true; }
+      else if(p <= 0.05 && took){ window.__MAPHOOK.hide(false); took = false; hand = null; }
       lastP = p;
       draw(p);
     });
@@ -369,6 +385,7 @@
   }
 
   resize();
+  setTimeout(function(){ if(window.WORLD_MAP_PATH) buildOff(WORLD_MAP_PATH); }, 1800);  /* 空闲预热位图 */
   addEventListener("resize", resize);
   addEventListener("scroll", onScroll, { passive: true });
   addEventListener("themechange", function(){ C = null; draw(lastP); });

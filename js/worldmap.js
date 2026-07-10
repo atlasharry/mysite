@@ -5,6 +5,7 @@
   var view = { x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h };
   var current = null, card = null, svg = null, pinLayer = null, zoomed = false, resetBtn = null, outline = null;
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var userTouched = false;   /* 用户碰过地图就不再做引导性动画 */
 
   /* 默认视图随舞台宽高比自适应：纬度铺满、经度裁切并居中照片密集区。
      竖屏手机 -> 只剩左右滑动；宽屏 -> 约 1.2-1.3 倍放大的沉浸全幅 */
@@ -251,6 +252,7 @@
     /* 全图：点空白放大到该处；放大后：拖拽平移 */
     var panning = false, panMoved = false, panStart = null;
     svg.addEventListener("pointerdown", function(e){
+      userTouched = true;
       if(!zoomed && view.w >= 990) return;   /* 只有完整全图才无需平移 */
       panning = true; panMoved = false;
       panStart = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y };
@@ -357,8 +359,34 @@
     }
   };
 
+  /* 窄屏首次进入视野：地图向西轻摆一下再回位，暗示可以左右拖动 */
+  var peeked = false;
+  function peek(){
+    if(peeked || userTouched || zoomed || reduced || !svg) return;
+    if(innerWidth >= 760 || view.w >= 990) return;
+    peeked = true;
+    var home = { x: view.x, y: view.y, w: view.w, h: view.h };
+    var dx = -Math.min(60, home.x + 20);
+    var t0 = performance.now(), DUR = 1900;
+    function step(now){
+      if(userTouched || zoomed){ view = home; setViewBox(view); return; }
+      var u = Math.min(1, (now - t0) / DUR);
+      view = { x: home.x + dx * Math.sin(Math.PI * u), y: home.y, w: home.w, h: home.h };
+      setViewBox(view);
+      if(u < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
   document.addEventListener("DOMContentLoaded", function(){
     build();
     I18N.onChange(function(){ build(); renderPanel(); });
+    var wrapEl = document.getElementById("mapWrap");
+    if(wrapEl){
+      var mo = new IntersectionObserver(function(en){
+        if(en[0].isIntersecting){ mo.disconnect(); setTimeout(peek, 700); }
+      }, { threshold: 0.55 });
+      mo.observe(wrapEl);
+    }
   });
 })();
