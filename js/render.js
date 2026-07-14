@@ -88,21 +88,6 @@
     return v;
   }
 
-  /* ---- hero 板块卡片栏 ---- */
-  function renderHeroCards(){
-    var box = $("#heroCards"); if(!box) return;
-    box.innerHTML = "";
-    SITE.heroCards.forEach(function(c, i){
-      var a = document.createElement("a");
-      a.className = "hero-card hc-" + i;
-      a.href = c.href;
-      a.innerHTML = '<span class="hc-frame"><img src="' + c.img + '-thumb.webp" alt="' + esc(t(c.label)) + '"></span>' +
-        '<span class="hc-label">' + esc(t(c.label)) + '<span class="arr">→</span></span>' +
-        '<span class="hc-tag">' + esc(t(c.tag)) + '</span>';
-      box.appendChild(a);
-    });
-  }
-
   /* ---- 影像 ---- */
   function renderFilms(){
     var box = $("#filmList"); if(!box) return;
@@ -277,7 +262,7 @@
   addEventListener("load", sizeAboutPhoto);
 
   /* ---- 渲染调度：后续任务往这里注册 ---- */
-  var renderers = [renderHeroCards, renderFilms, renderResearch, renderExhibit, renderAstro, renderAbout];
+  var renderers = [renderFilms, renderResearch, renderExhibit, renderAstro, renderAbout];
   window.registerRenderer = function(fn){ renderers.push(fn); };
   function renderAll(){ renderers.forEach(function(fn){ fn(); }); }
   document.addEventListener("DOMContentLoaded", function(){

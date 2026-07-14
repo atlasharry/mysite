@@ -69,13 +69,6 @@ films: [
             { src:"assets/films/doubleblind-still-03", ar:"2000/825" }] }
 ],
 
-heroCards: [
-  { href:"#films",    img:"assets/films/birthday-poster", label:{zh:"影像",en:"Films"},    tag:{zh:"看见。被看见。",en:"See. Be seen."} },
-  { href:"#research", img:"assets/world/world-05",        label:{zh:"研究",en:"Research"}, tag:{zh:"提问。求解。",en:"Ask. Solve."} },
-  { href:"#travel",   img:"assets/travel/iceland-falls",  label:{zh:"旅行",en:"Travel"},  tag:{zh:"出发。抵达。",en:"Depart. Arrive."} },
-  { href:"#astro",    img:"assets/astro/astro-06",        label:{zh:"星空",en:"Astro"},   tag:{zh:"仰望。追光。",en:"Look up. Chase light."} }
-],
-
 aigc: [
   { tag:{zh:"AIGC 影片",en:"AIGC FILM"},
     title:{zh:"《岁岁平安》",en:"岁岁平安"},

@@ -15,6 +15,7 @@
   --map-stroke:rgba(235,219,188,.35); --map-fill:rgba(235,219,188,.04);
   --spot:rgba(235,219,188,.11); --shadow:0 22px 55px rgba(0,0,0,.6);
   --trail:rgba(250,249,245,.30);
+  --story-glow:rgba(235,219,188,.16); --beam-head:#fff6df;
   --serif:"Noto Serif SC",Lora,Georgia,"Songti SC","SimSun",serif;
   --sans:"Noto Sans SC",-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
   --lat-serif:Lora,Georgia,"Times New Roman",serif;
@@ -31,6 +32,7 @@
   --map-stroke:rgba(20,20,19,.4); --map-fill:rgba(20,20,19,.04);
   --spot:rgba(156,124,71,.10); --shadow:0 18px 45px rgba(20,20,19,.16);
   --trail:rgba(20,20,19,.22);
+  --story-glow:rgba(156,124,71,.15); --beam-head:#6f5122;
 }
 html[lang^="en"]{--serif:Lora,"Noto Serif SC",Georgia,serif;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
@@ -72,30 +74,35 @@ button{font-family:inherit}
 .tagline{margin-top:2.2rem;font-family:var(--serif);font-size:clamp(1rem,2vw,1.2rem);letter-spacing:.18em}
 .tagline-sub{margin-top:.9rem;color:var(--ink-dim);font-size:.82rem;letter-spacing:.34em}
 
-/* hero 板块卡片栏：等大平铺，hover 放大 */
-.hero-cards{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;
-  gap:clamp(.9rem,2vw,1.6rem);margin-top:3rem}
-.hero-card{text-align:left;width:clamp(152px,13.5vw,198px);
-  transition:transform .5s cubic-bezier(.22,.61,.36,1)}
-.hero-card .hc-frame img{aspect-ratio:3/4}
-.hero-card:hover{transform:scale(1.08) translateY(-6px);z-index:3;position:relative}
-.hero-card .hc-frame{display:block;border:1px solid var(--hairline-strong);border-radius:12px;padding:5px;
-  box-shadow:0 18px 34px rgba(0,0,0,.38);transition:border-color .4s ease}
-:root[data-theme="light"] .hero-card .hc-frame{box-shadow:0 14px 28px rgba(20,20,19,.14)}
-.hero-card .hc-frame img{width:100%;object-fit:cover;border-radius:8px;display:block}
-.hero-card:hover .hc-frame{border-color:var(--accent-dim)}
-.hero-card .hc-label{display:block;margin-top:.6rem;font-size:.82rem;letter-spacing:.1em;font-weight:600}
-.hero-card .hc-label .arr{color:var(--accent);display:inline-block;margin-left:.35rem;transition:transform .35s ease}
-.hero-card:hover .hc-label .arr{transform:translateX(4px)}
-.hero-card .hc-tag{display:block;color:var(--ink-dim);font-size:.7rem;letter-spacing:.06em;line-height:1.6}
-
-/* 听听我的故事 */
-.hero-story{display:inline-flex;align-items:baseline;gap:1rem;margin-top:2.8rem;
-  font-family:var(--serif);font-size:clamp(1.5rem,3.6vw,2.4rem);letter-spacing:.24em;
-  border-bottom:1px solid transparent;transition:color .35s ease,border-color .35s ease}
-.hero-story:hover{color:var(--accent);border-color:var(--accent-dim)}
-.hero-story .story-arrow{font-size:.7em;color:var(--accent);animation:storydip 2.4s ease-in-out infinite}
-@keyframes storydip{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(.35em);opacity:1}}
+/* 听听我的故事：首屏唯一入口——暖光从画面里绽放浮现，落光丝线向下引导 */
+.hero-story{position:relative;display:inline-block;margin-top:clamp(4.5rem,11vh,7rem);
+  font-family:var(--serif);font-size:clamp(1.8rem,4.4vw,3rem);letter-spacing:.24em;text-indent:.24em;
+  transition:color .5s ease;
+  animation:storyenter 1.9s cubic-bezier(.22,.61,.36,1) .4s backwards}
+.hero-story:hover{color:var(--accent)}
+@keyframes storyenter{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+/* 文字后的暖光：绽放入场，之后缓慢呼吸 */
+.hero-story::before{content:"";position:absolute;left:50%;top:50%;width:190%;height:420%;z-index:-1;
+  transform:translate(-50%,-50%);pointer-events:none;
+  background:radial-gradient(ellipse closest-side,var(--story-glow) 0%,transparent 68%);
+  animation:storybloom 2.2s cubic-bezier(.22,.61,.36,1) .4s backwards,
+            storybreathe 6.4s ease-in-out 2.6s infinite}
+@keyframes storybloom{from{opacity:0;transform:translate(-50%,-50%) scale(.55)}to{opacity:.9;transform:translate(-50%,-50%) scale(1)}}
+@keyframes storybreathe{0%,100%{opacity:.55}50%{opacity:1}}
+/* 落光丝线：字底一条极细的光轨，一滴光珠周期性坠向画面下缘 */
+.story-beam{position:absolute;left:50%;top:calc(100% + 1.3rem);width:1px;height:clamp(90px,17vh,160px);
+  transform:translateX(-50%);pointer-events:none;
+  background:linear-gradient(180deg,var(--accent-dim),transparent);opacity:.45}
+.story-beam::after{content:"";position:absolute;left:-1.5px;top:0;width:4px;height:40px;border-radius:3px;
+  background:linear-gradient(180deg,transparent,var(--accent) 55%,var(--beam-head));
+  box-shadow:0 0 14px 1px var(--accent-dim);
+  animation:beamfall 4.4s cubic-bezier(.5,.05,.65,.9) 2.8s infinite;opacity:0}
+@keyframes beamfall{0%{transform:translateY(-48px);opacity:0}14%{opacity:1}60%{opacity:.95}90%,100%{transform:translateY(170px);opacity:0}}
+@media (prefers-reduced-motion:reduce){
+  .hero-story,.hero-story::before{animation:none}
+  .hero-story::before{opacity:.8}
+  .story-beam::after{animation:none;opacity:.7;top:26%}
+}
 
 /* 首屏下滑引导：固定在视口右下角的竖排提示（不受首屏内容高度影响），
    竖线内一颗下坠光点，滚动即隐，闲置片刻轻微提亮 */
@@ -232,6 +239,7 @@ html[lang^="en"] .tc-en{letter-spacing:.3em}
   transition:color .35s ease}
 .map-cue:hover{color:var(--accent)}
 .map-cue .story-arrow{font-size:.8em;color:var(--accent);animation:storydip 2.4s ease-in-out infinite}
+@keyframes storydip{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(.35em);opacity:1}}
 .flight{position:absolute;left:0;top:0;width:42px;height:42px;opacity:0;will-change:transform}
 .flight .plane{width:42px;height:42px;fill:var(--accent);transform:rotate(90deg)}
 .flight .trail{position:absolute;right:34px;top:13px;width:34vw;height:1.6px;border-radius:2px;
@@ -420,8 +428,7 @@ footer{padding:4rem 1rem 3rem;text-align:center;color:var(--ink-dim);font-size:.
   .films{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1.4rem}
   .overlay{padding:3.5rem 1rem 2rem}
   .hero{padding-top:6rem}
-  .hero-cards{gap:.8rem;perspective:none}
-  .hero-card{width:calc(42% - .8rem)!important;transform:none!important;opacity:1!important}
+  .story-beam{height:clamp(70px,12vh,110px)}
 }
 
 /* ========== 英文排版适配：拉丁文本收字距、长文左对齐 ========== */
@@ -433,7 +440,7 @@ html[lang^="en"] .sheet-syn{text-align:left;letter-spacing:.01em}
 html[lang^="en"] .titlecard h2{letter-spacing:.06em}
 html[lang^="en"] .tagline{letter-spacing:.05em}
 html[lang^="en"] .tagline-sub{letter-spacing:.2em}
-html[lang^="en"] .hero-story{letter-spacing:.08em}
+html[lang^="en"] .hero-story{letter-spacing:.08em;text-indent:.08em}
 html[lang^="en"] .map-cue{letter-spacing:.05em}
 html[lang^="en"] .map-hint{letter-spacing:.08em}
 html[lang^="en"] .film-title{letter-spacing:.02em}
