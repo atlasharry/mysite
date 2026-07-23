@@ -74,34 +74,38 @@ button{font-family:inherit}
 .tagline{margin-top:2.2rem;font-family:var(--serif);font-size:clamp(1rem,2vw,1.2rem);letter-spacing:.18em}
 .tagline-sub{margin-top:.9rem;color:var(--ink-dim);font-size:.82rem;letter-spacing:.34em}
 
-/* 听听我的故事：首屏唯一入口——暖光从画面里绽放浮现，落光丝线向下引导 */
+/* 听听我的故事：首屏唯一入口。光精灵（wisp.js）落进文字的瞬间给 .hero 加 .lit，
+   暖光绽放浮现 + 落光丝线随之启动 */
 .hero-story{position:relative;display:inline-block;margin-top:clamp(4.5rem,11vh,7rem);
   font-family:var(--serif);font-size:clamp(1.8rem,4.4vw,3rem);letter-spacing:.24em;text-indent:.24em;
-  transition:color .5s ease;
-  animation:storyenter 1.9s cubic-bezier(.22,.61,.36,1) .4s backwards}
+  transition:color .5s ease;opacity:0}
+.hero.lit .hero-story{opacity:1;animation:storyenter 1.6s cubic-bezier(.22,.61,.36,1)}
 .hero-story:hover{color:var(--accent)}
 @keyframes storyenter{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 /* 文字后的暖光：绽放入场，之后缓慢呼吸 */
 .hero-story::before{content:"";position:absolute;left:50%;top:50%;width:190%;height:420%;z-index:-1;
-  transform:translate(-50%,-50%);pointer-events:none;
-  background:radial-gradient(ellipse closest-side,var(--story-glow) 0%,transparent 68%);
-  animation:storybloom 2.2s cubic-bezier(.22,.61,.36,1) .4s backwards,
-            storybreathe 6.4s ease-in-out 2.6s infinite}
+  transform:translate(-50%,-50%);pointer-events:none;opacity:0;
+  background:radial-gradient(ellipse closest-side,var(--story-glow) 0%,transparent 68%)}
+.hero.lit .hero-story::before{
+  animation:storybloom 2s cubic-bezier(.22,.61,.36,1) forwards,
+            storybreathe 6.4s ease-in-out 2.2s infinite}
 @keyframes storybloom{from{opacity:0;transform:translate(-50%,-50%) scale(.55)}to{opacity:.9;transform:translate(-50%,-50%) scale(1)}}
 @keyframes storybreathe{0%,100%{opacity:.55}50%{opacity:1}}
 /* 落光丝线：字底一条极细的光轨，一滴光珠周期性坠向画面下缘 */
 .story-beam{position:absolute;left:50%;top:calc(100% + 1.3rem);width:1px;height:clamp(90px,17vh,160px);
   transform:translateX(-50%);pointer-events:none;
-  background:linear-gradient(180deg,var(--accent-dim),transparent);opacity:.45}
+  background:linear-gradient(180deg,var(--accent-dim),transparent);
+  opacity:0;transition:opacity 1.2s ease .5s}
+.hero.lit .story-beam{opacity:.45}
 .story-beam::after{content:"";position:absolute;left:-1.5px;top:0;width:4px;height:40px;border-radius:3px;
   background:linear-gradient(180deg,transparent,var(--accent) 55%,var(--beam-head));
-  box-shadow:0 0 14px 1px var(--accent-dim);
-  animation:beamfall 4.4s cubic-bezier(.5,.05,.65,.9) 2.8s infinite;opacity:0}
+  box-shadow:0 0 14px 1px var(--accent-dim);opacity:0}
+.hero.lit .story-beam::after{animation:beamfall 4.4s cubic-bezier(.5,.05,.65,.9) 1.8s infinite}
 @keyframes beamfall{0%{transform:translateY(-48px);opacity:0}14%{opacity:1}60%{opacity:.95}90%,100%{transform:translateY(170px);opacity:0}}
 @media (prefers-reduced-motion:reduce){
-  .hero-story,.hero-story::before{animation:none}
-  .hero-story::before{opacity:.8}
-  .story-beam::after{animation:none;opacity:.7;top:26%}
+  .hero.lit .hero-story,.hero.lit .hero-story::before{animation:none}
+  .hero.lit .hero-story::before{opacity:.8}
+  .hero.lit .story-beam::after{animation:none;opacity:.7;top:26%}
 }
 
 /* 首屏下滑引导：固定在视口右下角的竖排提示（不受首屏内容高度影响），
