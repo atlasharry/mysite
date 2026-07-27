@@ -9,6 +9,8 @@ assets/raw/
 
 # 本地开发助手配置与 skill（不进公开仓库）
 .claude/
+.agents/
+skills-lock.json
 
 # 系统文件
 Thumbs.db
