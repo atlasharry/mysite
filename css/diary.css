@@ -1,8 +1,8 @@
 /* 旅行手账（travel/）：纸上的世界——与主站的暗色影院互为里外。
    全部质感（纸纹/胶带/线圈/邮戳/撕边/做旧）为纯 CSS/SVG，零图片依赖 */
 /* 字体带版本号：tools/subset_diary_fonts.py 重跑时自动 +1，避免旧缓存缺字混排 */
-@font-face{font-family:"LXGW Diary";src:url("../assets/fonts/lxgw-diary.woff2?v=2") format("woff2");font-display:swap}
-@font-face{font-family:"Caveat Diary";src:url("../assets/fonts/caveat-diary.woff2?v=2") format("woff2");
+@font-face{font-family:"LXGW Diary";src:url("../assets/fonts/lxgw-diary.woff2?v=3") format("woff2");font-display:swap}
+@font-face{font-family:"Caveat Diary";src:url("../assets/fonts/caveat-diary.woff2?v=3") format("woff2");
   font-weight:400 700;font-display:swap}
 
 :root{

@@ -63,39 +63,39 @@ window.DIARY = {
       note: "M163.6,12.8 L169.1,11.5 L176.2,6.2 L181.0,6.2 L175.2,10.4 L171.4,18.2 L179.1,21.8 L179.3,27.1 L176.7,32.8 L184.7,31.8 L186.0,36.2 L183.2,40.9 L188.8,38.0 L193.1,39.1 L195.8,42.7 L197.9,42.0 L198.9,43.3 L198.0,48.5 L195.4,50.4 L198.4,53.8 L196.4,57.4 L200.0,60.3 L199.2,64.1 L194.5,66.0 L194.6,71.6 L191.1,76.7 L189.4,77.9 L184.8,76.6 L185.0,79.5 L183.3,81.3 L183.9,85.5 L180.4,90.8 L173.2,95.9 L168.9,95.9 L158.3,101.1 L143.5,114.5 L122.0,121.0 L119.6,128.6 L117.1,130.3 L114.0,128.9 L114.5,131.3 L113.1,132.1 L106.6,134.2 L95.7,132.7 L86.0,128.6 L78.3,127.8 L72.9,122.1 L73.4,119.5 L75.3,118.8 L74.4,117.0 L70.1,120.0 L68.6,117.6 L65.9,117.1 L61.2,113.5 L61.9,111.5 L60.9,111.1 L55.4,114.8 L33.4,116.1 L31.7,107.8 L32.5,105.1 L36.0,109.0 L41.9,107.0 L47.8,100.9 L51.4,93.7 L55.2,92.4 L51.8,91.5 L44.4,95.2 L47.2,91.8 L45.3,90.9 L46.3,86.5 L52.8,81.7 L51.3,80.8 L43.4,85.7 L39.4,81.8 L40.8,77.4 L36.8,74.5 L20.7,73.2 L12.0,76.9 L8.2,71.5 L10.1,69.3 L20.6,67.7 L23.4,65.6 L25.0,67.1 L30.9,63.6 L34.4,64.5 L47.3,63.5 L49.4,57.6 L44.6,60.3 L38.0,58.8 L36.0,57.2 L36.7,55.9 L48.1,47.5 L45.2,44.4 L39.6,45.0 L38.2,42.6 L33.6,41.2 L30.5,42.1 L28.8,40.7 L10.5,48.1 L0.0,43.1 L4.2,39.2 L11.3,42.5 L8.5,39.1 L7.0,32.2 L10.4,32.7 L15.7,36.4 L21.8,33.4 L14.1,32.0 L11.8,29.1 L13.5,27.6 L17.4,27.8 L12.8,21.9 L13.5,19.6 L19.1,21.6 L16.1,17.9 L18.7,14.8 L25.9,18.9 L26.7,23.4 L30.4,23.3 L32.1,21.0 L33.3,21.5 L34.1,28.3 L37.3,26.6 L37.2,19.6 L28.0,13.5 L29.6,11.8 L36.5,11.2 L32.8,8.1 L24.9,8.1 L29.1,3.7 L37.5,4.1 L56.2,21.5 L54.2,24.0 L58.0,27.1 L56.8,33.7 L55.3,35.6 L51.6,34.5 L55.1,38.3 L55.3,40.5 L57.0,40.8 L55.7,45.3 L59.4,47.6 L61.3,54.2 L64.8,41.3 L67.2,38.3 L69.5,37.1 L71.9,40.7 L73.6,41.1 L75.4,34.7 L75.4,21.2 L78.2,18.3 L81.5,20.5 L88.4,31.2 L91.3,32.6 L93.3,19.4 L103.1,14.7 L113.5,27.6 L116.0,34.1 L116.8,29.9 L112.8,18.6 L113.2,15.9 L120.3,16.5 L126.8,24.2 L134.1,13.9 L139.9,17.2 L146.4,14.2 L147.4,10.7 L145.3,3.4 L150.7,0.1 L155.5,0.5 L160.5,7.2 L160.7,10.3 L163.6,12.8 Z",
       stamp: "M163.6,12.8 L181.0,6.2 L171.4,18.2 L179.1,21.8 L176.7,32.8 L184.7,31.8 L183.2,40.9 L188.8,38.0 L198.9,43.3 L195.4,50.4 L199.2,64.1 L194.5,66.0 L191.1,76.7 L184.8,76.6 L180.4,90.8 L158.3,101.1 L143.5,114.5 L122.0,121.0 L119.6,128.6 L113.1,132.1 L106.6,134.2 L78.3,127.8 L72.9,122.1 L74.4,117.0 L70.1,120.0 L60.9,111.1 L55.4,114.8 L33.4,116.1 L32.5,105.1 L36.0,109.0 L41.9,107.0 L55.2,92.4 L44.4,95.2 L46.3,86.5 L52.8,81.7 L43.4,85.7 L36.8,74.5 L20.7,73.2 L12.0,76.9 L8.2,71.5 L30.9,63.6 L47.3,63.5 L49.4,57.6 L38.0,58.8 L36.7,55.9 L48.1,47.5 L45.2,44.4 L28.8,40.7 L10.5,48.1 L0.0,43.1 L4.2,39.2 L11.3,42.5 L7.0,32.2 L15.7,36.4 L21.8,33.4 L11.8,29.1 L17.4,27.8 L12.8,21.9 L19.1,21.6 L16.1,17.9 L18.7,14.8 L26.7,23.4 L33.3,21.5 L34.1,28.3 L37.3,26.6 L37.2,19.6 L28.0,13.5 L36.5,11.2 L24.9,8.1 L29.1,3.7 L37.5,4.1 L56.2,21.5 L56.8,33.7 L51.6,34.5 L61.3,54.2 L67.2,38.3 L73.6,41.1 L78.2,18.3 L91.3,32.6 L93.3,19.4 L103.1,14.7 L116.0,34.1 L113.2,15.9 L120.3,16.5 L126.8,24.2 L134.1,13.9 L139.9,17.2 L146.4,14.2 L145.3,3.4 L150.7,0.1 L155.5,0.5 L163.6,12.8 Z"
     },
-    name: { zh: "\u51b0\u5c9b", en: "Iceland" },
-    sub: { zh: "\u5728\u51b0\u5c9b\uff0c\u5bfb\u627e\u5c5e\u4e8e\u6211\u7684 25 \u53f7\u5e95\u7247",
+    name: { zh: "冰岛", en: "Iceland" },
+    sub: { zh: "在冰岛，寻找属于我的 25 号底片",
            en: "Looking for my own Negative No.25" },
     intro: {
-      zh: "\u4ece\u96f7\u514b\u96c5\u672a\u514b\u51fa\u53d1\uff0c\u6cbf\u4e00\u53f7\u516c\u8def\u987a\u65f6\u9488\uff0c\n\u51b0\u5ddd\u4e0e\u9ed1\u6c99\u6ee9\u4e4b\u95f4\uff0c\u5348\u591c\u7684\u592a\u9633\u4e00\u76f4\u6ca1\u6709\u843d\u4e0b\u3002\n\u8fd9\u4e00\u6b21\uff0c\u767d\u65e5\u68a6\u60f3\u5bb6\u51b3\u5b9a\u4eb2\u81ea\u51fa\u53d1\u3002",
-      en: "Clockwise on Route 1 out of Reykjav\u00edk,\nbetween glaciers and black sand, under a sun that never set.\nThis time, the daydreamer went himself."
+      zh: "从雷克雅未克出发，沿一号公路顺时针，\n冰川与黑沙滩之间，午夜的太阳一直没有落下。\n这一次，白日梦想家决定亲自出发。",
+      en: "Clockwise on Route 1 out of Reykjavík,\nbetween glaciers and black sand, under a sun that never set.\nThis time, the daydreamer went himself."
     },
-    cover:    { src: "../assets/travel/iceland/iceland-02", ar: "2000/1125", cap: "Reynisfjara, V\u00edk \u2661" },
-    polaroid: { src: "../assets/travel/iceland/iceland-05", ar: "2000/1334", cap: "Sn\u00e6fellsnes" },
-    momentsLabel: "Moments in Iceland \u2661",
+    cover:    { src: "../assets/travel/iceland/iceland-02", ar: "2000/1125", cap: "Reynisfjara, Vík ♡" },
+    polaroid: { src: "../assets/travel/iceland/iceland-05", ar: "2000/1334", cap: "Snæfellsnes" },
+    momentsLabel: "Moments in Iceland ♡",
     strip: [
-      { src: "../assets/travel/iceland/iceland-06", ar: "2000/1334", cap: { zh: "\u8ffd\u7740\u4e0d\u843d\u7684\u592a\u9633", en: "Chasing the midnight sun" } },
-      { src: "../assets/travel/iceland/iceland-01", ar: "2000/1334", cap: { zh: "\u6770\u53e4\u6c99\u9f99\u51b0\u6cb3\u6e56", en: "J\u00f6kuls\u00e1rl\u00f3n" } },
-      { src: "../assets/travel/iceland/iceland-08", ar: "2000/1334", cap: { zh: "\u51b0\u5ddd\u7684\u820c\u5c16", en: "The glacier\u2019s tongue" } },
-      { src: "../assets/travel/iceland/iceland-03", ar: "2000/1336", cap: { zh: "\u9ed1\u6c99\u6ee9\u4e0a\u7684\u94bb\u77f3", en: "Diamonds on black sand" } },
-      { src: "../assets/travel/iceland/iceland-04", ar: "2000/1269", cap: { zh: "\u65af\u5948\u83f2\u5c14\u7684\u96ea", en: "Sn\u00e6fellsj\u00f6kull" } },
-      { src: "../assets/travel/iceland/iceland-07", ar: "2000/1334", cap: { zh: "\u8fea\u970d\u62c9\u91cc\u7684\u665a\u971e", en: "Dyrh\u00f3laey at dusk" } }
+      { src: "../assets/travel/iceland/iceland-06", ar: "2000/1334", cap: { zh: "追着不落的太阳", en: "Chasing the midnight sun" } },
+      { src: "../assets/travel/iceland/iceland-01", ar: "2000/1334", cap: { zh: "杰古沙龙冰河湖", en: "Jökulsárlón" } },
+      { src: "../assets/travel/iceland/iceland-08", ar: "2000/1334", cap: { zh: "冰川的舌尖", en: "The glacier’s tongue" } },
+      { src: "../assets/travel/iceland/iceland-03", ar: "2000/1336", cap: { zh: "黑沙滩上的钻石", en: "Diamonds on black sand" } },
+      { src: "../assets/travel/iceland/iceland-04", ar: "2000/1269", cap: { zh: "斯奈菲尔的雪", en: "Snæfellsjökull" } },
+      { src: "../assets/travel/iceland/iceland-07", ar: "2000/1334", cap: { zh: "迪霍拉里的晚霞", en: "Dyrhólaey at dusk" } }
     ],
-    tapeLabel: { zh: "\u51fa\u53d1 \u00b7 \u62b5\u8fbe \u00b7 \u9192\u7740\u505a\u68a6", en: "Depart \u00b7 Arrive \u00b7 Dream awake" },
+    tapeLabel: { zh: "出发 · 抵达 · 醒着做梦", en: "Depart · Arrive · Dream awake" },
     diary: {
-      label: { zh: "\u65c5\u884c\u65e5\u8bb0", en: "Travel Diary" },
-      place: "Sn\u00e6fellsnes \u00b7 V\u00edk",
-      title: { zh: "\u201c\u5bfb\u627e 25 \u53f7\u5e95\u7247\u201d", en: "\u201cNegative No.25\u201d" },
-      date:  { zh: "\u76db\u590f \u00b7 \u73af\u5c9b\u4e00\u53f7\u516c\u8def", en: "High summer \u00b7 Ring Road, Iceland" },
+      label: { zh: "旅行日记", en: "Travel Diary" },
+      place: "Snæfellsnes · Vík",
+      title: { zh: "“寻找 25 号底片”", en: "“Negative No.25”" },
+      date:  { zh: "盛夏 · 环岛一号公路", en: "High summer · Ring Road, Iceland" },
       body: {
         zh: [
-          "\u300a\u767d\u65e5\u68a6\u60f3\u5bb6\u300b\u91cc\uff0c\u6c83\u7279\u5728\u6742\u5fd7\u793e\u6d17\u4e86\u5341\u516d\u5e74\u5e95\u7247\uff0c\u4e5f\u505a\u4e86\u5341\u516d\u5e74\u767d\u65e5\u68a6\u3002\u76f4\u5230 25 \u53f7\u5e95\u7247\u5931\u8e2a\uff0c\u4ed6\u624d\u7b2c\u4e00\u6b21\u771f\u6b63\u51fa\u53d1\uff0c\u4e00\u8def\u8dcc\u8fdb\u51b0\u5c9b\u7684\u516c\u8def\u4e0e\u6d77\u3002\u8096\u6069\u8bf4\uff0c\u90a3\u5f20\u5e95\u7247\u662f\u201c\u751f\u547d\u7684\u7cbe\u9ad3\u201d\u3002",
-          "\u6240\u4ee5\u6211\u4e5f\u6765\u4e86",
-          "\u6cbf\u4e00\u53f7\u516c\u8def\u987a\u65f6\u9488\uff1a\u51b0\u5ddd\u820c\u4ece\u5c71\u8c37\u5782\u8fdb\u6e56\u91cc\uff0c\u9ed1\u6c99\u6ee9\u7684\u6d6a\u6bd4\u7535\u5f71\u91cc\u66f4\u54cd\uff0c\u5348\u591c\u7684\u592a\u9633\u8fdf\u8fdf\u4e0d\u843d\uff0c\u628a\u6bcf\u5ea7\u5c71\u90fd\u63cf\u4e0a\u91d1\u8fb9\u3002\u6211\u80cc\u7740\u76f8\u673a\u6cbf\u6559\u5802\u524d\u7684\u5c0f\u8def\u5f80\u4e0a\u8d70\uff0c\u98ce\u5927\u5f97\u50cf\u8981\u628a\u767d\u65e5\u68a6\u5439\u9192\u3002",
-          "\u8d70\u5230\u6700\u540e\u6211\u5927\u6982\u660e\u767d\u4e86 25 \u53f7\u5e95\u7247\u7684\u8c1c\u5e95\uff1a\u5b83\u6d17\u51fa\u6765\u7684\u4e0d\u662f\u98ce\u666f\uff0c\u662f\u90a3\u4e2a\u653e\u4e0b\u72b9\u8c6b\u3001\u6b63\u5728\u4e13\u6ce8\u751f\u6d3b\u7684\u4eba\u3002\u5728\u51b0\u5c9b\uff0c\u6211\u627e\u5230\u4e86\u5c5e\u4e8e\u6211\u7684\u90a3\u4e00\u5f20\u3002"
+          "《白日梦想家》里，沃特在杂志社洗了十六年底片，也做了十六年白日梦。直到 25 号底片失踪，他才第一次真正出发，一路跌进冰岛的公路与海。肖恩说，那张底片是“生命的精髓”。",
+          "所以我也来了",
+          "沿一号公路顺时针：冰川舌从山谷垂进湖里，黑沙滩的浪比电影里更响，午夜的太阳迟迟不落，把每座山都描上金边。我背着相机沿教堂前的小路往上走，风大得像要把白日梦吹醒。",
+          "走到最后我大概明白了 25 号底片的谜底：它洗出来的不是风景，是那个放下犹豫、正在专注生活的人。在冰岛，我找到了属于我的那一张。"
         ],
         en: [
-          "In The Secret Life of Walter Mitty, Walter develops negatives at LIFE for sixteen years, and daydreams for sixteen years too. Only when Negative 25 goes missing does he truly set out, tumbling into Iceland\u2019s roads and seas. Sean called that frame the quintessence of life.",
+          "In The Secret Life of Walter Mitty, Walter develops negatives at LIFE for sixteen years, and daydreams for sixteen years too. Only when Negative 25 goes missing does he truly set out, tumbling into Iceland’s roads and seas. Sean called that frame the quintessence of life.",
           "So I came too",
           "Clockwise along Route 1: glacier tongues spilling into lagoons, waves on the black sand louder than in the film, a midnight sun that would not set, tracing every ridge in gold. I walked the little road up to the church with my camera, the wind loud enough to blow a daydream awake.",
           "By the end I think I understood Negative 25: what it develops is not a landscape, but the person who finally stopped hesitating and started living. Somewhere in Iceland, I found mine."

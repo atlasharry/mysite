@@ -8,6 +8,9 @@ BUILD = pathlib.Path("build"); BUILD.mkdir(exist_ok=True)
 text = ""
 for f in ["travel/index.html", "js/diary-data.js", "js/diary.js"]:
     text += pathlib.Path(f).read_text(encoding="utf-8")
+# 保险：若文件里存在 \uXXXX 转义（脚本生成的数据），也把对应真实字符计入
+import re as _re
+text += "".join(chr(int(h, 16)) for h in _re.findall(r"\\u([0-9a-fA-F]{4})", text))
 ascii_all = "".join(chr(c) for c in range(32, 127))
 chars = "".join(sorted(set(text + ascii_all))) + "♡·—“”《》…、。，？！：；（）øæÆÍó№"
 (BUILD / "diary-glyphs.txt").write_text(chars, encoding="utf-8")
