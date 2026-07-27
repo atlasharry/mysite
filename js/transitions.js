@@ -126,12 +126,21 @@
       ob.classList.remove("show");
       setTimeout(function(){ ob.hidden = true; }, 750);
     }
-    setTimeout(function(){
-      ob.hidden = false;
-      place();
-      requestAnimationFrame(function(){ ob.classList.add("show"); });
-    }, 900);
-    setTimeout(dismiss, 10000);
+    /* 首屏光效谢幕后再出场（同台会打架）；光效缺席/异常时兜底延时出现 */
+    var revealed = false;
+    function reveal(){
+      if(revealed || done) return;
+      revealed = true;
+      setTimeout(function(){
+        if(done) return;
+        ob.hidden = false;
+        place();
+        requestAnimationFrame(function(){ ob.classList.add("show"); });
+        setTimeout(dismiss, 9000);
+      }, 500);
+    }
+    addEventListener("wispdone", reveal, { once: true });
+    setTimeout(reveal, 9000);
     ob.addEventListener("pointerdown", dismiss);
     addEventListener("scroll", dismiss, { passive: true, once: true });
     ["langToggle", "themeToggle"].forEach(function(id){

@@ -68,7 +68,11 @@ button{font-family:inherit}
 .hero{position:relative;min-height:100svh;display:grid;place-items:center;overflow:hidden;background:var(--bg);
   padding:5.5rem 1rem 3rem;transition:background .5s ease}
 #stars{position:absolute;inset:0;width:100%;height:100%}
-.hero-inner{position:relative;text-align:center;max-width:var(--w)}
+.hero-inner{position:relative;text-align:center;max-width:var(--w);z-index:2}
+/* 片头「快门未关」：曝光期间名字带长曝光重影 */
+.hc{transition:text-shadow 1.2s ease}
+.hc.gh{text-shadow:5px 8px 12px rgba(235,219,188,.3)}
+:root[data-theme="light"] .hc.gh{text-shadow:5px 8px 12px rgba(156,124,71,.3)}
 .hero-inner h1{font-size:clamp(2.5rem,6.5vw,4.4rem);letter-spacing:.2em;font-weight:600}
 .hero-en{display:block;font-family:var(--lat-serif);font-size:.32em;letter-spacing:.55em;color:var(--ink-dim);margin-top:1.2rem;font-weight:400}
 .tagline{margin-top:2.2rem;font-family:var(--serif);font-size:clamp(1rem,2vw,1.2rem);letter-spacing:.18em}
@@ -89,7 +93,7 @@ button{font-family:inherit}
 .hero.lit .hero-story::before{
   animation:storybloom 2s cubic-bezier(.22,.61,.36,1) forwards,
             storybreathe 6.4s ease-in-out 2.2s infinite}
-@keyframes storybloom{from{opacity:0;transform:translate(-50%,-50%) scale(.55)}to{opacity:.9;transform:translate(-50%,-50%) scale(1)}}
+@keyframes storybloom{from{opacity:0;transform:translate(-50%,-50%) scale(.82)}to{opacity:.9;transform:translate(-50%,-50%) scale(1)}}
 @keyframes storybreathe{0%,100%{opacity:.55}50%{opacity:1}}
 /* 落光丝线：字底一条极细的光轨，一滴光珠周期性坠向画面下缘 */
 .story-beam{position:absolute;left:50%;top:calc(100% + 1.3rem);width:1px;height:clamp(90px,17vh,160px);
