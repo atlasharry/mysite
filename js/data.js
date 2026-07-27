@@ -26,6 +26,7 @@ i18n: {
     hint:{zh:"拖动地图 · 点击图钉，看看我在那里看见的世界",en:"Drag to roam · tap a pin to see what I saw there"},
     empty:{zh:"整理中",en:"Coming soon"},
     view:{zh:"点击查看",en:"Click to view"},
+    diaryTip:{zh:"打开旅行手账 →",en:"Open travel diary →"},
     zoom:{zh:"点击放大",en:"Click to zoom"},
     back:{zh:"返回全图",en:"Full map"},
     goto:{zh:"去看看我走过的世界",en:"See where I've been"}
@@ -177,7 +178,7 @@ locations: [
   { id:"nyc",        name:{zh:"纽约",en:"New York"},       lat:40.71, lon:-74.01, items:[] },
   { id:"pittsburgh", name:{zh:"匹兹堡",en:"Pittsburgh"},   lat:40.44, lon:-80.00, items:[] },
   { id:"iceland",    name:{zh:"冰岛",en:"Iceland"},        lat:64.15, lon:-21.94, items:[] },
-  { id:"norway",     name:{zh:"挪威",en:"Norway"},         lat:60.39, lon:5.32,  items:[] }
+  { id:"norway",     name:{zh:"挪威",en:"Norway"},         lat:60.39, lon:5.32,  items:[], diary:true }
 ],
 
 about: {

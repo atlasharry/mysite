@@ -1,0 +1,218 @@
+/* 旅行手账（travel/）：纸上的世界——与主站的暗色影院互为里外。
+   全部质感（纸纹/胶带/线圈/邮戳/撕边/做旧）为纯 CSS/SVG，零图片依赖 */
+@font-face{font-family:"LXGW Diary";src:url("../assets/fonts/lxgw-diary.woff2") format("woff2");font-display:swap}
+@font-face{font-family:"Caveat Diary";src:url("../assets/fonts/caveat-diary.woff2") format("woff2");
+  font-weight:400 700;font-display:swap}
+
+:root{
+  --paper:#f1e9d6; --paper-hi:#f8f2e4; --paper-deep:#e7dcc4; --sheet:#fbf6e9;
+  --kraft:#dcc9a4; --kraft-deep:#c9b184;
+  --ink:#33455e; --ink-soft:#5d6d84; --title:#2e2b25; --body:#4a4335;
+  --line:rgba(51,69,94,.15); --pencil:#8d8574;
+  --tape:rgba(224,208,174,.62); --shadow:0 14px 30px rgba(78,62,36,.16);
+  --hand:"LXGW Diary","Kaiti SC","STKaiti",serif;
+  --script:"Caveat Diary","Segoe Script",cursive;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--hand);color:var(--body);background:var(--paper);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .36 0 0 0 0 .24 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(1100px 600px at 12% -5%, var(--paper-hi), transparent 60%),
+    radial-gradient(900px 700px at 108% 30%, var(--paper-deep), transparent 55%);
+  line-height:1.9;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ---- 顶栏 ---- */
+.dnav{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:1.2rem;
+  padding:.85rem clamp(1rem,4vw,2.4rem);
+  background:color-mix(in srgb, var(--paper) 90%, transparent);backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(78,62,36,.12)}
+.dback{color:var(--ink);font-size:.95rem;letter-spacing:.08em}
+.dback:hover{opacity:.75}
+.dnav-title{margin-left:auto;color:var(--pencil);letter-spacing:.3em;font-size:.85rem}
+#dlang{margin-left:1rem;background:none;border:1px solid rgba(51,69,94,.35);color:var(--ink);
+  font:inherit;font-size:.78rem;padding:.14rem .7rem;border-radius:3px;cursor:pointer;letter-spacing:.08em}
+#dlang:hover{background:var(--ink);color:var(--paper-hi)}
+
+.diary-page{max-width:76rem;margin:0 auto;padding:clamp(1.4rem,4vw,3.2rem)}
+
+/* ---- 首屏 ---- */
+.dhero{display:grid;grid-template-columns:1fr 1.25fr;gap:clamp(1.6rem,4vw,3.5rem);
+  align-items:center;padding:clamp(1rem,3vw,2.5rem) 0 clamp(2rem,4vw,3.5rem)}
+.dhero-copy h1{font-size:clamp(2.4rem,5.4vw,3.9rem);color:var(--title);letter-spacing:.06em;
+  font-weight:700;line-height:1.25}
+.dhero-copy .dsub{margin-top:1rem;color:var(--ink);font-size:clamp(1.05rem,2vw,1.3rem);letter-spacing:.14em}
+.dhero-copy .dintro{margin-top:1.6rem;white-space:pre-line;color:var(--body);
+  font-size:.98rem;letter-spacing:.06em;line-height:2.2}
+
+/* 邮戳：做旧油墨 */
+.dstamp{margin-top:1.8rem;width:128px;height:128px;transform:rotate(-9deg);opacity:.82}
+.dstamp svg{width:100%;height:100%}
+.dstamp .r1{fill:none;stroke:var(--ink);stroke-width:2.6}
+.dstamp .r2{fill:none;stroke:var(--ink);stroke-width:1}
+.dstamp .st{font-family:Georgia,"Times New Roman",serif;font-size:11.5px;letter-spacing:3px;fill:var(--ink);font-weight:600}
+.dstamp .dia{fill:var(--ink)}
+.dstamp .sil{fill:var(--ink)}
+
+/* 铅笔山线稿 / 植物线稿 */
+.dmtn{position:absolute;top:-30px;right:-14px;width:200px;opacity:.28;pointer-events:none}
+.dmtn path{fill:none;stroke:var(--pencil);stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
+.dbranch{position:absolute;right:1.6rem;bottom:1.4rem;width:56px;opacity:.4;pointer-events:none}
+.dbranch path{fill:none;stroke:var(--pencil);stroke-width:1.4;stroke-linecap:round}
+
+/* ---- 相纸 / 拍立得 / 胶带 / 回形针 ---- */
+.dhero-photos{position:relative;padding:10px clamp(0px,3vw,40px) 2.4rem 0}
+.print{background:#fdfbf6;padding:10px 10px 14px;box-shadow:var(--shadow);border-radius:2px;position:relative}
+.print img{border-radius:1px;filter:saturate(.93) contrast(.97) sepia(.05);
+  box-shadow:inset 0 0 0 1px rgba(60,45,20,.07)}
+.print .pcap{font-family:var(--script);color:var(--ink);text-align:center;
+  font-size:1.35rem;margin-top:.55rem;line-height:1.2}
+.print.main{transform:rotate(-1.2deg);z-index:1}
+.print.pola{position:absolute;right:-8px;top:-30px;width:31%;transform:rotate(4.5deg);z-index:2;
+  padding:8px 8px 12px}
+.print.pola .pcap{font-size:1.12rem}
+.tape{position:absolute;width:92px;height:26px;background:var(--tape);
+  box-shadow:0 2px 6px rgba(78,62,36,.14);opacity:.92;
+  -webkit-mask:linear-gradient(90deg,transparent 0,#000 7px,#000 calc(100% - 7px),transparent 100%);
+  mask:linear-gradient(90deg,transparent 0,#000 7px,#000 calc(100% - 7px),transparent 100%)}
+.tape.tl{left:-30px;top:-9px;transform:rotate(-42deg)}
+.tape.tr{right:-30px;top:-9px;transform:rotate(42deg)}
+.tape.tc{left:50%;top:-11px;transform:translateX(-50%) rotate(-2deg);width:64px;height:20px}
+.tape.tcorner{left:-20px;top:-8px;transform:rotate(-40deg);width:58px;height:18px}
+.tape.ntl{left:14px;top:-10px;transform:rotate(-3deg);width:74px;height:22px;z-index:2}
+.clip{width:22px;height:46px}
+.clip path{fill:none;stroke:#9aa1a8;stroke-width:2.6;stroke-linecap:round}
+.clip.pclip{position:absolute;left:50%;top:-20px;transform:translateX(-50%) rotate(8deg)}
+.clip.nclip{position:absolute;left:-7px;top:24px;transform:rotate(-14deg);z-index:2}
+
+/* ---- 笔记本 ---- */
+.notebook{position:relative;background:var(--paper-hi);border-radius:6px;
+  box-shadow:0 20px 50px rgba(78,62,36,.2);
+  padding:clamp(1.6rem,3.5vw,2.8rem) clamp(1.4rem,3.5vw,2.8rem) clamp(2rem,4vw,3.2rem) clamp(3.4rem,6vw,4.6rem)}
+.notebook::before{content:"";position:absolute;left:16px;top:18px;bottom:18px;width:22px;
+  background-image:radial-gradient(circle 5px at 11px 11px, var(--paper) 4px, rgba(78,62,36,.35) 4.5px, rgba(78,62,36,.18) 5.5px, transparent 6.5px);
+  background-size:22px 26px;background-repeat:repeat-y}
+.mo-label{font-family:var(--script);font-size:1.75rem;color:var(--ink);margin-bottom:1.3rem}
+
+/* ---- 照片墙：重叠拼贴，无滚动 ---- */
+.dwall{position:relative;display:flex;align-items:center;justify-content:center;
+  flex-wrap:wrap;padding:.4rem 0 2.6rem}
+.snap{flex:0 0 auto;background:#fdfbf6;padding:7px 7px 8px;border-radius:2px;
+  box-shadow:0 10px 22px rgba(78,62,36,.18);position:relative}
+.snap img{width:100%;height:calc(100% - 34px);object-fit:cover;border-radius:1px;
+  filter:saturate(.93) contrast(.97) sepia(.05);box-shadow:inset 0 0 0 1px rgba(60,45,20,.07)}
+.snap .scap{font-size:.74rem;color:var(--ink-soft);text-align:center;
+  letter-spacing:0;line-height:26px;height:26px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.snap.sa {width:196px;height:192px;transform:rotate(-2.4deg);z-index:1}
+.snap.sb2{width:172px;height:214px;transform:rotate(1.8deg);z-index:2;margin-left:-26px}
+.snap.sc {width:156px;height:226px;transform:rotate(-1.2deg);z-index:3;margin-left:-24px}
+.snap.sd {width:206px;height:188px;transform:rotate(2.2deg);z-index:2;margin-left:-26px}
+.snap.se {width:172px;height:206px;transform:rotate(-1.8deg);z-index:4;margin-left:-24px}
+.snap.sf {width:212px;height:186px;transform:rotate(1.4deg);z-index:3;margin-left:-28px}
+.kraft{position:absolute;right:-6px;bottom:2px;z-index:9;
+  background:linear-gradient(168deg,var(--kraft),var(--kraft-deep));
+  color:#453820;padding:.4rem 1.5rem .4rem 2.2rem;border-radius:2px;transform:rotate(-2.2deg);
+  box-shadow:0 8px 18px rgba(78,62,36,.24);letter-spacing:.22em;font-size:1rem;
+  -webkit-mask:linear-gradient(90deg,transparent 0,#000 5px,#000 calc(100% - 5px),transparent 100%);
+  mask:linear-gradient(90deg,transparent 0,#000 5px,#000 calc(100% - 5px),transparent 100%)}
+.kraft::before{content:"";position:absolute;left:.8rem;top:50%;transform:translateY(-50%);
+  width:12px;height:12px;border-radius:50%;
+  background:radial-gradient(circle at 34% 28%,#f0e4c6,#a5854e 62%,#6e5626);
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.4),0 1px 2px rgba(255,255,255,.35)}
+
+/* ---- 日记区 ---- */
+.diaryrow{display:grid;grid-template-columns:.82fr 1.7fr;gap:clamp(1.8rem,4vw,3.2rem);
+  margin-top:clamp(2rem,4vw,3rem);align-items:start}
+
+/* 做旧便签：斑驳 + 横线 + 左缘撕孔 + 撕角 */
+.dnote{position:relative;transform:rotate(-1.4deg);filter:drop-shadow(0 12px 22px rgba(78,62,36,.2))}
+.dnote-in{position:relative;background:#f7f0dd;padding:1.7rem 1.5rem 2rem 2.3rem;
+  background-image:
+    radial-gradient(220px 140px at 82% 8%, rgba(150,124,78,.09), transparent 60%),
+    radial-gradient(160px 120px at 10% 92%, rgba(150,124,78,.11), transparent 65%),
+    radial-gradient(90px 60px at 30% 40%, rgba(150,124,78,.05), transparent 70%),
+    repeating-linear-gradient(180deg,transparent 0 29px,var(--line) 29px 30px);
+  clip-path:polygon(0 2.2%,5% 0,10% 1.6%,16% .3%,23% 2.2%,29% .8%,36% 2.4%,43% .4%,50% 1.8%,57% 0,64% 2.2%,71% 1%,78% 2.4%,85% .6%,92% 1.8%,97% .4%,100% 2.4%,100% 84%,97.5% 86%,98.5% 89%,95.5% 91%,96.5% 94%,93% 96%,94% 100%,0 100%)}
+.dnote-in::before{content:"";position:absolute;left:6px;top:6%;bottom:5%;width:18px;
+  background-image:radial-gradient(circle at 9px 15px, var(--paper-hi) 4.4px, rgba(120,100,60,.42) 5px 5.8px, transparent 6.8px);
+  background-size:18px 30px;background-repeat:repeat-y}
+.dnote h3{color:var(--title);font-size:1.4rem;letter-spacing:.3em;display:flex;align-items:center;gap:.7rem}
+.dnote .flor{width:58px;flex:0 0 auto;opacity:.8}
+.dnote .flor path{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round}
+.dnote .dplace{font-family:var(--script);color:var(--ink-soft);font-size:1.2rem;margin-top:.45rem;
+  padding-bottom:.5rem;border-bottom:1px solid rgba(51,69,94,.3)}
+.dnote .dmap{margin:1.2rem auto 0;width:78%;max-width:190px;display:block}
+.dnote .dmap .coast{fill:rgba(51,69,94,.045);stroke:var(--ink);stroke-width:1.7;
+  stroke-linejoin:round;stroke-linecap:round;opacity:.85}
+.dnote .dmap .dot{fill:var(--ink)}
+.dnote .dmap .halo{fill:none;stroke:var(--ink);stroke-width:1.2;opacity:.45}
+
+/* 活页纸：题头 + 对行横线正文 + 装订孔 + 页边线 */
+.dsheet{position:relative;background:var(--sheet);border-radius:3px;box-shadow:var(--shadow);
+  padding:2.2rem 2.6rem 2.4rem 3.6rem;transform:rotate(.3deg)}
+.dsheet::before{content:"";position:absolute;left:2.55rem;top:0;bottom:0;width:1px;
+  background:rgba(196,92,66,.28)}
+.dsheet::after{content:"";position:absolute;left:.9rem;top:14%;bottom:12%;width:14px;
+  background-image:radial-gradient(circle 5.5px at 7px 7px, var(--paper) 4.6px, rgba(120,100,60,.35) 5.2px 6px, transparent 7px);
+  background-size:14px 96px;background-repeat:repeat-y}
+.dsheet .dtitle{color:var(--title);font-size:clamp(1.5rem,3vw,1.95rem);letter-spacing:.1em;font-weight:700}
+.dsheet .ddate{color:var(--ink-soft);font-size:.92rem;letter-spacing:.2em;margin-top:.5rem}
+.dbody{margin-top:1.3rem;font-size:17px;line-height:38px;
+  background-image:repeating-linear-gradient(180deg,transparent 0 37px,var(--line) 37px 38px);
+  background-position:0 -6px}
+.dbody p{margin:0;letter-spacing:.04em;text-align:justify}
+.dbody p+p{margin-top:38px}
+.dbody p.beat{letter-spacing:.5em;color:var(--ink)}
+.dbody p.dquote{margin-top:38px;font-family:var(--script);color:var(--ink);font-size:1.65rem;
+  line-height:38px;text-align:right;white-space:pre-line}
+
+/* ---- 尾部 ---- */
+.dfoot{text-align:center;padding:2.6rem 1rem 3rem;color:var(--pencil);letter-spacing:.14em;font-size:.9rem}
+.dfoot a:hover{color:var(--ink)}
+
+/* ---- 入场：纸上物件依次落定 ---- */
+@media (prefers-reduced-motion: no-preference){
+  .dhero-copy,.print.main,.print.pola,.notebook{animation:dset .9s cubic-bezier(.22,.61,.36,1) backwards}
+  .print.main{animation-name:dsetr;animation-delay:.15s}
+  .print.pola{animation-name:dsetp;animation-delay:.3s}
+  .notebook{animation-delay:.2s}
+  @keyframes dset{from{opacity:0;transform:translateY(14px)}to{opacity:1}}
+  @keyframes dsetr{from{opacity:0;transform:rotate(-1.2deg) translateY(14px)}to{opacity:1;transform:rotate(-1.2deg)}}
+  @keyframes dsetp{from{opacity:0;transform:rotate(4.5deg) translateY(10px)}to{opacity:1;transform:rotate(4.5deg)}}
+}
+
+/* ---- 手机 ---- */
+@media (max-width:760px){
+  .dhero{grid-template-columns:1fr;gap:2.6rem}
+  .dhero-photos{padding:6px 0 2rem;margin-top:.2rem}
+  .print.pola{right:-2px;top:auto;bottom:-34px;width:34%}
+  .dmtn{top:-16px;right:-6px;width:130px}
+  .dstamp{position:absolute;right:0;top:-10px;width:92px;height:92px;margin:0}
+  .dhero-copy{position:relative;padding-right:100px}
+  .notebook{padding-left:2.9rem;padding-right:1.1rem}
+  .notebook::before{left:9px;width:18px;background-size:18px 24px}
+  .snap.sa {width:126px;height:128px}
+  .snap.sb2{width:112px;height:142px;margin-left:-18px}
+  .snap.sc {width:102px;height:150px;margin-left:-16px}
+  .snap.sd {width:142px;height:126px;margin-left:-40px}
+  .snap.se {width:112px;height:138px;margin-left:-18px}
+  .snap.sf {width:138px;height:124px;margin-left:-16px}
+  .snap{padding:5px 5px 6px}
+  .snap .scap{font-size:.62rem;line-height:20px;height:20px}
+  .snap img{height:calc(100% - 26px)}
+  .kraft{right:2px;bottom:-14px;font-size:.85rem;padding:.35rem 1.2rem .35rem 2rem}
+  .diaryrow{grid-template-columns:1fr;gap:2.2rem}
+  .dnote{max-width:330px;margin:0 auto}
+  .dsheet{padding:1.8rem 1.2rem 2rem 2.6rem}
+  .dsheet::before{left:1.9rem}
+  .dsheet::after{left:.55rem}
+  .dbody{font-size:15.5px;line-height:34px;
+    background-image:repeating-linear-gradient(180deg,transparent 0 33px,var(--line) 33px 34px)}
+  .dbody p+p{margin-top:34px}
+  .dbody p.dquote{line-height:34px;margin-top:34px;font-size:1.45rem}
+  .dbranch{right:.7rem;bottom:.8rem;width:40px}
+}
