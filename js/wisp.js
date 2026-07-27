@@ -65,8 +65,10 @@
       stars.push({ r: Math.sqrt(dx*dx + dy*dy), a0: Math.atan2(dy, dx), sz: 0.6 + rnd() * 1.1,
                    al: .3 + rnd() * .5, stg: rnd() * 160 - 80 });
     }
-    /* 流星起点：名字右上方的空旷天区（不压标题） */
-    var rbx = Math.min(W - 120, S.x + 330), rby = nameTop - 90;
+    /* 流星起点：宽屏在名字右上的空旷天区；竖屏从右侧屏幕外斜切入画（不从中间落） */
+    var portrait = W < 700;
+    var rbx = portrait ? W + 50 : Math.min(W - 120, S.x + 330);
+    var rby = portrait ? nameTop + 30 : nameTop - 90;
     var rebel = { r: Math.hypot(rbx - pole.x, rby - pole.y), a0: Math.atan2(rby - pole.y, rbx - pole.x) };
     chars.forEach(function(c){ c.classList.add("gh"); });
     var SWEEP = 0.16, born = performance.now(), litDone = false, gone = false;

@@ -180,6 +180,12 @@ html[lang^="en"] .tc-en{letter-spacing:.3em}
 .film-poster.typo.tall{aspect-ratio:2/3}
 .sheet-info h3{font-size:1.6rem;letter-spacing:.12em}
 .sheet-syn{color:var(--ink-dim);font-size:.9rem;margin-top:1.4rem;text-align:justify}
+/* 影片技术规格：目录页式小注 */
+.sheet-specs{margin:1.6rem 0 0;border-top:1px solid var(--hairline);padding-top:1.2rem;
+  display:grid;grid-template-columns:auto 1fr;gap:.5rem 1.6rem}
+.sheet-specs div{display:contents}
+.sheet-specs dt{color:var(--accent);font-size:.72rem;letter-spacing:.18em;white-space:nowrap;line-height:1.9}
+.sheet-specs dd{margin:0;color:var(--ink-dim);font-size:.8rem;letter-spacing:.02em;line-height:1.9}
 .sheet-label{color:var(--accent);font-size:.72rem;letter-spacing:.25em;margin-top:1.8rem;margin-bottom:.7rem}
 .sheet-close{position:fixed;top:1.1rem;right:1.4rem;z-index:81;font-size:1.9rem;color:var(--ink-dim);
   background:none;border:none;cursor:pointer}
@@ -445,6 +451,7 @@ html[lang^="en"] p{letter-spacing:.01em}
 html[lang^="en"] .bio p,
 html[lang^="en"] .exhibit-intro p,
 html[lang^="en"] .sheet-syn{text-align:left;letter-spacing:.01em}
+html[lang^="en"] .sheet-specs dt{letter-spacing:.08em}
 html[lang^="en"] .titlecard h2{letter-spacing:.06em}
 html[lang^="en"] .tagline{letter-spacing:.05em}
 html[lang^="en"] .tagline-sub{letter-spacing:.2em}

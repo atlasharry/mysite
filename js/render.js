@@ -126,6 +126,9 @@
           '<p class="film-sub">' + esc([f.year, t(f.info), t(f.roles)].filter(Boolean).join(" · ") || t(SITE.i18n.films.wip)) + '</p>' +
           f.badges.map(function(b){ return '<span class="badge">' + esc(t(b)) + '</span>'; }).join("") +
           (t(f.synopsis) ? '<p class="sheet-syn">' + esc(t(f.synopsis)) + '</p>' : "") +
+          (f.specs && f.specs.length ? '<dl class="sheet-specs">' + f.specs.map(function(sp){
+            return '<div><dt>' + esc(t(sp.k)) + '</dt><dd>' + esc(t(sp.v)) + '</dd></div>';
+          }).join("") + '</dl>' : "") +
           (f.stills.length ? '<p class="sheet-label">' + esc(t(SITE.i18n.films.stills)) + '</p><div class="sheet-stills"></div>' : "") +
         '</div></div>';
     if(f.stills.length){
