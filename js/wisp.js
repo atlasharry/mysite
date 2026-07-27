@@ -37,15 +37,7 @@
     cv.width = W * dpr; cv.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    /* 次要文字（HARRY YU/标语/身份词）先隐后现，给片头一个干净的舞台 */
-    var minor = hero.querySelectorAll(".hero-en,.tagline,.tagline-sub");
-    minor.forEach(function(el){ el.style.transition = "opacity 1.2s ease"; el.style.opacity = "0"; });
-    var minorDone = false;
-    function minorIn(){
-      if(minorDone) return; minorDone = true;
-      minor.forEach(function(el){ el.style.opacity = ""; });
-    }
-
+    /* 次要文字（HARRY YU/标语/身份词）由 CSS 自始隐藏、.lit 后淡入——避免加载闪现 */
     function seg(t, a, b){ return Math.max(0, Math.min(1, (t - a) / (b - a))); }
     function rnd0(s){ return function(){ s = (s * 16807) % 2147483647; return s / 2147483647; }; }
 
@@ -90,12 +82,12 @@
       }
       if(t > 2950) chars.forEach(function(c){ c.classList.remove("gh"); });
       /* 收束完成即点亮正文——less is more */
-      if(!litDone && t > 3900){ litDone = true; lit(); minorIn(); }
+      if(!litDone && t > 3900){ litDone = true; lit(); }
       if(t < 4500 && !gone) requestAnimationFrame(frame);
       else {
         cv.remove();
         chars.forEach(function(c){ c.classList.remove("gh"); });
-        if(!litDone){ lit(); minorIn(); }
+        if(!litDone) lit();
         fin();
       }
     })(performance.now());

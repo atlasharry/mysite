@@ -68,7 +68,7 @@ a{color:inherit;text-decoration:none}
 /* ---- 相纸 / 拍立得 / 胶带 / 回形针 ---- */
 .dhero-photos{position:relative;padding:10px clamp(0px,3vw,40px) 2.4rem 0}
 .print{background:#fdfbf6;padding:10px 10px 14px;box-shadow:var(--shadow);border-radius:2px;position:relative}
-.print img{border-radius:1px;filter:saturate(.93) contrast(.97) sepia(.05);
+.print img{width:100%;border-radius:1px;filter:saturate(.93) contrast(.97) sepia(.05);
   box-shadow:inset 0 0 0 1px rgba(60,45,20,.07)}
 .print .pcap{font-family:var(--script);color:var(--ink);text-align:center;
   font-size:1.35rem;margin-top:.55rem;line-height:1.2}
@@ -171,6 +171,24 @@ a{color:inherit;text-decoration:none}
 .dbody p.dquote{margin-top:38px;font-family:var(--script);color:var(--ink);font-size:1.65rem;
   line-height:38px;text-align:right;white-space:pre-line}
 
+/* ---- 图片骨架屏：未加载时暖灰微光扫动，加载完成即静止 ---- */
+.print img,.snap img{
+  background:linear-gradient(100deg,#eae2cd 40%,#f5efdf 50%,#eae2cd 60%) 0 0/200% 100% no-repeat,#eae2cd}
+@media (prefers-reduced-motion: no-preference){
+  .print img:not(.ld),.snap img:not(.ld){animation:dshimmer 1.5s linear infinite}
+}
+@keyframes dshimmer{from{background-position:200% 0,0 0}to{background-position:-200% 0,0 0}}
+.print img.ld,.snap img.ld{animation:none;background:none}
+
+/* ---- 英文排版：去两端对齐（窄屏大空洞的根源）、收字距 ---- */
+html[lang="en"] .dbody p{text-align:left;letter-spacing:0}
+html[lang="en"] .dsheet .dtitle{letter-spacing:.02em}
+html[lang="en"] .dsheet .ddate{letter-spacing:.08em}
+html[lang="en"] .dback{letter-spacing:.02em}
+html[lang="en"] .dnav-title{letter-spacing:.14em}
+html[lang="en"] .dnote h3{letter-spacing:.08em}
+html[lang="en"] .dintro{letter-spacing:.01em}
+
 /* ---- 尾部 ---- */
 .dfoot{text-align:center;padding:2.6rem 1rem 3rem;color:var(--pencil);letter-spacing:.14em;font-size:.9rem}
 .dfoot a:hover{color:var(--ink)}
@@ -188,6 +206,10 @@ a{color:inherit;text-decoration:none}
 
 /* ---- 手机 ---- */
 @media (max-width:760px){
+  .dnav{gap:.7rem;padding:.7rem 1rem}
+  .dback{font-size:.88rem;white-space:nowrap}
+  .dnav-title{display:none}   /* 窄屏只留返回与语言切换，杜绝折行 */
+  .dsheet::after{display:none}   /* 与笔记本线圈孔重复，窄屏只留一排 */
   .dhero{grid-template-columns:1fr;gap:2.6rem}
   .dhero-photos{padding:6px 0 2rem;margin-top:.2rem}
   .print.pola{right:-2px;top:auto;bottom:-34px;width:34%}
