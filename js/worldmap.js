@@ -403,6 +403,15 @@
   document.addEventListener("DOMContentLoaded", function(){
     build();
     I18N.onChange(function(){ build(); renderPanel(); });
+    /* 从手账页返回（#mapWrap）：布局落定后补锚（图片/照片高度校准会推移下方内容） */
+    if(location.hash === "#mapWrap"){
+      var reAnchor = function(){
+        var el = document.getElementById("mapWrap");
+        if(el) el.scrollIntoView({ behavior: "auto", block: "start" });
+      };
+      setTimeout(reAnchor, 450);
+      addEventListener("load", function(){ setTimeout(reAnchor, 150); });
+    }
     var wrapEl = document.getElementById("mapWrap");
     if(wrapEl){
       var mo = new IntersectionObserver(function(en){

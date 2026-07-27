@@ -88,6 +88,18 @@
     return v;
   }
 
+  /* ---- 首屏姓名：英文版整体去中文（片头曝光重影照常作用于三个词块） ---- */
+  function renderHeroName(){
+    var h1 = document.querySelector(".hero h1");
+    if(!h1) return;
+    if(I18N.lang === "en"){
+      h1.innerHTML = '<span class="hc">Chengyu</span> <span class="hc">(Harry)</span> <span class="hc">Yu</span>';
+    } else {
+      h1.innerHTML = '<span class="hc">余</span><span class="hc">城</span><span class="hc">宇</span>' +
+        '<span class="hero-en">HARRY YU</span>';
+    }
+  }
+
   /* ---- 影像 ---- */
   function renderFilms(){
     var box = $("#filmList"); if(!box) return;
@@ -255,17 +267,23 @@
     observeReveals(box);
     requestAnimationFrame(sizeAboutPhoto);
   }
-  /* 照片高度 = 左栏（标题→按钮）高度，两端严格对齐 */
+  /* 照片高度 = 左栏（标题→按钮）高度，两端严格对齐。
+     照片高度决定其宽度、宽度又影响左栏换行——迭代到不动点，修缩放时大时小 */
   function sizeAboutPhoto(){
     var left = document.querySelector("#about .bio"), ph = document.querySelector(".about-photo");
     if(!left || !ph) return;
-    ph.style.height = (innerWidth < 760) ? "" : left.getBoundingClientRect().height + "px";
+    if(innerWidth < 760){ ph.style.height = ""; return; }
+    for(var i = 0; i < 3; i++){
+      var h = left.getBoundingClientRect().height;
+      if(Math.abs((parseFloat(ph.style.height) || 0) - h) < 0.5) break;
+      ph.style.height = h + "px";
+    }
   }
   addEventListener("resize", sizeAboutPhoto);
   addEventListener("load", sizeAboutPhoto);
 
   /* ---- 渲染调度：后续任务往这里注册 ---- */
-  var renderers = [renderFilms, renderResearch, renderExhibit, renderAstro, renderAbout];
+  var renderers = [renderHeroName, renderFilms, renderResearch, renderExhibit, renderAstro, renderAbout];
   window.registerRenderer = function(fn){ renderers.push(fn); };
   function renderAll(){ renderers.forEach(function(fn){ fn(); }); }
   document.addEventListener("DOMContentLoaded", function(){

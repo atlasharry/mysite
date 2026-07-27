@@ -77,6 +77,9 @@ button{font-family:inherit}
 .hero-en{display:block;font-family:var(--lat-serif);font-size:.32em;letter-spacing:.55em;color:var(--ink-dim);margin-top:1.2rem;font-weight:400}
 .tagline{margin-top:2.2rem;font-family:var(--serif);font-size:clamp(1rem,2vw,1.2rem);letter-spacing:.18em}
 .tagline-sub{margin-top:.9rem;color:var(--ink-dim);font-size:.82rem;letter-spacing:.34em}
+/* 片头期间次要文字自始隐藏（避免“先闪现再消失”），.lit 后淡入 */
+.hero-en,.tagline,.tagline-sub{opacity:0;transition:opacity 1.2s ease}
+.hero.lit .hero-en,.hero.lit .tagline,.hero.lit .tagline-sub{opacity:1}
 
 /* 听听我的故事：首屏唯一入口。光精灵（wisp.js）落进文字的瞬间给 .hero 加 .lit，
    暖光绽放浮现 + 落光丝线随之启动 */
@@ -456,6 +459,9 @@ html[lang^="en"] .titlecard h2{letter-spacing:.06em}
 html[lang^="en"] .tagline{letter-spacing:.05em}
 html[lang^="en"] .tagline-sub{letter-spacing:.2em}
 html[lang^="en"] .hero-story{letter-spacing:.08em;text-indent:.08em}
+/* 英文版整体去中文：拉丁姓名缩字号、章节副标（中文小字）隐藏 */
+html[lang^="en"] .hero-inner h1{font-size:clamp(1.9rem,4.8vw,3.3rem);letter-spacing:.05em}
+html[lang^="en"] .tc-en{display:none}
 html[lang^="en"] .map-cue{letter-spacing:.05em}
 html[lang^="en"] .map-hint{letter-spacing:.08em}
 html[lang^="en"] .film-title{letter-spacing:.02em}

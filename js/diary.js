@@ -143,10 +143,15 @@
     document.getElementById("page").innerHTML = html;
     document.getElementById("footBack").textContent = (lang === "zh")
       ? "← 回到地图 · Back to the map" : "← Back to the map";
+    /* 骨架屏：图片加载完成后停掉微光 */
+    document.querySelectorAll("#page img").forEach(function(img){
+      if(img.complete && img.naturalWidth) img.classList.add("ld");
+      else img.addEventListener("load", function(){ img.classList.add("ld"); }, { once: true });
+    });
   }
 
   document.addEventListener("DOMContentLoaded", function(){
-    if(!D){ location.replace("../#travel"); return; }
+    if(!D){ location.replace("../#mapWrap"); return; }
     render();
     document.getElementById("dlang").addEventListener("click", function(){
       lang = (lang === "zh") ? "en" : "zh";

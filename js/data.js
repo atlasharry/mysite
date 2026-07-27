@@ -32,7 +32,7 @@ i18n: {
     goto:{zh:"去看看我走过的世界",en:"See where I've been"}
   },
   about: { title:{zh:"关于",en:"About"}, alt:{zh:"ABOUT",en:"关于"}, resume:{zh:"查看简历",en:"Résumé"} },
-  footer: { line:{zh:"© 2026 余城宇 · Harry Yu",en:"© 2026 Harry Yu"} },
+  footer: { line:{zh:"© 2026 余城宇 · Harry Yu",en:"© 2026 Chengyu (Harry) Yu"} },
   onboard: { tip:{zh:"在这里切换 中 / EN 与明暗主题",en:"Language & theme, right up here"} }
 },
 
@@ -73,7 +73,7 @@ films: [
       en:"Disillusioned, a young man returns to his family home in a small county town. The traces time has left in the old house, and his parents’ quiet steadfastness, force him to look again at what “home” really means."},
     poster:"assets/films/guiqi-poster", stills:[] },
   { id:"doubleblind",
-    title:{zh:"双盲",en:"双盲"}, year:"2026",
+    title:{zh:"双盲",en:"Double Blind"}, year:"2026",
     info:{zh:"剧情短片",en:"Narrative short"}, roles:{zh:"导演",en:"Director"},
     badges:[{zh:"申报中",en:"In submission"}],
     synopsis:{zh:"",en:""},
