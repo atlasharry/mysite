@@ -97,7 +97,7 @@
         }
         var hx = pole.x + Math.cos(head) * s.r, hy = pole.y + Math.sin(head) * s.r;
         /* 尾声：片头层的星缓缓淡出，夜空交还给真实星空 */
-        var out = seg(t, 5250, 5850);
+        var out = seg(t, 4100, 4650);
         ctx.fillStyle = ACCD + (s.al * (0.5 + 0.5 * shb) * (1 - out)) + ")";
         ctx.beginPath(); ctx.arc(hx, hy, s.sz, 0, 7); ctx.fill();
       }
@@ -106,7 +106,7 @@
       /* 不肯停的那颗：直线流星，亮度暗-亮-暗，加速坠落，锥形拖尾随亮度伸缩 */
       var rh = rebel.a0 + SWEEP * grow;
       var rx = pole.x + Math.cos(rh) * rebel.r, ry = pole.y + Math.sin(rh) * rebel.r;
-      var mf = seg(t, 4050, 5450);
+      var mf = seg(t, 2950, 4300);   /* 与收束同步：星轨开始收，流星即划出，双双同时收尾 */
       if(mf <= 0){
         ctx.fillStyle = CORE; ctx.globalAlpha = .9;
         ctx.beginPath(); ctx.arc(rx, ry, 1.8, 0, 7); ctx.fill();
@@ -138,7 +138,7 @@
         }
         if(!litDone && mf > 0.8){ litDone = true; lit(); minorIn(); }
       }
-      if(t < 5900 && !gone) requestAnimationFrame(frame);
+      if(t < 4700 && !gone) requestAnimationFrame(frame);
       else {
         cv.remove();
         chars.forEach(function(c){ c.classList.remove("gh"); });
