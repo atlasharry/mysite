@@ -6,6 +6,8 @@
   var current = null, card = null, svg = null, pinLayer = null, zoomed = false, resetBtn = null, outline = null;
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   var userTouched = false;   /* 用户碰过地图就不再做引导性动画 */
+  var touchUI = matchMedia("(hover: none)").matches;   /* 触屏：图钉两段式（先卡片后进入） */
+  var armed = null;          /* 触屏已点亮卡片的图钉 id */
 
   /* 默认视图随舞台宽高比自适应：纬度铺满、经度裁切并居中照片密集区。
      竖屏手机 -> 只剩左右滑动；宽屏 -> 约 1.2-1.3 倍放大的沉浸全幅 */
@@ -108,8 +110,8 @@
     }, 50);
   }
 
-  /* ---- hover 小卡片 ---- */
-  function showCard(el, title, sub){
+  /* ---- hover 小卡片（触屏两段式时可点击进入） ---- */
+  function showCard(el, title, sub, onTap){
     var wrap = document.getElementById("mapWrap");
     if(!card){
       card = document.createElement("div");
@@ -117,13 +119,18 @@
       wrap.appendChild(card);
     }
     card.innerHTML = '<h5>' + title + '</h5>' + (sub ? '<p>' + sub + '</p>' : "");
+    card.style.pointerEvents = onTap ? "auto" : "";
+    card.onclick = onTap || null;
     var wr = wrap.getBoundingClientRect();
     var gr = el.getBoundingClientRect();
     card.style.left = (gr.left + gr.width/2 - wr.left) + "px";
     card.style.top  = (gr.top - wr.top) + "px";
     requestAnimationFrame(function(){ card.classList.add("show"); });
   }
-  function hideCard(){ if(card) card.classList.remove("show"); }
+  function hideCard(){
+    if(card){ card.classList.remove("show"); card.style.pointerEvents = ""; card.onclick = null; }
+    armed = null;
+  }
 
   /* ---- viewBox 平滑缩放 ---- */
   function setViewBox(v){ svg.setAttribute("viewBox", v.x.toFixed(1) + " " + v.y.toFixed(1) + " " + v.w.toFixed(1) + " " + v.h.toFixed(1)); }
@@ -196,13 +203,25 @@
     g.setAttribute("transform", "translate(" + p[0].toFixed(1) + "," + p[1].toFixed(1) + ") scale(" + s.toFixed(3) + ")");
     g.innerHTML = '<circle class="halo" r="9"></circle><circle class="core" r="3.2"></circle>' +
       '<circle r="12" fill="transparent"></circle>';
-    g.addEventListener("click", function(e){ e.stopPropagation(); select(loc); });
-    g.addEventListener("mouseenter", function(){
+    function cardSub(){
       var n = (loc.items || []).length;
-      showCard(g, I18N.t(loc.name), loc.diary ? I18N.t(SITE.i18n.travel.diaryTip)
-        : (n ? n + " · " + I18N.t(SITE.i18n.travel.view) : I18N.t(SITE.i18n.travel.empty)));
+      return loc.diary ? I18N.t(SITE.i18n.travel.diaryTip)
+        : (n ? n + " · " + I18N.t(SITE.i18n.travel.view) : I18N.t(SITE.i18n.travel.empty));
+    }
+    g.addEventListener("click", function(e){
+      e.stopPropagation();
+      /* 触屏两段式：第一次点弹出卡片，再点图钉或卡片才进入 */
+      if(touchUI && armed !== loc.id){
+        armed = loc.id;
+        showCard(g, I18N.t(loc.name), cardSub(), function(){ select(loc); });
+        return;
+      }
+      select(loc);
     });
-    g.addEventListener("mouseleave", hideCard);
+    g.addEventListener("mouseenter", function(){
+      if(!touchUI) showCard(g, I18N.t(loc.name), cardSub());
+    });
+    g.addEventListener("mouseleave", function(){ if(!touchUI) hideCard(); });
     return g;
   }
   function renderPins(wOverride){
