@@ -26,3 +26,11 @@ for url, ttf, out in FONTS:
     subprocess.run(["pyftsubset", str(ttf), "--text-file=" + str(BUILD / "diary-glyphs.txt"),
                     "--flavor=woff2", "--output-file=" + str(out)], check=True)
     print("ok %s (%.0f KB)" % (out, out.stat().st_size / 1024))
+
+# 自动 +1 字体版本号（diary.css 的 ?v=N），让所有访客缓存强制换新
+import re
+css = pathlib.Path("css/diary.css")
+t = css.read_text(encoding="utf-8")
+t, n = re.subn(r"\.woff2\?v=(\d+)", lambda m: ".woff2?v=%d" % (int(m.group(1)) + 1), t)
+css.write_text(t, encoding="utf-8", newline="\n")
+print("bumped font version (%d refs)" % n)
