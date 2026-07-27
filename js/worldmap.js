@@ -272,7 +272,6 @@
     /* 全图：点空白放大到该处；放大后：拖拽平移 */
     var panning = false, panMoved = false, panStart = null;
     svg.addEventListener("pointerdown", function(e){
-      userTouched = true;
       if(!zoomed && view.w >= 990) return;   /* 只有完整全图才无需平移 */
       panning = true; panMoved = false;
       panStart = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y };
@@ -290,11 +289,12 @@
     });
     function endPan(){
       panning = false;
-      if(panMoved) renderPins();   /* 平移后按新视野重新聚合 */
+      if(panMoved){ userTouched = true; renderPins(); }   /* 真正拖动过才算交互过 */
     }
     svg.addEventListener("pointerup", endPan);
     svg.addEventListener("pointercancel", endPan);
     svg.addEventListener("click", function(e){
+      userTouched = true;
       if(panMoved){ panMoved = false; return; }   /* 拖拽结束的点击不触发 */
       if(zoomed) return;                          /* 放大后靠拖拽，不再点击跳位 */
       var r = svg.getBoundingClientRect();
@@ -415,7 +415,16 @@
     var wrapEl = document.getElementById("mapWrap");
     if(wrapEl){
       var mo = new IntersectionObserver(function(en){
-        if(en[0].isIntersecting){ mo.disconnect(); setTimeout(peek, 700); }
+        if(!en[0].isIntersecting) return;
+        mo.disconnect();
+        /* 手还在滑就先等：连续两次检查页面都静止了才开演，否则用户根本看不见 */
+        var calm = 0, tries = 0;
+        (function waitCalm(){
+          if(peeked || userTouched || tries++ > 60) return;
+          calm = (window.__pageScrolling && window.__pageScrolling()) ? 0 : calm + 1;
+          if(calm >= 2) setTimeout(peek, 250);
+          else setTimeout(waitCalm, 300);
+        })();
       }, { threshold: 0.55 });
       mo.observe(wrapEl);
     }

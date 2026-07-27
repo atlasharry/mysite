@@ -15,8 +15,10 @@ i18n: {
   films: {
     title:{zh:"影像",en:"Films"}, alt:{zh:"FILMS",en:"影像"},
     wip:{zh:"信息整理中",en:"Details coming soon"},
-    stills:{zh:"剧照",en:"Stills"}
+    stills:{zh:"剧照",en:"Stills"},
+    open:{zh:"简介 · 剧照 →",en:"Synopsis · Stills →"}
   },
+  ui: { back:{zh:"← 返回",en:"← Back"} },
   aigc: { title:{zh:"AI × 创作",en:"AI × Art"}, alt:{zh:"AI × ART",en:"AI × 创作"} },
   research: { title:{zh:"研究与工程",en:"Research & Engineering"}, alt:{zh:"RESEARCH",en:"研究与工程"}, papers:{zh:"论文发表",en:"Publications"},
     resumeCta:{zh:"查看完整简历",en:"View full résumé"} },

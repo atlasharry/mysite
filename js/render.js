@@ -114,6 +114,7 @@
         '<div class="film-meta"><h3 class="film-title">' + esc(t(f.title)) + '</h3>' +
         '<p class="film-sub">' + esc([f.year, t(f.info), t(f.roles)].filter(Boolean).join(" · ") || t(SITE.i18n.films.wip)) + '</p>' +
         f.badges.map(function(b){ return '<span class="badge">' + esc(t(b)) + '</span>'; }).join("") +
+        '<span class="film-open">' + esc(t(SITE.i18n.films.open)) + '</span>' +
         '</div>';
       card.addEventListener("click", function(){ openFilm(f); });
       box.appendChild(card);
@@ -142,6 +143,7 @@
             return '<div><dt>' + esc(t(sp.k)) + '</dt><dd>' + esc(t(sp.v)) + '</dd></div>';
           }).join("") + '</dl>' : "") +
           (f.stills.length ? '<p class="sheet-label">' + esc(t(SITE.i18n.films.stills)) + '</p><div class="sheet-stills"></div>' : "") +
+          '<button class="sheet-back">' + esc(t(SITE.i18n.ui.back)) + '</button>' +
         '</div></div>';
     if(f.stills.length){
       var viewer = createViewer(f.stills.map(function(s){ return { src: s.src, ar: s.ar, cap: "" }; }), { small: true });
@@ -151,6 +153,7 @@
     lockScroll();
     function closeSheet(){ ov.remove(); unlockScroll(); }
     ov.querySelector(".sheet-close").addEventListener("click", closeSheet);
+    ov.querySelector(".sheet-back").addEventListener("click", closeSheet);
     ov.addEventListener("click", function(e){ if(e.target === ov) closeSheet(); });
   }
 
