@@ -7,6 +7,9 @@ assets/raw/
 /films/
 /build/
 
+# 本地开发助手配置与 skill（不进公开仓库）
+.claude/
+
 # 系统文件
 Thumbs.db
 .DS_Store
