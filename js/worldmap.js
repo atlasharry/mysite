@@ -199,7 +199,8 @@
     g.addEventListener("click", function(e){ e.stopPropagation(); select(loc); });
     g.addEventListener("mouseenter", function(){
       var n = (loc.items || []).length;
-      showCard(g, I18N.t(loc.name), n ? n + " · " + I18N.t(SITE.i18n.travel.view) : I18N.t(SITE.i18n.travel.empty));
+      showCard(g, I18N.t(loc.name), loc.diary ? I18N.t(SITE.i18n.travel.diaryTip)
+        : (n ? n + " · " + I18N.t(SITE.i18n.travel.view) : I18N.t(SITE.i18n.travel.empty)));
     });
     g.addEventListener("mouseleave", hideCard);
     return g;
@@ -307,6 +308,8 @@
   });
 
   function select(loc){
+    /* 有手账的地点：直接翻开那一页 */
+    if(loc.diary){ window.location.href = "travel/?loc=" + loc.id; return; }
     current = loc;
     renderPanel();
     document.getElementById("locPanel").scrollIntoView({ behavior: "smooth", block: "nearest" });
