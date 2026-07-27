@@ -31,8 +31,8 @@
   function stampSVG(geo){
     return '<div class="dstamp"><svg viewBox="0 0 124 124">' +
       '<defs>' +
-        '<path id="arcT" d="M16.5,62 A45.5,45.5 0 0 1 107.5,62"/>' +
-        '<path id="arcB" d="M15.5,62 A46.5,46.5 0 0 0 108.5,62"/>' +
+        '<path id="arcT" d="M19,62 A43,43 0 0 1 105,62"/>' +
+        '<path id="arcB" d="M13.5,62 A48.5,48.5 0 0 0 110.5,62"/>' +
         '<filter id="stgr" x="-12%" y="-12%" width="124%" height="124%">' +
           '<feTurbulence type="fractalNoise" baseFrequency=".5" numOctaves="2" seed="7" result="n"/>' +
           '<feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 8 8 8 0 -2.8" result="m"/>' +
