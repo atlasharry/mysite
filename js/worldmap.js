@@ -381,11 +381,14 @@
     }
   };
 
-  /* 窄屏首次进入视野：地图向西轻摆一下再回位，暗示可以左右拖动 */
+  /* 窄屏首次进入视野：地图向西轻摆一下再回位，暗示可以左右拖动。
+     返回是否真的演了——被宇宙序列藏住时不消耗机会 */
   var peeked = false;
   function peek(){
-    if(peeked || userTouched || zoomed || reduced || !svg) return;
-    if(innerWidth >= 760 || view.w >= 990) return;
+    if(peeked || userTouched || zoomed || reduced || !svg) return false;
+    if(innerWidth >= 760 || view.w >= 990) return false;
+    var wrapEl = document.getElementById("mapWrap");
+    if(wrapEl && wrapEl.style.visibility === "hidden") return false;
     peeked = true;
     var home = { x: view.x, y: view.y, w: view.w, h: view.h };
     var dx = -Math.min(60, home.x + 20);
@@ -398,6 +401,7 @@
       if(u < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
+    return true;
   }
 
   document.addEventListener("DOMContentLoaded", function(){
@@ -413,19 +417,13 @@
       addEventListener("load", function(){ setTimeout(reAnchor, 150); });
     }
     var wrapEl = document.getElementById("mapWrap");
-    if(wrapEl){
+    if(wrapEl && innerWidth < 760){
+      /* 地图划到位就直接开演（不等手停）；没真演成（被接管藏住等）保留机会，回来再演 */
       var mo = new IntersectionObserver(function(en){
-        if(!en[0].isIntersecting) return;
-        mo.disconnect();
-        /* 手还在滑就先等：连续两次检查页面都静止了才开演，否则用户根本看不见 */
-        var calm = 0, tries = 0;
-        (function waitCalm(){
-          if(peeked || userTouched || tries++ > 60) return;
-          calm = (window.__pageScrolling && window.__pageScrolling()) ? 0 : calm + 1;
-          if(calm >= 2) setTimeout(peek, 250);
-          else setTimeout(waitCalm, 300);
-        })();
-      }, { threshold: 0.55 });
+        if(en[0].isIntersecting && en[0].intersectionRatio >= 0.6){
+          if(peek() || peeked || userTouched) mo.disconnect();
+        }
+      }, { threshold: [0.6, 0.75, 0.9] });
       mo.observe(wrapEl);
     }
   });
