@@ -281,7 +281,8 @@
       if(!panning) return;
       var r = svg.getBoundingClientRect();
       var dxp = e.clientX - panStart.x, dyp = e.clientY - panStart.y;
-      if(Math.abs(dxp) + Math.abs(dyp) > 6) panMoved = true;
+      /* 触屏竖划会先落进这里再被浏览器接管为滚动——只有横向为主才算真的在拖地图 */
+      if(Math.abs(dxp) > 6 && Math.abs(dxp) >= Math.abs(dyp)) panMoved = true;
       view.x = Math.max(-40, Math.min(1040 - view.w, panStart.vx - dxp * view.w / r.width));
       view.y = Math.max(0,   Math.min(420 - view.h,  panStart.vy - dyp * view.h / r.height));
       setViewBox(view);
@@ -292,7 +293,8 @@
       if(panMoved){ userTouched = true; renderPins(); }   /* 真正拖动过才算交互过 */
     }
     svg.addEventListener("pointerup", endPan);
-    svg.addEventListener("pointercancel", endPan);
+    /* 浏览器接管手势（页面滚动）：不算拖拽，不打断引导摇摆 */
+    svg.addEventListener("pointercancel", function(){ panning = false; panMoved = false; });
     svg.addEventListener("click", function(e){
       userTouched = true;
       if(panMoved){ panMoved = false; return; }   /* 拖拽结束的点击不触发 */
