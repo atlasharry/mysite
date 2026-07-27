@@ -177,7 +177,7 @@ locations: [
   { id:"middletown", name:{zh:"米德尔敦",en:"Middletown, CT"}, lat:41.56, lon:-72.65, items:[] },
   { id:"nyc",        name:{zh:"纽约",en:"New York"},       lat:40.71, lon:-74.01, items:[] },
   { id:"pittsburgh", name:{zh:"匹兹堡",en:"Pittsburgh"},   lat:40.44, lon:-80.00, items:[] },
-  { id:"iceland",    name:{zh:"冰岛",en:"Iceland"},        lat:64.15, lon:-21.94, items:[] },
+  { id:"iceland",    name:{zh:"冰岛",en:"Iceland"},        lat:64.15, lon:-21.94, items:[], diary:true },
   { id:"norway",     name:{zh:"挪威",en:"Norway"},         lat:60.39, lon:5.32,  items:[], diary:true }
 ],
 
