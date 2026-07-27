@@ -62,9 +62,19 @@
       createStarfield(c, { density: 10000 });
     });
     lb().querySelector(".lb-close").addEventListener("click", close);
+    lb().querySelector(".lb-back").addEventListener("click", close);
     lb().querySelector(".lb-prev").addEventListener("click", function(){ step(-1); });
     lb().querySelector(".lb-next").addEventListener("click", function(){ step(1); });
     lb().addEventListener("click", function(e){ if(e.target === lb()) close(); });
+    /* 触屏：竖向滑动关闭大图（横向留给翻页按钮） */
+    var sw = null;
+    lb().addEventListener("pointerdown", function(e){ sw = { y: e.clientY, x: e.clientX }; }, { passive: true });
+    lb().addEventListener("pointerup", function(e){
+      if(!sw) return;
+      var dy = e.clientY - sw.y, dx = e.clientX - sw.x;
+      sw = null;
+      if(Math.abs(dy) > 80 && Math.abs(dy) > Math.abs(dx) * 1.5) close();
+    }, { passive: true });
     addEventListener("keydown", function(e){
       if(lb().hidden) return;
       if(e.key === "Escape") close();

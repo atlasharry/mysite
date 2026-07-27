@@ -16,16 +16,23 @@ window.createStarfield = function(canvas, opts){
   var stars = [], W = 0, H = 0, visible = true;
 
   function resize(){
+    var nw = canvas.clientWidth, nh = canvas.clientHeight;
+    /* 手机滚动时地址栏收展会触发 resize：尺寸没实质变化就不动
+       （否则整片星空重新随机生成，滚动中肉眼可见地闪） */
+    if(stars.length && nw === W && Math.abs(nh - H) < 3) return;
+    var regen = !stars.length || Math.abs(nw - W) > 2 || Math.abs(nh - H) > 120;
+    W = nw; H = nh;
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = canvas.clientWidth; H = canvas.clientHeight;
     canvas.width = W * dpr; canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var n = Math.round(W * H / o.density);
-    stars = [];
-    for(var i = 0; i < n; i++){
-      stars.push({ x: Math.random()*W, y: Math.random()*H,
-        r: 0.3 + Math.random(), p: Math.random()*Math.PI*2,
-        s: 0.4 + Math.random()*0.8, warm: Math.random() < 0.25 });
+    if(regen){
+      var n = Math.round(W * H / o.density);
+      stars = [];
+      for(var i = 0; i < n; i++){
+        stars.push({ x: Math.random()*W, y: Math.random()*H,
+          r: 0.3 + Math.random(), p: Math.random()*Math.PI*2,
+          s: 0.4 + Math.random()*0.8, warm: Math.random() < 0.25 });
+      }
     }
     draw(performance.now());
   }
