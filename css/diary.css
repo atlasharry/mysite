@@ -1,8 +1,8 @@
 /* 旅行手账（travel/）：纸上的世界——与主站的暗色影院互为里外。
    全部质感（纸纹/胶带/线圈/邮戳/撕边/做旧）为纯 CSS/SVG，零图片依赖 */
 /* 字体带版本号：tools/subset_diary_fonts.py 重跑时自动 +1，避免旧缓存缺字混排 */
-@font-face{font-family:"LXGW Diary";src:url("../assets/fonts/lxgw-diary.woff2?v=3") format("woff2");font-display:swap}
-@font-face{font-family:"Caveat Diary";src:url("../assets/fonts/caveat-diary.woff2?v=3") format("woff2");
+@font-face{font-family:"LXGW Diary";src:url("../assets/fonts/lxgw-diary.woff2?v=9") format("woff2");font-display:swap}
+@font-face{font-family:"Caveat Diary";src:url("../assets/fonts/caveat-diary.woff2?v=9") format("woff2");
   font-weight:400 700;font-display:swap}
 
 :root{
@@ -16,6 +16,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
+html,body{overflow-x:clip}   /* 胶带/相纸的旋转外溢不产生横向滚动（与主站一致） */
 body{
   font-family:var(--hand);color:var(--body);background:var(--paper);
   background-image:
@@ -46,6 +47,12 @@ a{color:inherit;text-decoration:none}
   align-items:center;padding:clamp(1rem,3vw,2.5rem) 0 clamp(2rem,4vw,3.5rem)}
 .dhero-copy h1{font-size:clamp(2.4rem,5.4vw,3.9rem);color:var(--title);letter-spacing:.06em;
   font-weight:700;line-height:1.25}
+/* 英文地名另起一行作副题：地名再长也不会难看地折断 */
+.dhero-copy h1 .hen{display:block;font-family:var(--script);font-weight:400;
+  font-size:.52em;letter-spacing:.04em;color:var(--ink);margin-top:.1em}
+/* 所在地标注：像手账上补写的一行地名 */
+.dhero-copy h1 .hreg{display:block;font-weight:400;font-size:.28em;
+  letter-spacing:.2em;color:var(--pencil);margin-top:.7em}
 .dhero-copy .dsub{margin-top:1rem;color:var(--ink);font-size:clamp(1.05rem,2vw,1.3rem);letter-spacing:.14em}
 .dhero-copy .dintro{margin-top:1.6rem;white-space:pre-line;color:var(--body);
   font-size:.98rem;letter-spacing:.06em;line-height:2.2}
@@ -58,6 +65,7 @@ a{color:inherit;text-decoration:none}
 .dstamp .st{font-family:Georgia,"Times New Roman",serif;font-size:11.5px;letter-spacing:3px;fill:var(--ink);font-weight:600}
 .dstamp .dia{fill:var(--ink)}
 .dstamp .sil{fill:var(--ink)}
+.dstamp .emb .wv{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round}
 
 /* 铅笔山线稿 / 植物线稿 */
 .dmtn{position:absolute;top:-30px;right:-14px;width:200px;opacity:.28;pointer-events:none}
@@ -73,6 +81,7 @@ a{color:inherit;text-decoration:none}
 .print .pcap{font-family:var(--script);color:var(--ink);text-align:center;
   font-size:1.35rem;margin-top:.55rem;line-height:1.2}
 .print.main{transform:rotate(-1.2deg);z-index:1}
+.print.main.tall{width:76%;margin-left:auto;margin-right:6%}   /* 竖图封面收窄，不撑高首屏 */
 .print.pola{position:absolute;right:-8px;top:-30px;width:31%;transform:rotate(4.5deg);z-index:2;
   padding:8px 8px 12px}
 .print.pola .pcap{font-size:1.12rem}
@@ -104,16 +113,28 @@ a{color:inherit;text-decoration:none}
   flex-wrap:wrap;padding:.4rem 0 2.6rem}
 .snap{flex:0 0 auto;background:#fdfbf6;padding:7px 7px 8px;border-radius:2px;
   box-shadow:0 10px 22px rgba(78,62,36,.18);position:relative}
-.snap img{width:100%;height:calc(100% - 34px);object-fit:cover;border-radius:1px;
+/* 照片完整显示不裁剪（框高由图片比例决定），边上的人不会被切掉 */
+.snap img{width:100%;height:auto;border-radius:1px;
   filter:saturate(.93) contrast(.97) sepia(.05);box-shadow:inset 0 0 0 1px rgba(60,45,20,.07)}
 .snap .scap{font-size:.74rem;color:var(--ink-soft);text-align:center;
   letter-spacing:0;line-height:26px;height:26px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.snap.sa {width:196px;height:192px;transform:rotate(-2.4deg);z-index:1}
-.snap.sb2{width:172px;height:214px;transform:rotate(1.8deg);z-index:2;margin-left:-26px}
-.snap.sc {width:156px;height:226px;transform:rotate(-1.2deg);z-index:3;margin-left:-24px}
-.snap.sd {width:206px;height:188px;transform:rotate(2.2deg);z-index:2;margin-left:-26px}
-.snap.se {width:172px;height:206px;transform:rotate(-1.8deg);z-index:4;margin-left:-24px}
-.snap.sf {width:212px;height:186px;transform:rotate(1.4deg);z-index:3;margin-left:-28px}
+/* 尺寸按 --k 缩放：单排原尺寸，双排时放大占满纸面 */
+.dwall{--k:1}
+.dwall.rows2{--k:1.3}
+/* 重叠量不随 --k 放大：放大的是照片，图注字号不变，重叠过深会压住图注 */
+/* 只定宽与角度；高度随照片比例，错落由轻微位移制造（不撑开行高、不留大空隙） */
+.snap.sa {width:calc(186px*var(--k));transform:rotate(-2.4deg) translateY(-8px);z-index:1}
+.snap.sb2{width:calc(164px*var(--k));transform:rotate(1.8deg) translateY(14px);z-index:2;margin-left:-26px}
+.snap.sc {width:calc(196px*var(--k));transform:rotate(-1.2deg) translateY(-4px);z-index:3;margin-left:-24px}
+.snap.sd {width:calc(172px*var(--k));transform:rotate(2.2deg) translateY(12px);z-index:2;margin-left:-26px}
+.snap.se {width:calc(200px*var(--k));transform:rotate(-1.8deg) translateY(-10px);z-index:4;margin-left:-24px}
+.snap.sf {width:calc(168px*var(--k));transform:rotate(1.4deg) translateY(8px);z-index:3;margin-left:-28px}
+.snap.sg {width:calc(190px*var(--k));transform:rotate(-2deg) translateY(-6px);z-index:5;margin-left:-26px}
+.dwall.rows2 .snap{margin-left:-14px}   /* 双排：水平只留轻咬 */
+/* 双排咬合：>6 张时 4+3，第二排上提与第一排轻交叠 */
+.wbreak{flex-basis:100%;height:0;margin:0}
+.snap.row2{margin-top:-12px}
+.dwall.rows2 .wbreak+.snap{margin-left:0}
 .kraft{position:absolute;right:-6px;bottom:2px;z-index:9;
   background:linear-gradient(168deg,var(--kraft),var(--kraft-deep));
   color:#453820;padding:.4rem 1.5rem .4rem 2.2rem;border-radius:2px;transform:rotate(-2.2deg);
@@ -151,6 +172,22 @@ a{color:inherit;text-decoration:none}
   stroke-linejoin:round;stroke-linecap:round;opacity:.85}
 .dnote .dmap .dot{fill:var(--ink)}
 .dnote .dmap .halo{fill:none;stroke:var(--ink);stroke-width:1.2;opacity:.45}
+/* 徽记模式（城市页）：手绘彩虹 + 地平线上的城市 */
+.dnote .dmap.demb{width:92%;max-width:230px}
+.dmap .bow{fill:none;stroke:var(--ink);stroke-width:4.4;stroke-linecap:round}
+.dmap .sky{fill:none;stroke:var(--ink);stroke-width:1.7;stroke-linejoin:round;stroke-linecap:round;opacity:.72}
+.dmap .lamp{fill:var(--ink);opacity:.72}
+/* 便利贴墙（卫斯理安） */
+.dmap .note-sq{fill:rgba(51,69,94,.07);stroke:var(--ink);stroke-width:1.5;stroke-linejoin:round}
+.dmap .note-fold{fill:rgba(51,69,94,.2);stroke:var(--ink);stroke-width:1.2;stroke-linejoin:round}
+.dmap .note-ln{fill:none;stroke:var(--ink);stroke-width:1.1;opacity:.42;stroke-linecap:round}
+/* 海岸列车（釜山） */
+.dmap .sea{fill:none;stroke:var(--ink);stroke-width:1.5;opacity:.5;stroke-linecap:round}
+.dmap .rail{fill:none;stroke:var(--ink);stroke-width:1.5;opacity:.6;stroke-linecap:round}
+.dmap .beam{fill:rgba(51,69,94,.16);stroke:var(--ink);stroke-width:1.4;stroke-linejoin:round;opacity:.75}
+.dmap .car{fill:rgba(51,69,94,.1);stroke:var(--ink);stroke-width:1.8;stroke-linejoin:round}
+.dmap .carw{fill:none;stroke:var(--ink);stroke-width:1.4;stroke-linejoin:round;opacity:.8}
+.dmap .gull{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.65}
 
 /* 活页纸：题头 + 对行横线正文 + 装订孔 + 页边线 */
 .dsheet{position:relative;background:var(--sheet);border-radius:3px;box-shadow:var(--shadow);
@@ -168,6 +205,10 @@ a{color:inherit;text-decoration:none}
 .dbody p{margin:0;letter-spacing:.04em;text-align:justify}
 .dbody p+p{margin-top:38px}
 .dbody p.beat{letter-spacing:.5em;color:var(--ink)}
+/* 「我记得…」排比：左侧细线的记忆清单 */
+.dbody p.recall{color:var(--ink);padding-left:1.1rem;border-left:2px solid var(--ink);
+  border-left-color:rgba(51,69,94,.32)}
+.dbody p.recall+p.recall{margin-top:38px}
 .dbody p.dquote{margin-top:38px;font-family:var(--script);color:var(--ink);font-size:1.65rem;
   line-height:38px;text-align:right;white-space:pre-line}
 
@@ -215,15 +256,22 @@ html[lang="en"] .dintro{letter-spacing:.01em}
   .print.pola{right:-2px;top:auto;bottom:-34px;width:34%}
   .dmtn{top:-16px;right:-6px;width:130px}
   .dstamp{position:absolute;right:0;top:-10px;width:92px;height:92px;margin:0}
-  .dhero-copy{position:relative;padding-right:100px}
+  /* 只有标题行给邮戳让位；简介保持整宽，避免中文被折在词中间 */
+  .dhero-copy{position:relative}
+  .dhero-copy h1,.dhero-copy .dsub{padding-right:100px}
   .notebook{padding-left:2.9rem;padding-right:1.1rem}
   .notebook::before{left:9px;width:18px;background-size:18px 24px}
+  .dwall{--k:1}                  /* 窄屏不放大，尺寸走下面的固定值 */
+  .wbreak{display:none}          /* 窄屏自然折行，不强制 4+3 */
+  .snap.row2{margin-top:0}
+  .dwall.rows2 .snap,.dwall.rows2 .wbreak+.snap{margin-left:-16px}
   .snap.sa {width:126px;height:128px}
   .snap.sb2{width:112px;height:142px;margin-left:-18px}
   .snap.sc {width:102px;height:150px;margin-left:-16px}
   .snap.sd {width:142px;height:126px;margin-left:-40px}
   .snap.se {width:112px;height:138px;margin-left:-18px}
   .snap.sf {width:138px;height:124px;margin-left:-16px}
+  .snap.sg {width:110px;height:136px;margin-left:-16px}
   .snap{padding:5px 5px 6px}
   .snap .scap{font-size:.62rem;line-height:20px;height:20px}
   .snap img{height:calc(100% - 26px)}

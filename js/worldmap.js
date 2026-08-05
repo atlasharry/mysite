@@ -6,7 +6,8 @@
   var current = null, card = null, svg = null, pinLayer = null, zoomed = false, resetBtn = null, outline = null;
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   var userTouched = false;   /* 用户碰过地图就不再做引导性动画 */
-  var touchUI = matchMedia("(hover: none)").matches;   /* 触屏：图钉两段式（先卡片后进入） */
+  /* 仅纯触屏设备用两段式（先卡片后进入）；触摸屏笔记本仍按鼠标一次点击 */
+  var touchUI = matchMedia("(hover: none) and (pointer: coarse)").matches;
   var armed = null;          /* 触屏已点亮卡片的图钉 id */
 
   /* 默认视图随舞台宽高比自适应：纬度铺满、经度裁切并居中照片密集区。
@@ -238,9 +239,12 @@
       c.setAttribute("class", "cluster");
       c.setAttribute("transform", "translate(" + g.center[0].toFixed(1) + "," + g.center[1].toFixed(1) + ") scale(" + s.toFixed(3) + ")");
       c.innerHTML = '<circle r="13"></circle><text>' + g.locs.length + '</text>';
+      var hasDiary = g.locs.some(function(l){ return l.diary; });
       c.addEventListener("click", function(e){
         e.stopPropagation();
-        /* 放大后能拆成多个可点对象就继续放大，拆不开（如成都/内江）弹选择卡 */
+        /* 组里有手账地点：直接列出来点选，一步进入，不必先放大再找 */
+        if(hasDiary){ openChooser(g, c); return; }
+        /* 否则放大：能拆成多个可点对象就放大，拆不开（如成都/内江）弹选择卡 */
         var spanX = Math.max.apply(0, g.pts.map(function(p){ return p[0]; })) - Math.min.apply(0, g.pts.map(function(p){ return p[0]; }));
         var spanY = Math.max.apply(0, g.pts.map(function(p){ return p[1]; })) - Math.min.apply(0, g.pts.map(function(p){ return p[1]; }));
         var targetW = Math.max(spanX*2.6, spanY*2.6*2.5, 90);
@@ -249,7 +253,7 @@
       });
       c.addEventListener("mouseenter", function(){
         var names = g.locs.map(function(l){ return I18N.t(l.name); }).join(" · ");
-        showCard(c, names, I18N.t(SITE.i18n.travel.zoom));
+        showCard(c, names, I18N.t(hasDiary ? SITE.i18n.travel.pick : SITE.i18n.travel.zoom));
       });
       c.addEventListener("mouseleave", hideCard);
       pinLayer.appendChild(c);
