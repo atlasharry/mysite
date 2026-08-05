@@ -104,4 +104,173 @@ window.DIARY = {
       quote: "To see the world,\nto draw closer,\nto find each other and to feel."
     }
   }
+  ,
+  /* 杭州：城市页不画国界，用三潭印月石塔（邮戳）与那道彩虹（便签）作徽记 */
+  hangzhou: {
+    geo: {
+      emblem: "hangzhou",
+      vb: "4 6 184 126",
+      stampTop: "HANGZHOU", stampBottom: "WEST LAKE"
+    },
+    name: { zh: "杭州", en: "Hangzhou" },
+    sub: { zh: "两个月的夏天，像一道昙花一现的彩虹",
+           en: "One summer, brief and bright as a rainbow" },
+    intro: {
+      zh: "从西湖边的孤单，到文一西路的夏夜，\n从把服务器弄崩，到模型成功上线，\n两个月，一道彩虹的长度。",
+      en: "From lonely afternoons by West Lake to summer nights on Wenyi West Road,\nfrom crashing the server to shipping the model,\ntwo months, about the length of a rainbow."
+    },
+    cover:    { src: "../assets/travel/hangzhou/hangzhou-01", ar: "1080/1440", cap: "That rainbow ♡" },
+    polaroid: { src: "../assets/travel/hangzhou/hangzhou-02", ar: "1619/1080", cap: "The last night" },
+    momentsLabel: "That Summer in Hangzhou ♡",
+    strip: [
+      { src: "../assets/travel/hangzhou/hangzhou-05", ar: "1620/1080", cap: { zh: "周末的西湖，人来人往", en: "Weekends by West Lake" } },
+      { src: "../assets/travel/hangzhou/hangzhou-08", ar: "1620/1080", cap: { zh: "六月的荷", en: "Lotus in June" } },
+      { src: "../assets/travel/hangzhou/hangzhou-04", ar: "1619/1080", cap: { zh: "凌晨两点的文一西路", en: "Wenyi West Road, 2 a.m." } },
+      { src: "../assets/travel/hangzhou/hangzhou-03", ar: "1440/1080", cap: { zh: "外滩，聊到凌晨四点", en: "The Bund, until four" } },
+      { src: "../assets/travel/hangzhou/hangzhou-06", ar: "1422/1080", cap: { zh: "夏夜的火烧云", en: "Summer sky on fire" } },
+      { src: "../assets/travel/hangzhou/hangzhou-07", ar: "1440/1080", cap: { zh: "散场时的晚霞", en: "Afterglow" } },
+      { src: "../assets/travel/hangzhou/hangzhou-09", ar: "1131/1131", cap: { zh: "最后一天，清空这台电脑", en: "Last day, wiping the machine" } }
+    ],
+    tapeLabel: { zh: "迷茫 · 适应 · 怀念", en: "Lost · Settled · Missed" },
+    diary: {
+      label: { zh: "夏日记事", en: "Summer Notes" },
+      place: "Hangzhou · West Lake",
+      title: { zh: "“那道彩虹”", en: "“That Rainbow”" },
+      date:  { zh: "盛夏 · 杭州", en: "High summer · Hangzhou" },
+      body: {
+        zh: [
+          "离开杭州的最后一天，走在出租小屋门口的路上，不经意回头看见日落时分的天边挂着一道彩虹。散步回家，收拾完行李已经是凌晨两点。",
+          "在杭州的两个月时光就像今晚的彩虹一样，点点滴滴拼凑出我略带迷茫的生活中的昙花一现。",
+          "记得最开始时的迷茫，每天不知所措的在人海中徘徊，周末自己坐二十公里的地铁去西湖看着人来人往，感慨着自己的孤单和寂寞。",
+          "到后来，逐渐适应了一个人在异地的生活，交到了新朋友，工作上也渐渐适应。从最开始把服务器弄崩，到自己准备数据，迁移代码，调参，训练出了喜欢的模型，并成功上线。",
+          "我记得凌晨 35 度的夜和朋友骑二十公里的自行车回家，下车时腿已经没有知觉，衣服湿到可以拧出水。",
+          "我记得在上海的三生石聚会，我们看着外滩的风景听着吉他和鼓声畅谈到凌晨四点。",
+          "我记得淮海路的梧桐树，蝉鸣，以及夜晚的徐家汇的天主教堂。",
+          "我记得开着车行驶在凌晨两点的文一西路，听着 Joji 的歌，夏夜的风呼呼地吹在脸上。",
+          "我也记得最后一天的晚上，收拾完行李看着窗外的城市，感叹着自己即将离开这片刚刚熟悉的生活。",
+          "不知道未来的我是否会再次想起今天傍晚的彩虹，在另一个深夜，又一次感慨，并怀念这个夏天。"
+        ],
+        en: [
+          "On my last day in Hangzhou, walking up the lane outside my rented room, I happened to look back and found a rainbow hanging in the sunset. I strolled home; by the time the packing was done it was two in the morning.",
+          "Those two months in Hangzhou were like that rainbow: a brief, bright thing pieced together from small moments, in a stretch of life I was still unsure about.",
+          "At the start there was only confusion, drifting through crowds without knowing what to do, riding the metro twenty kilometres alone on weekends just to sit by West Lake and watch people come and go, feeling how alone I was.",
+          "Later I settled into living by myself in a strange city, made new friends, found my footing at work. It began with me crashing the server, and ended with me preparing the data, porting the code, tuning the parameters, training a model I actually liked, and shipping it.",
+          "I remember riding twenty kilometres home with a friend on a 35°C night, my legs numb when I got off the bike, my shirt wet enough to wring out.",
+          "I remember the gathering at Sansheng Stone in Shanghai, the Bund in front of us, a guitar and a drum behind us, talking until four in the morning.",
+          "I remember the plane trees on Huaihai Road, the cicadas, and the cathedral in Xujiahui at night.",
+          "I remember driving down Wenyi West Road at two in the morning, Joji playing, the summer wind roaring against my face.",
+          "I also remember that last night, the packing done, looking out at the city and knowing I was about to leave a life I had only just grown into.",
+          "I wonder whether some future version of me will think of this evening's rainbow again, on another late night, and miss this summer all over again."
+        ]
+      },
+      quote: "Some summers pass\nonly once,\nlike a rainbow."
+    }
+  }
+  ,
+  /* 卫斯理安：毕业前的最后两周（徽记＝South College 钟楼 + 便利贴墙） */
+  middletown: {
+    geo: {
+      emblem: "wesleyan",
+      vb: "2 2 196 104",
+      stampTop: "WESLEYAN", stampBottom: "MIDDLETOWN"
+    },
+    name: { zh: "卫斯理安", en: "Wesleyan" },
+    region: "Middletown, Connecticut",
+    sub: { zh: "曾经觉得无聊的小村子，如今竟有些不舍",
+           en: "The town I once found dull, now hard to leave" },
+    intro: {
+      zh: "写完了 90 页的毕业论文，\n在熟悉的教室里上完了最后一节课，\n第一次，也是最后一次走进 bar night 的人群。",
+      en: "A ninety-page thesis, finished.\nThe last class, in a room I knew by heart.\nMy first, and last, bar night."
+    },
+    cover:    { src: "../assets/travel/wesleyan/wesleyan-02", ar: "1920/1080", cap: "Champagne on the lawn ♡" },
+    polaroid: { src: "../assets/travel/wesleyan/wesleyan-05", ar: "1080/1619", cap: "Spring, briefly" },
+    momentsLabel: "The Last Spring ♡",
+    strip: [
+      { src: "../assets/travel/wesleyan/wesleyan-04", ar: "1080/1440", cap: { zh: "Boger Hall 前的春天", en: "Spring outside Boger Hall" } },
+      { src: "../assets/travel/wesleyan/wesleyan-01", ar: "1440/1080", cap: { zh: "写完 90 页的那个春天", en: "The spring of ninety pages" } },
+      { src: "../assets/travel/wesleyan/wesleyan-06", ar: "1346/1080", cap: { zh: "最后一节课", en: "The last class" } },
+      { src: "../assets/travel/wesleyan/wesleyan-03", ar: "1440/1080", cap: { zh: "第一次也是最后一次 bar night", en: "First and last bar night" } },
+      { src: "../assets/travel/wesleyan/wesleyan-07", ar: "1440/1080", cap: { zh: "那晚的人群", en: "The crowd that night" } },
+      { src: "../assets/travel/wesleyan/wesleyan-09", ar: "1440/1080", cap: { zh: "草地上的春日音乐节", en: "Spring Fling on the field" } },
+      { src: "../assets/travel/wesleyan/wesleyan-08", ar: "1439/1080", cap: { zh: "朋友们的毕业礼物", en: "Gifts from friends" } }
+    ],
+    tapeLabel: { zh: "论文 · 春天 · 告别", en: "Thesis · Spring · Goodbye" },
+    diary: {
+      label: { zh: "毕业前两周", en: "Two Weeks Left" },
+      place: "Middletown · Wesleyan",
+      title: { zh: "“异乡的小村”", en: "“A Small Town Far From Home”" },
+      date:  { zh: "春末 · 米德尔敦", en: "Late spring · Middletown, CT" },
+      body: {
+        zh: [
+          "离毕业只剩最后两周。那个曾经觉得无聊的小村子，如今竟也开始让我有些不舍。",
+          "写完了 90 页的毕业论文，在熟悉的教室里上完了最后一节课，第一次、也是最后一次走进 bar night 的人群，也在春风里看见了短暂却灿烂的花开。",
+          "high rise 前的花开了又谢，书桌墙上的便利贴贴满了整个春天，olin 门口草坪上飞舞着的香槟。",
+          "曾以为这一切只是一段旅程。只有在快要分别时，才发现这个异乡的小村，早已成了我的另一个故乡。"
+        ],
+        en: [
+          "Two weeks left before graduation. The little town I used to find so boring has, somehow, become hard to leave.",
+          "I finished the ninety-page thesis. I sat through the last class in a room I knew by heart. I walked into the crowd at bar night for the first time, and the last. And in the spring wind I watched the blossoms open, brief and bright.",
+          "The flowers in front of High Rise bloomed and fell. The sticky notes on my desk wall filled up the whole spring. Champagne flew over the lawn outside Olin.",
+          "I used to think all of this was just a passage I was passing through. Only when it came time to leave did I realise this small town, so far from home, had quietly become another home."
+        ]
+      },
+      quote: "Brief and bright,\nlike blossoms\nin a spring wind."
+    }
+  }
+  ,
+  /* 釜山：부산의 여름（徽记＝防波堤灯塔 + 海岸线上的天空胶囊） */
+  busan: {
+    geo: {
+      emblem: "busan",
+      vb: "0 6 190 116",
+      stampTop: "BUSAN", stampBottom: "HAEUNDAE"
+    },
+    name: { zh: "釜山", en: "Busan" },
+    sub: { zh: "부산의 여름 · 釜山的夏天",
+           en: "부산의 여름 · A summer in Busan" },
+    intro: {
+      zh: "海云台的浪，青沙浦的红绿灯，\n沿着海岸线慢慢开的黄色小车厢，\n还有一整个夏天的蓝。",
+      en: "Waves at Haeundae, a traffic light by the sea,\na little yellow car running slowly along the coast,\nand a whole summer of blue."
+    },
+    cover:    { src: "../assets/travel/busan/busan-07", ar: "1619/1080", cap: "Sky Capsule, No.66 ♡" },
+    polaroid: { src: "../assets/travel/busan/busan-05", ar: "1619/1080", cap: "Window seat" },
+    momentsLabel: "A Summer in Busan ♡",
+    strip: [
+      { src: "../assets/travel/busan/busan-09", ar: "1619/1080", cap: { zh: "松亭海水浴场", en: "Songjeong Beach" } },
+      { src: "../assets/travel/busan/busan-01", ar: "1619/1080", cap: { zh: "栏杆边的蒲苇", en: "Pampas by the rail" } },
+      { src: "../assets/travel/busan/busan-04", ar: "1619/1080", cap: { zh: "海就在马路尽头", en: "The sea at the end of the road" } },
+      { src: "../assets/travel/busan/busan-03", ar: "1920/1080", cap: { zh: "渔港的午后", en: "Afternoon at the harbour" } },
+      { src: "../assets/travel/busan/busan-06", ar: "1619/1080", cap: { zh: "白色的灯塔", en: "The white lighthouse" } },
+      { src: "../assets/travel/busan/busan-08", ar: "1619/1080", cap: { zh: "黄昏的海上步道", en: "Skywalk at dusk" } },
+      { src: "../assets/travel/busan/busan-02", ar: "1920/1080", cap: { zh: "一红一白的守夜人", en: "Two lights, keeping watch" } }
+    ],
+    tapeLabel: { zh: "海 · 风 · 夏天", en: "Sea · Wind · Summer" },
+    diary: {
+      label: { zh: "海边手记", en: "Seaside Notes" },
+      place: "부산 · Haeundae",
+      title: { zh: "“부산의 여름”", en: "“Busan, in Summer”" },
+      date:  { zh: "盛夏 · 釜山", en: "High summer · Busan" },
+      body: {
+        zh: [
+          "从海云台出发，沿着海岸线一直往东。列车开得很慢，慢到可以看清每一朵浪花碎在礁石上的样子。",
+          "釜山的夏天是蓝的",
+          "蒲苇沿着栏杆一整排地倒向同一个方向。风从海上来，把所有东西都吹成了同一个姿势。",
+          "青沙浦的红绿灯下，人们举着相机等一列驶过的黄色小车厢。海就在马路的尽头，蓝得有点不真实。",
+          "傍晚的港口安静下来，渔船靠在岸边，灯塔一红一白，像两个不说话的守夜人。",
+          "回程的车厢里，夕阳正落在海平线上。有人拍照，有人打盹，我把窗户推开一点，让风灌进来。",
+          "夏天大概就该是这样：慢慢地走，看海，然后被风吹一路。"
+        ],
+        en: [
+          "We set out from Haeundae and followed the coast east. The train ran slowly, slowly enough to watch each wave break apart on the rocks.",
+          "Summer here is blue",
+          "Pampas grass leaned along the railing, all of it bent the same way. The wind came off the sea and pressed everything into a single posture.",
+          "At the crossing in Cheongsapo, people waited with cameras for a small yellow car to pass. The sea sat at the end of the road, a blue that looked slightly unreal.",
+          "In the evening the harbour went quiet, the fishing boats tied up along the pier, one lighthouse red and one white, like two watchmen who never speak.",
+          "On the ride back the sun was setting right on the horizon. Someone was taking photos, someone was dozing off. I pushed the window open a little and let the wind in.",
+          "Maybe this is what summer is for: going slowly, watching the sea, and being blown along by the wind the whole way."
+        ]
+      },
+      quote: "The sea was blue,\nthe train was slow,\nand the summer was long."
+    }
+  }
 };
