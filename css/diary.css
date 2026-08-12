@@ -220,6 +220,9 @@ a{color:inherit;text-decoration:none}
 }
 @keyframes dshimmer{from{background-position:200% 0,0 0}to{background-position:-200% 0,0 0}}
 .print img.ld,.snap img.ld{animation:none;background:none}
+/* 加载完成后以照片天然比例为准：声明的 aspect-ratio 只作加载占位，
+   即使数据里的比例写错也绝不拉伸照片（相框高度随之自适应） */
+.diary-page img.ld{aspect-ratio:auto !important}
 
 /* ---- 英文排版：去两端对齐（窄屏大空洞的根源）、收字距 ---- */
 html[lang="en"] .dbody p{text-align:left;letter-spacing:0}
@@ -265,16 +268,16 @@ html[lang="en"] .dintro{letter-spacing:.01em}
   .wbreak{display:none}          /* 窄屏自然折行，不强制 4+3 */
   .snap.row2{margin-top:0}
   .dwall.rows2 .snap,.dwall.rows2 .wbreak+.snap{margin-left:-16px}
-  .snap.sa {width:126px;height:128px}
-  .snap.sb2{width:112px;height:142px;margin-left:-18px}
-  .snap.sc {width:102px;height:150px;margin-left:-16px}
-  .snap.sd {width:142px;height:126px;margin-left:-40px}
-  .snap.se {width:112px;height:138px;margin-left:-18px}
-  .snap.sf {width:138px;height:124px;margin-left:-16px}
-  .snap.sg {width:110px;height:136px;margin-left:-16px}
+  /* 窄屏同样只定宽：相框高度随照片比例，绝不拉伸/裁剪 */
+  .snap.sa {width:128px}
+  .snap.sb2{width:112px;margin-left:-18px}
+  .snap.sc {width:120px;margin-left:-16px}
+  .snap.sd {width:138px;margin-left:-40px}
+  .snap.se {width:114px;margin-left:-18px}
+  .snap.sf {width:132px;margin-left:-16px}
+  .snap.sg {width:118px;margin-left:-16px}
   .snap{padding:5px 5px 6px}
   .snap .scap{font-size:.62rem;line-height:20px;height:20px}
-  .snap img{height:calc(100% - 26px)}
   .kraft{right:2px;bottom:-14px;font-size:.85rem;padding:.35rem 1.2rem .35rem 2rem}
   .diaryrow{grid-template-columns:1fr;gap:2.2rem}
   .dnote{max-width:330px;margin:0 auto}
