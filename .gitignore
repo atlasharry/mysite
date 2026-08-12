@@ -18,3 +18,6 @@ Thumbs.db
 
 # 根目录简历源文件（发布版在 resume/）
 /Harry Yu_Resume2026_06.pdf
+
+# 简历 PDF 不再上线（隐私）：只保留去敏网页版 resume/index.html
+resume/*.pdf
