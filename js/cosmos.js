@@ -58,22 +58,63 @@
   function ease(t){ return t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2; }
   function lerp(a, b, t){ return a + (b - a) * t; }
 
-  var C = null;
+  /* 调色板按「入夜进度」插值：暗色主题恒为夜（d=1）；
+     明亮主题随滚动从纸白入夜——从世界地图到银河的路上，天慢慢黑下来 */
+  var C = null, nightD = 0, lastCd = -1;
+  function mixc(a, b, t){ return Math.round(a + (b - a) * t); }
+  function mixrgba(a, b, t){
+    return "rgba(" + mixc(a[0],b[0],t) + "," + mixc(a[1],b[1],t) + "," + mixc(a[2],b[2],t) + "," +
+      (a[3] + (b[3] - a[3]) * t).toFixed(3) + ")";
+  }
+  function nightNow(){
+    return document.documentElement.dataset.theme === "light" ? nightD : 1;
+  }
   function colors(){
-    var g = getComputedStyle(document.documentElement);
-    function v(n, fb){ var x = g.getPropertyValue(n).trim(); return x || fb; }
-    var l = document.documentElement.dataset.theme === "light";
+    var d = nightNow();
+    lastCd = d;
     C = {
-      line:  l ? "rgba(20,20,19,.55)" : "rgba(235,219,188,.6)",
-      faint: l ? "rgba(20,20,19,.13)" : "rgba(235,219,188,.15)",
-      star:  l ? "rgba(20,20,19,.75)" : "rgba(250,249,245,.92)",
-      warm:  v("--accent", "#ebdbbc"),
-      dim:   v("--accent-dim", "rgba(235,219,188,.4)"),
-      mapFill:   v("--map-fill", "rgba(235,219,188,.04)"),
-      mapStroke: v("--map-stroke", "rgba(235,219,188,.35)"),
-      panel: v("--panel", "#171614"),
-      glow:  l ? "rgba(156,124,71," : "rgba(235,219,188,"
+      line:  mixrgba([20,20,19,.55],  [235,219,188,.6],  d),
+      faint: mixrgba([20,20,19,.13],  [235,219,188,.15], d),
+      star:  mixrgba([20,20,19,.75],  [250,249,245,.92], d),
+      warm:  mixrgba([156,124,71,1],  [235,219,188,1],   d),
+      dim:   mixrgba([156,124,71,.45],[235,219,188,.4],  d),
+      mapFill:   mixrgba([20,20,19,.04], [235,219,188,.04], d),
+      mapStroke: mixrgba([20,20,19,.4],  [235,219,188,.35], d),
+      panel: mixrgba([248,242,228,1], [23,22,20,1], d),
+      glow:  "rgba(" + mixc(156,235,d) + "," + mixc(124,219,d) + "," + mixc(71,188,d) + ","
     };
+  }
+  /* 整组主题 token 同步入夜（导航条、文字、金色、发丝线一起变暗——
+     只混 body 背景会留下白色导航条这种低级破绽）。
+     量化到 0.04 步长：不为微小滚动做全页样式重算 */
+  var NIGHT_TOKENS = {
+    "--bg":              [[240,237,229,1],  [20,20,19,1]],
+    "--bg-deep":         [[231,227,215,1],  [14,13,12,1]],
+    "--nav-bg":          [[240,237,229,.85],[14,13,12,.82]],
+    "--ink":             [[20,20,19,1],     [250,249,245,1]],
+    "--ink-dim":         [[111,109,102,1],  [176,174,165,1]],
+    "--accent":          [[156,124,71,1],   [235,219,188,1]],
+    "--accent-dim":      [[156,124,71,.45], [235,219,188,.4]],
+    "--hairline":        [[20,20,19,.12],   [235,219,188,.12]],
+    "--hairline-strong": [[20,20,19,.2],    [235,219,188,.18]]
+  };
+  var lastBgD = -1;
+  function applyNightBg(){
+    var de = document.documentElement, rs = de.style;
+    if(de.dataset.theme !== "light" || nightD <= 0){
+      if(lastBgD !== 0){
+        for(var k in NIGHT_TOKENS) rs.removeProperty(k);
+        de.classList.remove("nighting");
+        lastBgD = 0;
+      }
+      return;
+    }
+    var d = Math.round(nightD * 50) / 50;
+    if(d === lastBgD) return;
+    lastBgD = d;
+    /* 渐变进行中关闭 body/导航的 background transition：滚动就是动画本身 */
+    de.classList.toggle("nighting", d > 0 && d < 1);
+    for(var n in NIGHT_TOKENS) rs.setProperty(n, mixrgba(NIGHT_TOKENS[n][0], NIGHT_TOKENS[n][1], d));
   }
 
   /* ---- 真实地图交接：接管瞬间捕获视野/轮廓/图钉；
@@ -214,7 +255,7 @@
   }
 
   function draw(p){
-    if(!C) colors();
+    if(!C || Math.abs(nightNow() - lastCd) > 0.02) colors();
     ctx.clearRect(0, 0, W, H);
     var cx = W / 2, cy = H / 2;
     var fade = 1 - seg(p, 0.96, 1);
@@ -377,6 +418,8 @@
       if(p > 0.05 && !took && window.__MAPHOOK){ capture(); window.__MAPHOOK.hide(true); took = true; }
       else if(p <= 0.05 && took){ window.__MAPHOOK.hide(false); took = false; hand = null; }
       lastP = p;
+      nightD = Math.max(0, Math.min(1, (p - 0.10) / 0.5));   /* 入夜：地图收缩起步，银河前完成 */
+      applyNightBg();
       draw(p);
     });
   }
@@ -394,7 +437,7 @@
   setTimeout(function(){ if(window.WORLD_MAP_PATH) buildOff(WORLD_MAP_PATH); }, 1800);  /* 空闲预热位图 */
   addEventListener("resize", resize);
   addEventListener("scroll", onScroll, { passive: true });
-  addEventListener("themechange", function(){ C = null; draw(lastP); });
+  addEventListener("themechange", function(){ C = null; applyNightBg(); draw(lastP); });
   new IntersectionObserver(function(en){ visible = en[0].isIntersecting; }, { threshold: 0 }).observe(wrap);
   requestAnimationFrame(idle);
   onScroll();

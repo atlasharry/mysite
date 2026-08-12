@@ -235,7 +235,7 @@
       var wrap = $("#astroWrap");
       var cv = document.createElement("canvas");
       wrap.appendChild(cv);
-      createStarfield(cv, { density: 9000 });
+      createStarfield(cv, { density: 9000, night: true });   /* 星空章节永远是夜 */
       astroCanvasDone = true;
     }
     grid.innerHTML = "";

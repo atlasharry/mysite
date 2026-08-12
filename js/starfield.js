@@ -37,7 +37,8 @@ window.createStarfield = function(canvas, opts){
     draw(performance.now());
   }
   function draw(now){
-    var light = document.documentElement.dataset.theme === "light";
+    /* night: 永远按夜空绘制（星空章节在明亮主题下也是黑夜） */
+    var light = !o.night && document.documentElement.dataset.theme === "light";
     var base = light ? "rgba(20,20,19,0.7)" : "#faf9f5";
     var warm = light ? "#9c7c47" : "#ebdbbc";
     ctx.clearRect(0, 0, W, H);

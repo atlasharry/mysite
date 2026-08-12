@@ -14,13 +14,28 @@
     if(btn) btn.innerHTML = (theme === "dark") ? SUN : MOON;
     dispatchEvent(new CustomEvent("themechange", { detail: theme }));
   }
+  /* 主题切换必须整页同帧翻转：View Transition 做统一交叉淡变；
+     期间挂 .theming 关掉 body/nav 的局部 background 过渡（拼盘色差之源），
+     不支持的浏览器瞬时切换（同样无拼盘） */
+  function applyWithFade(){
+    var de = document.documentElement;
+    de.classList.add("theming");
+    var done = function(){ de.classList.remove("theming"); };
+    if(document.startViewTransition){
+      var vt = document.startViewTransition(apply);
+      vt.finished.then(done, done);
+    } else {
+      apply();
+      requestAnimationFrame(function(){ requestAnimationFrame(done); });
+    }
+  }
   window.THEME = {
     get current(){ return theme; },
     isLight: function(){ return theme === "light"; },
     toggle: function(){
       theme = (theme === "dark") ? "light" : "dark";
       try { localStorage.setItem(KEY, theme); } catch(e){}
-      apply();
+      applyWithFade();
     }
   };
   document.documentElement.dataset.theme = theme;

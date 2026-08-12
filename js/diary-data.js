@@ -167,7 +167,7 @@ window.DIARY = {
     }
   }
   ,
-  /* 卫斯理安：毕业前的最后两周（徽记＝South College 钟楼 + 便利贴墙） */
+  /* 卫斯理安：从大一深秋到毕业前两周（徽记＝South College 钟楼 + 便利贴墙） */
   middletown: {
     geo: {
       emblem: "wesleyan",
@@ -179,35 +179,46 @@ window.DIARY = {
     sub: { zh: "曾经觉得无聊的小村子，如今竟有些不舍",
            en: "The town I once found dull, now hard to leave" },
     intro: {
-      zh: "写完了 90 页的毕业论文，\n在熟悉的教室里上完了最后一节课，\n第一次，也是最后一次走进 bar night 的人群。",
-      en: "A ninety-page thesis, finished.\nThe last class, in a room I knew by heart.\nMy first, and last, bar night."
+      zh: "大一的深秋，在天文台的红光里看见一颗流星；\n毕业的春天，写完 90 页论文的最后一页。\n四年，异乡的小村慢慢变成另一个故乡。",
+      en: "A freshman fall: a shooting star, seen from the observatory's red light.\nA senior spring: the last page of a ninety-page thesis.\nFour years, and a town far from home slowly became home."
     },
     cover:    { src: "../assets/travel/wesleyan/wesleyan-02", ar: "1920/1080", cap: "Champagne on the lawn ♡" },
-    polaroid: { src: "../assets/travel/wesleyan/wesleyan-05", ar: "1080/1619", cap: "Spring, briefly" },
-    momentsLabel: "The Last Spring ♡",
+    polaroid: { src: "../assets/travel/wesleyan/wesleyan-v2-06", ar: "1080/1620", cap: "Observatory night" },
+    momentsLabel: "Four Years in Middletown ♡",
     strip: [
+      { src: "../assets/travel/wesleyan/wesleyan-v2-01", ar: "1620/1080", cap: { zh: "秋阳穿进宿舍的窗户", en: "Autumn sun through the dorm window" } },
+      { src: "../assets/travel/wesleyan/wesleyan-v2-02", ar: "1620/1080", cap: { zh: "球场对面的小教堂", en: "The chapel across the field" } },
+      { src: "../assets/travel/wesleyan/wesleyan-v2-03", ar: "1620/1080", cap: { zh: "十一月的日落", en: "A November sunset" } },
+      { src: "../assets/travel/wesleyan/wesleyan-v2-04", ar: "1440/1080", cap: { zh: "红光里的望远镜", en: "The telescope in red light" } },
+      { src: "../assets/travel/wesleyan/wesleyan-v2-05", ar: "1620/1080", cap: { zh: "星空下的校园", en: "Campus under the stars" } },
       { src: "../assets/travel/wesleyan/wesleyan-04", ar: "1080/1440", cap: { zh: "Boger Hall 前的春天", en: "Spring outside Boger Hall" } },
       { src: "../assets/travel/wesleyan/wesleyan-01", ar: "1440/1080", cap: { zh: "写完 90 页的那个春天", en: "The spring of ninety pages" } },
       { src: "../assets/travel/wesleyan/wesleyan-06", ar: "1346/1080", cap: { zh: "最后一节课", en: "The last class" } },
       { src: "../assets/travel/wesleyan/wesleyan-03", ar: "1440/1080", cap: { zh: "第一次也是最后一次 bar night", en: "First and last bar night" } },
-      { src: "../assets/travel/wesleyan/wesleyan-07", ar: "1440/1080", cap: { zh: "那晚的人群", en: "The crowd that night" } },
-      { src: "../assets/travel/wesleyan/wesleyan-09", ar: "1440/1080", cap: { zh: "草地上的春日音乐节", en: "Spring Fling on the field" } },
       { src: "../assets/travel/wesleyan/wesleyan-08", ar: "1439/1080", cap: { zh: "朋友们的毕业礼物", en: "Gifts from friends" } }
     ],
-    tapeLabel: { zh: "论文 · 春天 · 告别", en: "Thesis · Spring · Goodbye" },
+    tapeLabel: { zh: "初见 · 星空 · 告别", en: "Arrive · Stargaze · Goodbye" },
     diary: {
-      label: { zh: "毕业前两周", en: "Two Weeks Left" },
+      label: { zh: "小村四年", en: "Four Years in Town" },
       place: "Middletown · Wesleyan",
       title: { zh: "“异乡的小村”", en: "“A Small Town Far From Home”" },
-      date:  { zh: "春末 · 米德尔敦", en: "Late spring · Middletown, CT" },
+      date:  { zh: "2021 秋 — 2025 春 · 米德尔敦", en: "Fall 2021 — Spring 2025 · Middletown, CT" },
       body: {
         zh: [
+          "2021 年 11 月，大一的第一个深秋。秋日的阳光温暖地穿进宿舍的窗户，玻璃外的树叶黄得正好。那时我刚到这个小村两个多月，还常常觉得它安静得有些无聊。",
+          "十一月初的一个晚上，我走过球场边的坡道去天文台看星星。圆顶裂开一道缝，红色的灯光里，望远镜正指向夜空。我透过镜筒看到了一颗流星——虽然没有来得及许愿，但想起蓝天、暖阳、即将到来的冬雪，和在这里遇到的超级好的朋友们，忽然觉得没什么好遗憾的。",
+          "回宿舍的路上，星星安静地传递着百万年前的光。我渐渐开始期待起未来的日子了，即使那会是赶不完的 due 和掉不停的头发。",
+          "一晃，四年过去",
           "离毕业只剩最后两周。那个曾经觉得无聊的小村子，如今竟也开始让我有些不舍。",
           "写完了 90 页的毕业论文，在熟悉的教室里上完了最后一节课，第一次、也是最后一次走进 bar night 的人群，也在春风里看见了短暂却灿烂的花开。",
           "high rise 前的花开了又谢，书桌墙上的便利贴贴满了整个春天，olin 门口草坪上飞舞着的香槟。",
           "曾以为这一切只是一段旅程。只有在快要分别时，才发现这个异乡的小村，早已成了我的另一个故乡。"
         ],
         en: [
+          "November 2021, the first deep autumn of freshman year. The fall sun came warm through my dorm window, and the leaves outside the glass were exactly the right shade of gold. I had been in this little town for barely two months, and I still found it quiet to the point of boring.",
+          "One night in early November, I walked up past the playing field to the observatory. The dome stood open a crack; in the red light inside, the telescope was pointing at the night sky. Through the eyepiece I caught a shooting star—no time to make a wish, but I thought of the blue skies, the warm sun, the winter snow on its way, and the ridiculously good friends I had met here, and suddenly there seemed to be nothing to regret.",
+          "On the way back to the dorm, the stars went on quietly delivering light from a million years ago. Little by little, I began to look forward to the days ahead—even if they would be deadlines I could never finish and hair that would not stop falling.",
+          "Four years passed, just like that",
           "Two weeks left before graduation. The little town I used to find so boring has, somehow, become hard to leave.",
           "I finished the ninety-page thesis. I sat through the last class in a room I knew by heart. I walked into the crowd at bar night for the first time, and the last. And in the spring wind I watched the blossoms open, brief and bright.",
           "The flowers in front of High Rise bloomed and fell. The sticky notes on my desk wall filled up the whole spring. Champagne flew over the lawn outside Olin.",
@@ -271,6 +282,412 @@ window.DIARY = {
         ]
       },
       quote: "The sea was blue,\nthe train was slow,\nand the summer was long."
+    }
+  }
+  ,
+  /* 重庆：山城夜与烟火气（徽记＝洪崖洞吊脚楼层叠 + 街边摊与坡道台阶） */
+  chongqing: {
+    geo: {
+      emblem: "chongqing",
+      vb: "0 14 190 98",
+      stampTop: "CHONGQING", stampBottom: "HONGYA CAVE"
+    },
+    name: { zh: "重庆", en: "Chongqing" },
+    sub: { zh: "霓虹尽头，是记忆深处的童年",
+           en: "At the end of the neon, a childhood remembered" },
+    intro: {
+      zh: "洪崖洞的灯一层层亮起，\n解放碑的霓虹连成一条河，\n而巷子深处的烟火气，通向童年。",
+      en: "Hongya Cave lighting up floor by floor,\nJiefangbei's neon running like a river,\nand down the alleys, the smoke of daily life leading back to childhood."
+    },
+    cover:    { src: "../assets/travel/chongqing/chongqing-07", ar: "1619/1080", cap: "Hongya Cave ♡" },
+    polaroid: { src: "../assets/travel/chongqing/chongqing-08", ar: "1080/1619", cap: "The masked lead" },
+    momentsLabel: "Neon Nights in Chongqing ♡",
+    strip: [
+      { src: "../assets/travel/chongqing/chongqing-02", ar: "1625/1080", cap: { zh: "千厮门大桥下的洪崖洞", en: "Hongya, under the bridge" } },
+      { src: "../assets/travel/chongqing/chongqing-04", ar: "1644/1080", cap: { zh: "新楼脚下的老屋檐", en: "Old roofs, new towers" } },
+      { src: "../assets/travel/chongqing/chongqing-01", ar: "1619/1080", cap: { zh: "看夜景的人", en: "Watching the skyline" } },
+      { src: "../assets/travel/chongqing/chongqing-06", ar: "1619/1080", cap: { zh: "得意世界门口的出租车", en: "Taxis under the neon" } },
+      { src: "../assets/travel/chongqing/chongqing-03", ar: "1080/1696", cap: { zh: "限速三十的坡道", en: "A hill road, capped at 30" } },
+      { src: "../assets/travel/chongqing/chongqing-05", ar: "1080/1267", cap: { zh: "深夜的二号线出口", en: "Line 2, after midnight" } },
+      { src: "../assets/travel/chongqing/chongqing-09", ar: "1639/1080", cap: { zh: "洪崖洞下的人潮", en: "The crowd below Hongya" } }
+    ],
+    tapeLabel: { zh: "霓虹 · 烟火 · 童年", en: "Neon · Smoke · Childhood" },
+    diary: {
+      label: { zh: "山城夜记", en: "Mountain City Nights" },
+      place: "Chongqing · Jiefangbei",
+      title: { zh: "“霓虹与烟火”", en: "“Neon and Smoke”" },
+      date:  { zh: "冬夜 · 山城重庆", en: "Winter nights · Chongqing" },
+      body: {
+        zh: [
+          "到重庆的第一晚，我站在江对岸，看洪崖洞把灯一层一层点亮。十一层吊脚楼金灿灿地叠上去，千厮门大桥横在它前面，游船拖着一身光，慢慢驶过嘉陵江。",
+          "我们带了一副会发光的面具——谁戴上，谁就是那晚照片的主角。解放碑的霓虹一路亮过去，得意世界的招牌换着颜色，黄色的出租车在街口排成一列。我举着相机，快门声很快被人声淹没。",
+          "深夜的二号线出口还亮着灯。我们从台阶爬上来，上坡，下坡，坡顶立着限速三十的牌子。路边的摊子冒着热气，摊主的川话，和我小时候听到的一模一样。",
+          "突然在充满烟火气的街道里",
+          "找回了记忆深处的童年",
+          "我记得放学路上的小面摊，矮矮的塑料凳，红油的香气隔着半条街就闻得到。",
+          "我记得夏天傍晚的街沿，竹椅、蒲扇、冒着白气的蒸笼，大人们摆龙门阵，一直摆到路灯亮起来。",
+          "内江就在隔壁。二十年过去，我在另一座城市的街头闻到了同一种烟火气。原来它从来没有熄过——只是换了一条街，继续亮着。"
+        ],
+        en: [
+          "On our first night in Chongqing I stood across the river and watched Hongya Cave light up floor by floor—eleven storeys of stilt houses stacked in gold, Qiansimen Bridge stretched out in front, a cruise boat trailing its lights slowly up the Jialing.",
+          "We had brought a light-up mask with us—whoever wore it became the lead of that night's photos. The neon of Jiefangbei ran on and on, the signboards changing colours, yellow taxis lined up at the corner. I held the camera; the shutter was soon drowned out by the crowd.",
+          "Past midnight, the Line 2 exit was still lit. We climbed the steps—uphill, downhill, a speed-limit sign that said 30 at the top of the slope. The street stalls were steaming, and the vendors' Sichuan dialect sounded exactly like the one I grew up hearing.",
+          "Then suddenly, in a street full of the smoke and warmth of everyday life,",
+          "I found my childhood.",
+          "I remember the noodle stall on the way home from school, the low plastic stools, the smell of chilli oil you could catch from half a street away.",
+          "I remember summer evenings on the kerb—bamboo chairs, cattail fans, steamers puffing white—the grown-ups trading stories until the street lamps came on.",
+          "Neijiang is just next door. Twenty years on, in another city's streets, I caught the same warm smoke of life. It had never gone out—it had only moved to a different street, and kept on glowing."
+        ]
+      },
+      quote: "Neon for the eyes,\nsmoke for the heart,\nand a street that leads home."
+    }
+  }
+  ,
+  /* 香港：影展十一天（徽记＝双层叮叮车 + 便签上的一格胶片） */
+  hongkong: {
+    geo: {
+      emblem: "hongkong",
+      vb: "0 8 190 104",
+      stampTop: "HONG KONG", stampBottom: "FILMART"
+    },
+    name: { zh: "香港", en: "Hong Kong" },
+    sub: { zh: "十一天，仿佛穿越了整个香港电影历史",
+           en: "Eleven days through the whole history of Hong Kong cinema" },
+    intro: {
+      zh: "从邵氏的摄影棚到银河映像的酒杯，\n从叮叮车的上层到影展的小桌子，\n十一天，像一场不愿散场的电影。",
+      en: "From a soundstage at Shaw Studios to a raised glass at Milkyway,\nfrom the top deck of a tram to a small table at FILMART—\neleven days, like a film I didn’t want to end."
+    },
+    cover:    { src: "../assets/travel/hongkong/hongkong-01", ar: "1617/1080", cap: "FILMART ♡" },
+    polaroid: { src: "../assets/travel/hongkong/hongkong-02", ar: "1617/1080", cap: "Badge, 20/3" },
+    momentsLabel: "Eleven Days in Hong Kong ♡",
+    strip: [
+      { src: "../assets/travel/hongkong/hongkong-04", ar: "1080/1440", cap: { zh: "邵氏影城的二号摄影棚", en: "Stage 2, Shaw Studios" } },
+      { src: "../assets/travel/hongkong/hongkong-03", ar: "1617/1080", cap: { zh: "《破地狱》导演对谈", en: "The Last Dance director talk" } },
+      { src: "../assets/travel/hongkong/hongkong-07", ar: "1617/1080", cap: { zh: "参观 MM2", en: "Visiting mm2" } },
+      { src: "../assets/travel/hongkong/hongkong-05", ar: "1617/1080", cap: { zh: "开往坚尼地城的叮叮车", en: "The ding ding to Kennedy Town" } },
+      { src: "../assets/travel/hongkong/hongkong-06", ar: "1440/1080", cap: { zh: "雨天的叮叮车上层", en: "Upper deck, in the rain" } },
+      { src: "../assets/travel/hongkong/hongkong-08", ar: "810/1080",  cap: { zh: "兰芳园的冻奶茶", en: "Milk tea, Lan Fong Yuen" } },
+      { src: "../assets/travel/hongkong/hongkong-09", ar: "1617/1080", cap: { zh: "夜晚的富东饭店", en: "Fu Tung, after dark" } }
+    ],
+    tapeLabel: { zh: "电影 · 雨 · 梦", en: "Cinema · Rain · Dreams" },
+    diary: {
+      label: { zh: "影展手记", en: "Festival Notes" },
+      place: "Hong Kong · Wan Chai",
+      title: { zh: "“一帧美好的瞬间”", en: "“One Beautiful Frame”" },
+      date:  { zh: "三月 · 香港", en: "March · Hong Kong" },
+      body: {
+        zh: [
+          "三月的香港总在下雨。我坐在叮叮车的上层，隔着起雾的车窗，看街上的伞在黄色斑马线上开开合合。",
+          "从邵氏电影制片厂到银河映像，再到 GoldenScene、MM2 以及香港国际影展，我在这短短的十一天里，仿佛穿越了整个香港电影历史。",
+          "在邵氏影城，我在二号摄影棚的橘色大字底下站了很久；在 MM2 的走廊里，把墙上签了名的海报一张张认过去。手里兰芳园的冻奶茶，还剩半杯。",
+          "我记得和《但愿人长久》《年少日记》《浊水漂流》《白日之下》的导演们挤在一个小桌子上，交流着作为新人导演，他们如何在迷茫中坚持初心，讲出属于自己的故事。",
+          "记得受邀参加银河映像组织的聚会，和杜琪峰搂着肩喝酒，笑着喊出 “to dreams”，结果最后被朋友扶着回家。",
+          "记得与韩国的导演和演员们交流时，语言不通，却靠着手势和眼神比划出热烈的电影情怀，欢笑声此起彼伏。",
+          "还有在电影展上，不同的制片人和发行方听了我的故事后，温和又调侃地建议我先学计算机。",
+          "我笑着说好。",
+          "回想起来，这段经历就像偶然捕捉到的一帧美好的瞬间。相信很多年后回想起，也会笑着怀念着香港留给我的这份独特的回忆。"
+        ],
+        en: [
+          "It rained and rained in Hong Kong that March. I sat on the upper deck of a ding ding tram, watching through a fogged window as umbrellas opened and closed over the yellow crossings.",
+          "From the Shaw Brothers studio to Milkyway Image, then Golden Scene, mm2 and the Hong Kong FILMART—in those short eleven days, I seemed to travel through the entire history of Hong Kong cinema.",
+          "At Shaw Studios I stood a long while under the big orange letters of Stage 2. In the corridor at mm2 I went down the wall of signed posters, naming them one by one. The iced milk tea from Lan Fong Yuen in my hand was still half full.",
+          "I remember squeezing around one small table with the directors of Fly Me to the Moon, Time Still Turns the Pages, Drifting and In Broad Daylight, talking about how, as new directors, they held on to what they first believed through all the uncertainty, and told the stories that were theirs to tell.",
+          "I remember being invited to a gathering thrown by Milkyway Image, drinking with an arm around Johnnie To’s shoulder, laughing and shouting “to dreams”—and, at the end of the night, being helped home by friends.",
+          "I remember talking with Korean directors and actors: we shared no language, yet with gestures and eye contact we traced out a burning love of film, and the laughter kept rising.",
+          "And at the market, producers and distributors who heard my story would suggest, gently and half in jest, that I go study computer science first.",
+          "I laughed and agreed.",
+          "Looking back, the whole stretch feels like one beautiful frame caught by accident. I am sure that many years from now, I will smile when it comes back to me, and miss this memory that Hong Kong left me—one of a kind."
+        ]
+      },
+      quote: "Eleven days,\none long take,\nto dreams."
+    }
+  }
+  ,
+  /* 内江：童年故乡（徽记＝坡上的老屋与梯坎 + 暮色巷子里的灯） */
+  neijiang: {
+    geo: {
+      emblem: "neijiang",
+      vb: "0 0 190 104",
+      stampTop: "NEIJIANG", stampBottom: "SICHUAN"
+    },
+    name: { zh: "内江", en: "Neijiang" },
+    sub: { zh: "回到长大的地方，一切都小了一号",
+           en: "Back where I grew up, everything is one size smaller" },
+    intro: {
+      zh: "梯坎还是那段梯坎，灯还是那盏灯，\n炒饭的锅气飘过老街的夜，\n只是看什么，都小了一号。",
+      en: "The same stone steps, the same lamp under the eaves,\nwok-breath drifting through the old town at night—\nonly everything looks one size smaller."
+    },
+    cover:    { src: "../assets/travel/neijiang/neijiang-01", ar: "1080/1616", cap: "The steps home ♡" },
+    polaroid: { src: "../assets/travel/neijiang/neijiang-02", ar: "1616/1080", cap: "Dusk, one lamp" },
+    momentsLabel: "Nights in Neijiang ♡",
+    strip: [
+      { src: "../assets/travel/neijiang/neijiang-04", ar: "1616/1080", cap: { zh: "梯坎下面就是街", en: "The street below the steps" } },
+      { src: "../assets/travel/neijiang/neijiang-03", ar: "1616/1080", cap: { zh: "老街的夜是红的", en: "The old street glows red" } },
+      { src: "../assets/travel/neijiang/neijiang-05", ar: "1616/1080", cap: { zh: "巷口的炒饭摊", en: "Fried rice on the corner" } },
+      { src: "../assets/travel/neijiang/neijiang-06", ar: "1616/1080", cap: { zh: "馄饨店的晚上", en: "Evening at the wonton shop" } },
+      { src: "../assets/travel/neijiang/neijiang-07", ar: "1616/1080", cap: { zh: "卤菜摊的玻璃柜", en: "The braised-food counter" } },
+      { src: "../assets/travel/neijiang/neijiang-08", ar: "1616/1080", cap: { zh: "石狮子守着零食摊", en: "Snacks by the stone lions" } },
+      { src: "../assets/travel/neijiang/neijiang-09", ar: "1616/1080", cap: { zh: "网咖绿光里的狗", en: "A dog in the green glow" } }
+    ],
+    tapeLabel: { zh: "梯坎 · 锅气 · 灯", en: "Steps · Wok-breath · Lamplight" },
+    diary: {
+      label: { zh: "还乡手记", en: "Homecoming Notes" },
+      place: "Neijiang · Sichuan",
+      title: { zh: "“小了一号的故乡”", en: "“One Size Smaller”" },
+      date:  { zh: "夏夜 · 内江", en: "A summer night · Neijiang" },
+      body: {
+        zh: [
+          "回来的那个晚上，天刚擦黑。屋檐下的灯一盏一盏亮起来，天边还剩最后一小块橘色。我放下行李出门，去走小时候放学走的那条路。",
+          "一切都小了一号。",
+          "小时候觉得走不完的梯坎，几分钟就爬到了头。屋檐挨着屋檐，电线在头顶绕成一团乱麻，把暮色剪成一小格一小格。巷子的尽头，新城的楼比记忆里高出许多，亮着白色的灯。",
+          "我记得这段梯坎。书包带子勒着肩膀，一级一级数着往上爬，数到一半就乱了。",
+          "我记得巷口炒饭的锅气。火一旺，半条街都是蛋炒饭的香味。",
+          "我记得夏天的傍晚，跟着大人在卤菜摊前排队，玻璃柜里那盏灯，把每张脸都照得黄黄的。",
+          "这些摊子都还在。炒饭的师傅在铁锅前抬头看了我一眼；馄饨店里，系围裙的店员弯着腰，和坐着的婆婆说话；卤菜摊的阿姨还在玻璃柜后忙着。我说不清它们是不是当年那几家，可锅气和灯光，和记忆里的一模一样。",
+          "夜深了往回走，宾馆的霓虹把人行道照成红色，摆零食摊的师傅在石狮子脚下码好最后一排泡面，一条狗跟着主人，慢悠悠走进网咖的绿光里。谁都不着急，这里的夜和小时候一样长——只有我是明天要走的那个。后来，我把这条回家的路，拍成了自己的短片。"
+        ],
+        en: [
+          "The evening I came back, the sky had just gone dark. Under the eaves the lamps came on one by one, and a last scrap of orange still hung at the edge of the sky. I dropped my bags and went out, to walk the road I used to take home from school.",
+          "One size smaller.",
+          "The stone steps that once felt endless took only a few minutes to climb. Eaves leaned against eaves, wires knotted overhead, cutting the dusk into little squares. At the end of the alley, the towers of the new town stood taller than I remembered, lit white.",
+          "I remember these steps. The straps of my schoolbag cutting into my shoulders, counting each one on the way up, losing count halfway.",
+          "I remember the breath of the wok at the corner stall. When the fire roared, half the street smelled of egg-fried rice.",
+          "I remember summer evenings, queuing with the grown-ups at the braised-food stall, the lamp in the glass case turning every face yellow.",
+          "The stalls are all still there. The cook looked up at me from behind his iron wok; in the wonton shop, a woman in an apron bent down to talk with a grandmother in her chair; the auntie at the braised-food stall was still busy behind her glass case. I cannot say whether they are the same ones from back then—but the steam and the lamplight are exactly as I remember.",
+          "Walking back late, hotel neon washed the pavement red; a vendor laid out the last row of instant noodles at the foot of a pair of stone lions; a dog followed its owner, unhurried, into the green glow of an internet café. Nobody here is in a hurry—the nights are as long as they were when I was small. I was the only one leaving in the morning. Later, I made this road home into a short film of my own."
+        ]
+      },
+      quote: "Hometowns never grow up;\nthey simply wait for you,\none size smaller."
+    }
+  }
+  ,
+  /* 卡塔尔：路过多哈的一天（徽记＝Al Fanar 螺旋塔 + 黄昏海湾里的木帆船） */
+  qatar: {
+    geo: {
+      emblem: "qatar",
+      vb: "0 10 190 108",
+      stampTop: "QATAR", stampBottom: "DOHA"
+    },
+    name: { zh: "卡塔尔", en: "Qatar" },
+    region: "Doha",
+    sub: { zh: "在卡塔尔，体验到一天变黑",
+           en: "In Qatar, watching a day turn dark" },
+    intro: {
+      zh: "从帐篷屋顶下的棕榈树，到夜里亮起的老市集，\n太阳一路把人晒黑，黄昏一点点把城市调暗，\n一天，刚好看完多哈从白到黑。",
+      en: "From palms under a tent roof to the old souq lighting up at night,\nthe sun tanning me all the way, dusk slowly dimming the city—\none day, just enough to watch Doha go from white to black."
+    },
+    cover:    { src: "../assets/travel/qatar/qatar-04", ar: "1619/1080", cap: "Dhow harbour at dusk ♡" },
+    polaroid: { src: "../assets/travel/qatar/qatar-02", ar: "1080/1440", cap: "Sun-proof" },
+    momentsLabel: "One Day in Doha ♡",
+    strip: [
+      { src: "../assets/travel/qatar/qatar-01", ar: "1440/1080", cap: { zh: "帐篷屋顶下的棕榈树", en: "Palms under a tent roof" } },
+      { src: "../assets/travel/qatar/qatar-03", ar: "1619/1080", cap: { zh: "滨海大道，路灯是棕榈叶", en: "Palm-frond lamps on the Corniche" } },
+      { src: "../assets/travel/qatar/qatar-05", ar: "1619/1080", cap: { zh: "沙尘里的西湾天际线", en: "West Bay behind the haze" } },
+      { src: "../assets/travel/qatar/qatar-06", ar: "1619/1080", cap: { zh: "夜里亮起的螺旋塔", en: "The spiral tower, lit at night" } },
+      { src: "../assets/travel/qatar/qatar-07", ar: "1619/1080", cap: { zh: "瓦其夫老市集", en: "Souq Waqif at night" } }
+    ],
+    tapeLabel: { zh: "烈日 · 黄昏 · 夜市", en: "Sun · Dusk · Souq" },
+    diary: {
+      label: { zh: "一日手记", en: "One-Day Notes" },
+      place: "Doha · Corniche",
+      title: { zh: "“一天变黑”", en: "“Dark in a Day”" },
+      date:  { zh: "路过的一天 · 多哈", en: "One day, passing through · Doha" },
+      body: {
+        zh: [
+          "飞机落在多哈的时候刚过正午。阳光白得发狠，我把渔夫帽压低，围脖一直拉到眼睛下面，全副武装，只留一条缝看这个陌生的国家。",
+          "在卡塔尔，体验到一天变黑。",
+          "正午的多哈不属于室外。商场里种着一整排真的棕榈树，帐篷一样的屋顶把太阳滤成暖黄色，冷气足得像另一个季节。",
+          "下午的车开在滨海大道上，路灯全做成棕榈叶的样子，一路弯向海。西湾的玻璃高楼站在沙尘后面，轮廓淡得像一张铅笔稿。",
+          "天开始变黑。",
+          "黄昏把海湾调成灰蓝色。木壳的老帆船一艘挨一艘泊在岸边，桅杆安安静静；螺旋塔最先亮起来，一圈一圈的暖黄，像有人提着灯从塔顶走到塔底。",
+          "夜里的瓦其夫市集刚刚醒来。粗糙的白墙、露木梁的顶、一盏接一盏的吊灯，香料和坚果堆在店门口。我跟着人流在窄巷里慢慢走，谁也不急。",
+          "睡前照镜子才发现，变黑的不只是天——全副武装了一整天，我还是比早上黑了一号。不过也值：一天之内，看完一座城市从白亮走到全黑。"
+        ],
+        en: [
+          "The plane touched down in Doha just past noon. The sunlight was a fierce white; I pulled my bucket hat low and my neck gaiter up to my eyes—fully armoured, one slit left open to look at a country I didn't know.",
+          "In Qatar, I watched a day turn dark.",
+          "Noon in Doha does not belong to the outdoors. Inside the mall grew a whole row of real palm trees, a tent-like roof filtering the sun into warm gold, the air-conditioning strong enough to be another season.",
+          "In the afternoon the car rolled down the Corniche, where every streetlight was shaped like a palm frond, curving with the road toward the sea. The glass towers of West Bay stood behind the dust haze, their outlines faint as a pencil sketch.",
+          "The day went dark.",
+          "Dusk turned the bay grey-blue. The old wooden dhows moored side by side along the shore, masts quiet; the spiral tower lit up first, ring after warm ring, as if someone were carrying a lamp from the top of the tower down to the bottom.",
+          "At night, Souq Waqif was just waking up. Rough white walls, timber beams overhead, hanging lamps one after another, spices and nuts piled at the shop doors. I drifted with the crowd through the narrow lanes, and nobody hurried.",
+          "Only in the mirror before bed did I see that the day wasn't the only thing that had gone dark—after a whole day in full armour, I was still a shade darker than in the morning. Worth it, though: in a single day, I had watched a city go from blinding white all the way to black."
+        ]
+      },
+      quote: "One day in Doha:\nthe city went dark,\nand so did I."
+    }
+  }
+  ,
+  /* 苏州：白天的园林与夜晚的山塘（徽记＝园中塔 + 山塘石拱桥与灯笼） */
+  suzhou: {
+    geo: {
+      emblem: "suzhou",
+      vb: "0 0 190 112",
+      stampTop: "SUZHOU", stampBottom: "JIANGNAN"
+    },
+    name: { zh: "苏州", en: "Suzhou" },
+    sub: { zh: "一步一景的白天，灯火满河的夜晚",
+           en: "A scene at every step, a river of lanterns at night" },
+    intro: {
+      zh: "清晨的河道，午后的园林，\n漏窗里取好的景，山塘街点亮的灯，\n在苏州，一天可以走过两座城。",
+      en: "A canal at dawn, gardens in the afternoon,\na view composed inside a lattice window, lanterns lit along Shantang—\nin Suzhou, one day walks through two cities."
+    },
+    cover:    { src: "../assets/travel/suzhou/suzhou-04", ar: "1479/1080", cap: "Through the lattice ♡" },
+    polaroid: { src: "../assets/travel/suzhou/suzhou-03", ar: "1619/1080", cap: "An egret, passing" },
+    momentsLabel: "A Day in Suzhou ♡",
+    strip: [
+      { src: "../assets/travel/suzhou/suzhou-02", ar: "1619/1080", cap: { zh: "白墙沿着河走", en: "White walls along the canal" } },
+      { src: "../assets/travel/suzhou/suzhou-01", ar: "1619/1080", cap: { zh: "黛瓦上的云", en: "Clouds over the tiles" } },
+      { src: "../assets/travel/suzhou/suzhou-05", ar: "1619/1080", cap: { zh: "假山下的锦鲤", en: "Koi under the rockery" } },
+      { src: "../assets/travel/suzhou/suzhou-06", ar: "1619/1080", cap: { zh: "山塘的夜", en: "Night on Shantang" } },
+      { src: "../assets/travel/suzhou/suzhou-07", ar: "1619/1080", cap: { zh: "夜航的游船", en: "Boats after dark" } },
+      { src: "../assets/travel/suzhou/suzhou-08", ar: "1619/1080", cap: { zh: "写着「塘」的灯笼", en: "The lantern that reads ‘Tang’" } }
+    ],
+    tapeLabel: { zh: "园林 · 流水 · 灯火", en: "Gardens · Canals · Lanterns" },
+    diary: {
+      label: { zh: "姑苏手记", en: "Gusu Notes" },
+      place: "Suzhou · Gusu",
+      title: { zh: "“漏窗里的塔”", en: "“The Pagoda in the Lattice”" },
+      date:  { zh: "盛夏 · 苏州", en: "High summer · Suzhou" },
+      body: {
+        zh: [
+          "在苏州，一天是从水边开始的。清晨的河道还没有游人，白墙沿着水一路排开，树影浮在河面上，几乎不动。",
+          "园林里的路是故意绕的。太湖石堆成的假山把视线挡住又放开，池水绿得发暗，锦鲤从假山的影子里游出来，一甩尾就是一团橘红。",
+          "一面漏窗前排起了队。轮到我才明白：花格的缝隙正好框住远处那座塔，塔底下铺着一整池的荷叶。造园的人几百年前就把景取好了，我只需要把眼睛放上去。",
+          "一步，一景。",
+          "出了园子抬头，又是另一幅：黛瓦的屋脊翘向天空，云在后面慢慢挪。一只白鹭掠过山墙，在蓝得过分的天上白得发亮。",
+          "天一黑，山塘街把灯全点上了。红灯笼从屋檐一直挂到水边，石拱桥上站满了人，游船从桥洞里钻出来，把一河的灯火搅碎又拼好。",
+          "回去的路上又看了一眼：灯笼上写着一个「塘」字，被风吹得轻轻晃。原来白天和夜晚是两座苏州，我都见过了。"
+        ],
+        en: [
+          "In Suzhou the day begins at the water. In the early morning the canal is still empty of visitors; whitewashed walls file along the bank, and the trees float on the river, barely moving.",
+          "Paths in the gardens wander on purpose. Rockeries of Taihu stone block the view and then release it; the pond is a deep, dark green, and koi slide out of the rockery’s shadow, a flick of orange with every turn.",
+          "A queue had formed at one lattice window. When my turn came I understood: the gaps in the stone tracery frame a distant pagoda, with a whole pond of lotus leaves spread beneath it. The garden-makers composed this shot centuries ago; all I had to do was put my eyes to it.",
+          "One step, one scene.",
+          "Outside the garden I looked up into another picture: ridgelines of dark tiles curling toward the sky, clouds inching past behind them. A white egret crossed over a gable, impossibly bright against all that blue.",
+          "The moment it got dark, Shantang Street switched on everything it had. Red lanterns ran from the eaves down to the water, the stone arch bridge filled with people, and tour boats slid out from under it, stirring a river of lights apart and back together.",
+          "On the way back I turned for one more look: a lantern swayed in the wind, a single character on it—Tang, for Shantang. Suzhou is two cities, one by day and one by night, and I had seen them both."
+        ]
+      },
+      quote: "Centuries ago,\nsomeone composed this view,\nand left it waiting for me."
+    }
+  }
+  ,
+  /* 新疆·赛里木湖：在赛里木湖收集每一片粉红色的云朵（徽记＝雪山湖面上的一朵云 + 收集云朵的玻璃罐） */
+  xinjiang: {
+    geo: {
+      emblem: "xinjiang",
+      vb: "0 0 190 120",
+      stampTop: "SAYRAM LAKE", stampBottom: "XINJIANG"
+    },
+    name: { zh: "赛里木湖", en: "Sayram Lake" },
+    region: "Xinjiang",
+    sub: { zh: "在赛里木湖收集每一片粉红色的云朵",
+           en: "Collecting every pink cloud at Sayram Lake" },
+    intro: {
+      zh: "出口 145，驶往赛里木湖方向，\n雪山把整面湖染成蓝色，\n云朵在傍晚变成粉红色。",
+      en: "Exit 145, toward Sayram Lake—\nsnow mountains turning the water blue,\nclouds turning pink at dusk."
+    },
+    cover:    { src: "../assets/travel/xinjiang/xinjiang-05", ar: "1619/1080", cap: "Sayram Lake ♡" },
+    polaroid: { src: "../assets/travel/xinjiang/xinjiang-02", ar: "1619/1080", cap: "A pink cloud, collected" },
+    momentsLabel: "Clouds over Sayram ♡",
+    strip: [
+      { src: "../assets/travel/xinjiang/xinjiang-03", ar: "1619/1080", cap: { zh: "出口 145，赛里木湖方向", en: "Exit 145, to Sayram Lake" } },
+      { src: "../assets/travel/xinjiang/xinjiang-07", ar: "1920/1080", cap: { zh: "开往草原深处", en: "Into the grasslands" } },
+      { src: "../assets/travel/xinjiang/xinjiang-01", ar: "1619/1080", cap: { zh: "湖边的小木屋", en: "Cabins by the lake" } },
+      { src: "../assets/travel/xinjiang/xinjiang-04", ar: "1619/1080", cap: { zh: "雪山前的滑翔伞", en: "Paramotors over the lake" } },
+      { src: "../assets/travel/xinjiang/xinjiang-08", ar: "1920/1080", cap: { zh: "河湾里的马群", en: "Horses in the shallows" } },
+      { src: "../assets/travel/xinjiang/xinjiang-06", ar: "1920/1080", cap: { zh: "远山粉紫色的雨", en: "A curtain of pink rain" } },
+      { src: "../assets/travel/xinjiang/xinjiang-09", ar: "1692/1080", cap: { zh: "湖边的银河", en: "The Milky Way" } }
+    ],
+    tapeLabel: { zh: "公路 · 湖 · 云朵", en: "Road · Lake · Clouds" },
+    diary: {
+      label: { zh: "湖边手记", en: "Lakeside Notes" },
+      place: "Sayram Lake · Xinjiang",
+      title: { zh: "“收集粉红色的云朵”", en: "“Collecting Pink Clouds”" },
+      date:  { zh: "盛夏 · 赛里木湖", en: "High summer · Sayram Lake, Xinjiang" },
+      body: {
+        zh: [
+          "导航说，前方出口 145，驶往赛里木湖方向。连霍高速一路向西，雪山从挡风玻璃的尽头一点点升起来。",
+          "湖比天更蓝",
+          "草原一直铺到水边。湖边立着几座小木屋，屋顶是干草的颜色；几顶滑翔伞拖着橘红色的伞翼，从雪山前面慢慢飘过去。",
+          "河湾在草原上分成好几股，亮得像镜子。一群马站在浅水里饮水，风把云的影子吹过草地，它们一动也不动。",
+          "傍晚，雨在很远的山前落下来，没有走到我们这边。落日把整幅雨幕染成粉紫色，像天边挂了一层纱。",
+          "在赛里木湖，收集每一片粉红色的云朵。",
+          "夜里云都散了。银河从湖的这一头横到那一头，我们关掉车灯，星星多得像要溢出来。",
+          "回程的路上我想，云大概是带不走的。但没关系——它们都被收在这一页里了。"
+        ],
+        en: [
+          "The navigation said: Exit 145 ahead, toward Sayram Lake. The Lianhuo Expressway ran west, and the snow mountains rose, little by little, at the end of the windshield.",
+          "Bluer than the sky",
+          "The grassland ran all the way to the water. A few wooden cabins stood by the lake, their roofs the colour of dry grass; paramotors trailed their orange wings, drifting slowly past the snow mountains.",
+          "Out on the plain the river split into bright braids, like mirrors. A herd of horses stood drinking in the shallows; the wind pushed cloud-shadows across the grass, and they never moved.",
+          "In the evening, rain fell against the far mountains and never reached us. The sunset dyed the whole curtain of it pink and violet, like a veil hung at the edge of the sky.",
+          "At Sayram Lake, collecting every pink cloud.",
+          "By night the clouds were gone. The Milky Way stretched from one end of the lake to the other; we turned off the headlights, and the stars felt close to overflowing.",
+          "On the road back I thought: you can't really take a cloud with you. But that's all right—they are all kept here, on this page."
+        ]
+      },
+      quote: "The clouds turned pink\nonly for a moment—\nlong enough to keep."
+    }
+  }
+  ,
+  /* 66 号公路：美国西南公路旅行（徽记＝通往消失点的公路 + 电线杆陪着的荒原公路） */
+  route66: {
+    geo: {
+      emblem: "route66",
+      vb: "0 18 190 102",
+      stampTop: "ROUTE 66", stampBottom: "MOTHER ROAD"
+    },
+    name: { zh: "66 号公路", en: "Route 66" },
+    region: "Arizona · Utah",
+    sub: { zh: "一路向西，大地开阔，时间变慢",
+           en: "Heading west, where the land opens and time slows" },
+    intro: {
+      zh: "雨后的柏油路一直伸向天边，\n峡谷裂开，河流转弯，巨石站成街道，\n最后，荒原用一道彩虹送我们离开。",
+      en: "Wet asphalt running to the horizon,\ncanyons cracking open, a river turning, stones standing like a street—\nand at the end, the desert saw us off with a rainbow."
+    },
+    cover:    { src: "../assets/travel/route66/route66-04", ar: "1619/1080", cap: "The open road ♡" },
+    polaroid: { src: "../assets/travel/route66/route66-03", ar: "1080/1619", cap: "Under the arch" },
+    momentsLabel: "Along Route 66 ♡",
+    strip: [
+      { src: "../assets/travel/route66/route66-01", ar: "1619/1080", cap: { zh: "被水和风磨出的波浪", en: "Waves in the sandstone" } },
+      { src: "../assets/travel/route66/route66-05", ar: "1080/1619", cap: { zh: "羚羊谷的那束光", en: "The beam in the canyon" } },
+      { src: "../assets/travel/route66/route66-02", ar: "1857/1080", cap: { zh: "大峡谷的云影", en: "Cloud shadows, Grand Canyon" } },
+      { src: "../assets/travel/route66/route66-06", ar: "1619/1080", cap: { zh: "马蹄湾", en: "Horseshoe Bend" } },
+      { src: "../assets/travel/route66/route66-08", ar: "1619/1080", cap: { zh: "石头的街道", en: "A street of stone" } },
+      { src: "../assets/travel/route66/route66-07", ar: "1163/1081", cap: { zh: "小镇黄昏的火烧云", en: "Clouds on fire at dusk" } },
+      { src: "../assets/travel/route66/route66-09", ar: "1619/1080", cap: { zh: "荒原上的双彩虹", en: "A double rainbow" } }
+    ],
+    tapeLabel: { zh: "公路 · 荒原 · 光", en: "Road · Desert · Light" },
+    diary: {
+      label: { zh: "公路手记", en: "Road Notes" },
+      place: "Route 66 · Arizona",
+      title: { zh: "“一直往西”", en: "“Keep Driving West”" },
+      date:  { zh: "夏末 · 美国西南", en: "Late summer · The American Southwest" },
+      body: {
+        zh: [
+          "沿着 66 号公路往西，出发那天刚下过雨。柏油路还亮着水光，黄色的分道线一直伸向天边，路的尽头浮着几座青灰色的山。很长一段路上，只有电线杆陪着我们。",
+          "大地开阔得没有回声。",
+          "羚羊谷像大地裂开的一道缝。光从头顶漏下来，砂岩被水和风磨成波浪的形状；有一束光正好停在岩壁中间的一截枯木上，像有人替它打了一盏追光。",
+          "大峡谷的边缘站满了云的影子。岩层一层压着一层，谷底的科罗拉多河细得像一根线。我举着相机站了很久，才按下第一张——有些尺度，取景框其实装不下。",
+          "在马蹄湾，河水绕着一整块岩石转了一个近乎完整的圆，然后不慌不忙地继续往前。原来河也会绕路。绕完这一圈，它还是那条河。",
+          "拱门国家公园里，红色的巨石排成一条街道。有人沿着岩坡爬到拱门底下，站在一朵云旁边，变成一个很小的剪影。在那里，人小得刚刚好。",
+          "傍晚开回镇上，餐馆屋檐的霓虹先亮了，山背后的云还烧着最后一点落日。我把车停在路边，看那堆火一点点暗下去，谁也没有催谁。",
+          "离开荒原的那天下了一场太阳雨，两道彩虹落在彩绘沙漠上——一道很清楚，一道很淡，底下只有一根孤零零的电线杆。我把车开得很慢。路还长，但我忽然不着急了。"
+        ],
+        en: [
+          "We set out west along Route 66, just after the rain. The asphalt was still shining, the yellow line ran all the way to the horizon, and a few grey-blue mountains floated at the end of the road. For long stretches, the telephone poles were our only company.",
+          "Too wide for echoes.",
+          "Antelope Canyon is a crack the earth opened. Light leaked in from above, over sandstone that water and wind had worn into waves; one beam rested exactly on a dead log lodged in the rock, as if someone had aimed a spotlight at it.",
+          "At the rim of the Grand Canyon, cloud shadows drifted across the strata, and the Colorado at the bottom thinned to a single thread. I stood with the camera raised for a long while before taking the first frame—some scales simply don’t fit in a viewfinder.",
+          "At Horseshoe Bend the river wraps around one great rock, drawing an almost perfect circle, then moves on, unhurried. So rivers take detours too. After the whole long loop, it is still the same river.",
+          "In Arches the red monoliths line up like a street. Someone climbed the slope to stand beneath the arch, next to a single cloud, and became a very small silhouette. Out there, feeling small is exactly the right size.",
+          "In the evening we drove back into town. The neon along the diner’s roofline came on first, while the clouds behind the mountains still burned with the last of the sunset. I parked by the road and watched the fire go out slowly, and nobody hurried anybody.",
+          "On the day we left the badlands it sun-showered, and a double rainbow dropped onto the Painted Desert—one arc sharp, one faint, nothing beneath them but a lone telephone pole. I slowed the car right down. The road was still long, and suddenly I was in no hurry at all."
+        ]
+      },
+      quote: "The road was long,\nthe land was wide,\nand nobody was in a hurry."
     }
   }
 };

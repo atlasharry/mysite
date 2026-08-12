@@ -12,12 +12,27 @@
 
   /* 默认视图随舞台宽高比自适应：纬度铺满、经度裁切并居中照片密集区。
      竖屏手机 -> 只剩左右滑动；宽屏 -> 约 1.2-1.3 倍放大的沉浸全幅 */
+  /* 大陆轮廓的实际纵向范围（首次构建后量测）：默认视野必须完整包住它，
+     否则大陆在容器上下缘被看不见的矩形硬切，非常难看 */
+  var CONTENT = null;
+  /* 容器静止高度（非沉浸态）：放大时容器展开到 92vh，几何计算不能读动画中的实时高度 */
+  var restH = 0;
+  function boxAspect(immersive){
+    var wrap = document.getElementById("mapWrap");
+    var w = (wrap && wrap.clientWidth) || 1000;
+    return immersive ? w / (innerHeight * 0.92) : w / (restH || (wrap && wrap.clientHeight) || 400);
+  }
   function computeDefault(){
     var wrap = document.getElementById("mapWrap");
-    var aspect = wrap && wrap.clientHeight ? wrap.clientWidth / wrap.clientHeight : 2.5;
-    var h = 400, w = h * aspect, y = 10;
-    if(w > 1000){ w = 1000; h = w / aspect; y = 10 + (400 - h) / 2; }
-    var x = Math.max(-20, Math.min(1020 - w, PHOTO_CENTER_X - w / 2));
+    var aspect = restH ? boxAspect(false)
+      : (wrap && wrap.clientHeight ? wrap.clientWidth / wrap.clientHeight : 2.5);
+    var top = CONTENT ? CONTENT.y : 4, ch = CONTENT ? CONTENT.h : 412;
+    var h = ch, w = h * aspect, y = top, x;
+    if(w >= 1000){
+      x = 500 - w / 2;                 /* 宽屏：世界竖向完整，左右留海居中 */
+    } else {
+      x = Math.max(-20, Math.min(1020 - w, PHOTO_CENTER_X - w / 2));   /* 窄屏：竖向完整，横向可拖 */
+    }
     return { x: x, y: y, w: w, h: h };
   }
 
@@ -111,16 +126,23 @@
     }, 50);
   }
 
-  /* ---- hover 小卡片（触屏两段式时可点击进入） ---- */
+  /* ---- hover 小卡片（桌面点卡片=点图钉；触屏两段式确认） ---- */
+  var hideTimer;
+  function scheduleHide(){ clearTimeout(hideTimer); hideTimer = setTimeout(hideCard, 280); }
   function showCard(el, title, sub, onTap){
     var wrap = document.getElementById("mapWrap");
     if(!card){
       card = document.createElement("div");
       card.className = "pin-card";
+      /* 鼠标从图钉移到卡片上时不消失（否则卡片永远点不到） */
+      card.addEventListener("mouseenter", function(){ clearTimeout(hideTimer); });
+      card.addEventListener("mouseleave", scheduleHide);
       wrap.appendChild(card);
     }
+    clearTimeout(hideTimer);
     card.innerHTML = '<h5>' + title + '</h5>' + (sub ? '<p>' + sub + '</p>' : "");
     card.style.pointerEvents = onTap ? "auto" : "";
+    card.style.cursor = onTap ? "pointer" : "";
     card.onclick = onTap || null;
     var wr = wrap.getBoundingClientRect();
     var gr = el.getBoundingClientRect();
@@ -154,21 +176,32 @@
   function zoomTo(group){
     var xs = group.pts.map(function(p){ return p[0]; }), ys = group.pts.map(function(p){ return p[1]; });
     var cx = (Math.min.apply(0,xs)+Math.max.apply(0,xs))/2, cy = (Math.min.apply(0,ys)+Math.max.apply(0,ys))/2;
+    var asp = boxAspect(true);
     var spanX = Math.max.apply(0,xs)-Math.min.apply(0,xs), spanY = Math.max.apply(0,ys)-Math.min.apply(0,ys);
-    var w = Math.max(spanX*2.6, spanY*2.6*2.5, 90), h = w/2.5;
+    var w = Math.max(spanX*2.6, spanY*2.6*asp, 90), h = w/asp;
     var target = { x: cx - w/2, y: cy - h/2, w: w, h: h };
     zoomed = true;
+    immersive(true);
     resetBtn.classList.add("show");
     if(svg) svg.classList.add("zoomed");
     hideCard(); closeChooser();
+    renderPins(target.w);   /* 图钉按目标缩放比预先补偿 */
+    /* 动画期间用轻量轮廓（高清路径每帧重绘是卡顿源），到位后再换高清 */
+    animateTo(target, function(){ renderPins(); swapDetail(); });
+  }
+  function swapDetail(){
     loadDetail(function(){
       if(zoomed && outline) outline.setAttribute("d", WORLD_MAP_PATH_DETAIL);
     });
-    renderPins(target.w);   /* 图钉按目标缩放比预先补偿 */
-    animateTo(target, function(){ renderPins(); });   /* 到位后按新比例重新聚合 */
+  }
+  /* 沉浸态切换：放大时容器展开到近全屏，地图延续到屏幕底部 */
+  function immersive(on){
+    var wrap = document.getElementById("mapWrap");
+    if(wrap) wrap.classList.toggle("immersive", !!on);
   }
   function resetZoom(){
     zoomed = false;
+    immersive(false);
     resetBtn.classList.remove("show");
     hideCard(); closeChooser();
     if(svg) svg.classList.remove("zoomed");
@@ -179,21 +212,19 @@
 
   /* 全图状态下点击任意位置：放大到该处 */
   function zoomToPoint(cx, cy){
-    var w = 300, h = w / 2.5;
+    var w = 300, h = w / boxAspect(true);
     var target = {
       x: Math.max(-40, Math.min(1040 - w, cx - w/2)),
-      y: Math.max(0,   Math.min(420 - h,  cy - h/2)),
+      y: Math.max(-10, Math.min(430 - h,  cy - h/2)),
       w: w, h: h
     };
     zoomed = true;
+    immersive(true);
     renderPins(w);
     resetBtn.classList.add("show");
     if(svg) svg.classList.add("zoomed");
-    loadDetail(function(){
-      if(zoomed && outline) outline.setAttribute("d", WORLD_MAP_PATH_DETAIL);
-    });
     hideCard();
-    animateTo(target);
+    animateTo(target, swapDetail);   /* 轻量轮廓做动画，到位后换高清 */
   }
 
   /* ---- 图钉 / 聚合点渲染 ---- */
@@ -220,9 +251,9 @@
       select(loc);
     });
     g.addEventListener("mouseenter", function(){
-      if(!touchUI) showCard(g, I18N.t(loc.name), cardSub());
+      if(!touchUI) showCard(g, I18N.t(loc.name), cardSub(), function(){ select(loc); });
     });
-    g.addEventListener("mouseleave", function(){ if(!touchUI) hideCard(); });
+    g.addEventListener("mouseleave", function(){ if(!touchUI) scheduleHide(); });
     return g;
   }
   function renderPins(wOverride){
@@ -240,22 +271,22 @@
       c.setAttribute("transform", "translate(" + g.center[0].toFixed(1) + "," + g.center[1].toFixed(1) + ") scale(" + s.toFixed(3) + ")");
       c.innerHTML = '<circle r="13"></circle><text>' + g.locs.length + '</text>';
       var hasDiary = g.locs.some(function(l){ return l.diary; });
-      c.addEventListener("click", function(e){
-        e.stopPropagation();
+      function act(){
         /* 组里有手账地点：直接列出来点选，一步进入，不必先放大再找 */
         if(hasDiary){ openChooser(g, c); return; }
-        /* 否则放大：能拆成多个可点对象就放大，拆不开（如成都/内江）弹选择卡 */
+        /* 否则放大：能拆成多个可点对象就放大，拆不开弹选择卡 */
         var spanX = Math.max.apply(0, g.pts.map(function(p){ return p[0]; })) - Math.min.apply(0, g.pts.map(function(p){ return p[0]; }));
         var spanY = Math.max.apply(0, g.pts.map(function(p){ return p[1]; })) - Math.min.apply(0, g.pts.map(function(p){ return p[1]; }));
         var targetW = Math.max(spanX*2.6, spanY*2.6*2.5, 90);
         if(subgroupCount(g, targetW) >= 2) zoomTo(g);
         else openChooser(g, c);
-      });
+      }
+      c.addEventListener("click", function(e){ e.stopPropagation(); act(); });
       c.addEventListener("mouseenter", function(){
         var names = g.locs.map(function(l){ return I18N.t(l.name); }).join(" · ");
-        showCard(c, names, I18N.t(hasDiary ? SITE.i18n.travel.pick : SITE.i18n.travel.zoom));
+        showCard(c, names, I18N.t(hasDiary ? SITE.i18n.travel.pick : SITE.i18n.travel.zoom), act);
       });
-      c.addEventListener("mouseleave", hideCard);
+      c.addEventListener("mouseleave", scheduleHide);
       pinLayer.appendChild(c);
     });
   }
@@ -264,7 +295,10 @@
     var wrap = document.getElementById("mapWrap");
     if(!wrap || !window.WORLD_MAP_PATH) return;
     wrap.innerHTML = ""; card = null;
+    if(!wrap.classList.contains("immersive")) restH = wrap.clientHeight || restH;
     svg = document.createElementNS(NS, "svg");
+    /* 相机视角铺满容器（cover）：容器高度动画期间也不出现上下留白 */
+    svg.setAttribute("preserveAspectRatio", "xMidYMid slice");
     if(!zoomed){ DEFAULT = computeDefault(); view = { x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h }; }
     setViewBox(view);
     outline = document.createElementNS(NS, "path");
@@ -279,16 +313,24 @@
       if(!zoomed && view.w >= 990) return;   /* 只有完整全图才无需平移 */
       panning = true; panMoved = false;
       panStart = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y };
-      try { svg.setPointerCapture(e.pointerId); } catch(err){}
+      /* 不在这里捕获指针：捕获会让合成 click 全部落到 svg 自己，
+         图钉/簇在放大后就永远点不到了——只有确认拖拽后才捕获（见 pointermove） */
     });
     svg.addEventListener("pointermove", function(e){
       if(!panning) return;
-      var r = svg.getBoundingClientRect();
       var dxp = e.clientX - panStart.x, dyp = e.clientY - panStart.y;
-      /* 触屏竖划会先落进这里再被浏览器接管为滚动——只有横向为主才算真的在拖地图 */
-      if(Math.abs(dxp) > 6 && Math.abs(dxp) >= Math.abs(dyp)) panMoved = true;
+      if(!panMoved){
+        /* 触屏：竖划是页面滚动（浏览器会接管），只有横向为主才算拖地图；
+           鼠标：任意方向超过 7px 即拖拽——阈值太小会把用力的单击误判成拖拽 */
+        var horiz = Math.abs(dxp) > 6 && Math.abs(dxp) >= Math.abs(dyp);
+        var mouse = e.pointerType === "mouse" && (Math.abs(dxp) > 7 || Math.abs(dyp) > 7);
+        if(!horiz && !mouse) return;
+        panMoved = true;
+        try { svg.setPointerCapture(e.pointerId); } catch(err){}
+      }
+      var r = svg.getBoundingClientRect();
       view.x = Math.max(-40, Math.min(1040 - view.w, panStart.vx - dxp * view.w / r.width));
-      view.y = Math.max(0,   Math.min(420 - view.h,  panStart.vy - dyp * view.h / r.height));
+      view.y = Math.max(-10, Math.min(Math.max(-10, 430 - view.h), panStart.vy - dyp * view.h / r.height));
       setViewBox(view);
       hideCard(); closeChooser();
     });
@@ -302,13 +344,37 @@
     svg.addEventListener("click", function(e){
       userTouched = true;
       if(panMoved){ panMoved = false; return; }   /* 拖拽结束的点击不触发 */
-      if(zoomed) return;                          /* 放大后靠拖拽，不再点击跳位 */
       var r = svg.getBoundingClientRect();
       var cx = view.x + (e.clientX - r.left) / r.width * view.w;
       var cy = view.y + (e.clientY - r.top) / r.height * view.h;
+      if(zoomed){
+        /* 兜底：任何原因（指针捕获/命中缝隙）落到底图的点击，
+           若落点 18 屏幕像素内有图钉或簇，视为点中它 */
+        var tol = 28 * view.w / r.width, best = null, bd = 1e9;
+        pinLayer.querySelectorAll("g.pin, g.cluster").forEach(function(g){
+          var m = /translate\(([-\d.]+),([-\d.]+)\)/.exec(g.getAttribute("transform"));
+          if(!m) return;
+          var d = Math.hypot(+m[1] - cx, +m[2] - cy);
+          if(d < bd){ bd = d; best = g; }
+        });
+        if(best && bd < tol) best.dispatchEvent(new MouseEvent("click", { bubbles: false }));
+        return;                                   /* 放大后不再点击跳位 */
+      }
       zoomToPoint(cx, cy);
     });
     wrap.appendChild(svg);
+    /* 轮廓进入文档后量测一次实际纵向范围，让默认视野完整包住大陆 */
+    if(!CONTENT){
+      try {
+        var bb = outline.getBBox();
+        if(bb && bb.height > 100) CONTENT = { y: bb.y - 5, h: bb.height + 10 };
+      } catch(err){}
+      if(CONTENT && !zoomed){
+        DEFAULT = computeDefault();
+        view = { x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h };
+        setViewBox(view);
+      }
+    }
     resetBtn = document.createElement("button");
     resetBtn.className = "map-reset" + (zoomed ? " show" : "");
     resetBtn.textContent = I18N.t(SITE.i18n.travel.back);
@@ -324,6 +390,8 @@
     rsTimer = setTimeout(function(){
       if(!svg) return;
       if(!zoomed){
+        var wrapEl = document.getElementById("mapWrap");
+        if(wrapEl && !wrapEl.classList.contains("immersive")) restH = wrapEl.clientHeight || restH;
         DEFAULT = computeDefault();
         view = { x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h };
         setViewBox(view);
@@ -410,17 +478,29 @@
     return true;
   }
 
+  /* 从手账页返回（#mapWrap）：直接落在地图上，不从页顶滑下来。
+     脚本求值时（早于浏览器的锚点滚动）就关掉平滑，锚点定位全程瞬时，
+     布局落定后再补锚并恢复平滑（站内导航仍然平滑） */
+  if(location.hash === "#mapWrap"){
+    document.documentElement.style.scrollBehavior = "auto";
+  }
+
   document.addEventListener("DOMContentLoaded", function(){
     build();
     I18N.onChange(function(){ build(); renderPanel(); });
-    /* 从手账页返回（#mapWrap）：布局落定后补锚（图片/照片高度校准会推移下方内容） */
     if(location.hash === "#mapWrap"){
       var reAnchor = function(){
         var el = document.getElementById("mapWrap");
-        if(el) el.scrollIntoView({ behavior: "auto", block: "start" });
+        if(el) el.scrollIntoView({ behavior: "instant", block: "start" });
       };
+      reAnchor();
       setTimeout(reAnchor, 450);
-      addEventListener("load", function(){ setTimeout(reAnchor, 150); });
+      addEventListener("load", function(){
+        setTimeout(function(){
+          reAnchor();
+          document.documentElement.style.scrollBehavior = "";
+        }, 150);
+      });
     }
     var wrapEl = document.getElementById("mapWrap");
     if(wrapEl && innerWidth < 760){
