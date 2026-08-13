@@ -406,6 +406,97 @@
         s += '<path style="' + WR + '" d="M122,32 h30 M132,26 h16"/>';             /* 远处的云带 */
         return s;
       })()
+    },
+
+    /* 黄金海岸：冲浪海岸的天际线（邮戳） + 观景台玻璃前的少年（便签） */
+    goldcoast: {
+      /* 尺寸按内圆 r≈34（圆心 62,62）收进：最高的那栋楼立在沙滩上，海在楼下 */
+      stamp:
+        '<path class="sil" d="M55.3,29.5 h1.8 v6.5 h-1.8 Z"/>' +                    /* 塔尖天线 */
+        '<path class="sil" fill-rule="evenodd" d="M50.5,72 L52.5,38.5 H59.5 L61.5,72 Z' +
+          ' M54.6,44 h4.8 v2.6 h-4.8 Z M54.9,50.5 h4.2 v2.6 h-4.2 Z' +
+          ' M55.2,57 h3.6 v2.6 h-3.6 Z"/>' +                                        /* 最高的那栋楼 */
+        '<path class="sil" fill-rule="evenodd" d="M39.5,72 V50 H47.5 V72 Z' +
+          ' M41.7,53.5 h4 v2.8 h-4 Z M41.7,59.5 h4 v2.8 h-4 Z"/>' +                 /* 左侧楼 */
+        '<path class="sil" fill-rule="evenodd" d="M65,72 V45.5 H73 V72 Z' +
+          ' M67.2,49.5 h3.6 v2.8 h-3.6 Z M67.2,55.5 h3.6 v2.8 h-3.6 Z"/>' +         /* 右侧楼 */
+        '<path class="sil" d="M76,72 V56 H83 V72 Z"/>' +                            /* 更远的矮楼 */
+        '<path class="sil" d="M36.5,72 H85.5 V75.5 H36.5 Z"/>' +                    /* 沙滩台基 */
+        '<path class="wv" d="M76,37 q4,-4 8,0" style="opacity:.8"/>' +              /* 一只海鸥 */
+        '<path class="wv" d="M40,87 q7,-3.4 14,0 t14,0 t14,0"/>' +                  /* 海 */
+        '<path class="wv" d="M46,93 q5.3,-2.8 10.6,0 t10.6,0 t10.6,0"/>',
+      note:
+        /* 观景台的玻璃前：少年站在落地窗边，沿岸的楼渐远渐小，海岸线弯向天边 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.7;stroke-linejoin:round;opacity:.75" d="M10,12 H180 V102 H10 Z"/>' +      /* 落地窗框 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;opacity:.5" d="M67,12 V102 M124,12 V102"/>' +                            /* 窗棂 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.45" d="M14,34 H140 M164,34 H176"/>' +      /* 海平线 */
+        '<path style="fill:rgba(51,69,94,.1);stroke:var(--ink);stroke-width:1.5;stroke-linejoin:round;opacity:.65" d="M20,88 V58 H28 V88 Z' +
+          ' M31,79 V44 H40 V79 Z M43,71 V54 H50 V71 Z M53,65.5 V50 H58 V65.5 Z M72,55 V47 H76 V55 Z"/>' +                                   /* 沿岸的高楼 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.5" d="M35.5,44 V39 M22.5,63 h3.5 M22.5,68 h3.5' +
+          ' M22.5,73 h3.5 M33.5,50 h4 M33.5,56 h4 M33.5,62 h4 M33.5,68 h4 M45,58.5 h3 M45,64 h3"/>' +                                       /* 天线与窗线 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;opacity:.7" d="M16,98 C42,74 78,46 134,38"/>' +     /* 弯向天边的海岸线 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.5" d="M26,100 C50,78 84,52 136,42"/>' +    /* 沙滩边的浪线 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.5" d="M100,72 q6,-2.6 12,0 t12,0' +
+          ' M114,56 q5,-2.4 10,0 t10,0 M84,88 q6,-2.6 12,0 t12,0"/>' +                                                                      /* 海面的波纹 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.55" d="M34,24 q4,-4 8,0 M44,27 q3.5,-3.5 7,0"/>' + /* 两只海鸥 */
+        '<circle cx="151" cy="30" r="4.4" style="fill:rgba(51,69,94,.1);stroke:var(--ink);stroke-width:1.6;opacity:.8"/>' +                 /* 少年：头 */
+        '<path style="fill:rgba(51,69,94,.1);stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round;opacity:.8" d="M145,39 q6,-4.4 12,0 l1,24 h-14 Z"/>' + /* 背影 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;opacity:.8" d="M148,63 L147,93 M154,63 L155,93 M147,93 h-3.5 M155,93 h3.5"/>' + /* 站着的腿 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.35" d="M141,97 h22"/>'                     /* 脚下的影子 */
+    },
+
+    /* 南非：桌山上的滑翔伞（邮戳） + 好望角指向全世界的路牌（便签） */
+    southafrica: {
+      stamp:
+        '<path class="sil" d="M46,40 q16,-10 32,0 q-16,-4.5 -32,0 Z"/>' +          /* 伞翼 */
+        '<path class="wv" d="M48.5,40 L60.5,50.5 M75.5,40 L63.5,50.5" style="opacity:.8"/>' + /* 伞绳 */
+        '<circle class="sil" cx="62" cy="52.5" r="2.6"/>' +                        /* 吊在风里的人 */
+        '<path class="sil" d="M32,78 L46,59 L49,57 L75,57 L78,59 L92,78 Z"/>' +    /* 桌山平顶 */
+        '<path class="wv" d="M42,85 q7,-3.4 14,0 t14,0 t14,0"/>' +                 /* 大西洋 */
+        '<path class="wv" d="M48,91 q5.3,-2.8 10.6,0 t10.6,0 t10.6,0"/>',
+      note:
+        /* 好望角的路牌：木柱上钉满指向全世界的箭头，最亮的那块——BEIJING 12 933 KM */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.5" d="M138,14 h26 M146,20 h14"/>' +   /* 海角的云 */
+        '<path style="fill:rgba(51,69,94,.1);stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round;opacity:.75" d="M90,16 h15 v12 h-15 Z"/>' + /* 柱顶的方块 */
+        '<circle style="fill:none;stroke:var(--ink);stroke-width:1.5;opacity:.6" cx="97.5" cy="22" r="3.2"/>' +                        /* 方块上的圆徽 */
+        '<path style="fill:rgba(51,69,94,.1);stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round;opacity:.75" d="M94,28 h7 v80 h-7 Z"/>' +   /* 木柱 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linejoin:round;opacity:.5" d="M101,32 H154 L163,37.5 L154,43 H101 Z"/>' +   /* 别的箭头（右） */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linejoin:round;opacity:.5" d="M94,48 H48 L39,53.5 L48,59 H94 Z"/>' +        /* 别的箭头（左） */
+        '<path style="fill:rgba(51,69,94,.1);stroke:var(--ink);stroke-width:1.7;stroke-linejoin:round;opacity:.85" d="M94,64 H36 L24,72.5 L36,81 H94 Z"/>' + /* 最亮的那块 */
+        '<text x="65" y="71.8" text-anchor="middle" style="font-family:Georgia,serif;font-size:7.5px;font-weight:600;letter-spacing:1.2px;fill:var(--ink);opacity:.8">BEIJING</text>' +
+        '<text x="65" y="78.6" text-anchor="middle" style="font-family:Georgia,serif;font-size:5.5px;letter-spacing:.8px;fill:var(--ink);opacity:.7">12 933 KM</text>' +
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linejoin:round;opacity:.45" d="M101,88 H148 L156,93 L148,98 H101 Z"/>' +    /* 又一块（右） */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.4" d="M74,112 H126"/>'                              /* 脚下的影子 */
+    },
+
+    /* 新西兰：暗夜里的望远镜与星（邮戳） + 雪山湖上空的降落伞（便签） */
+    newzealand: {
+      stamp:
+        '<path class="wv" d="M78,32 v6 M75,35 h6"/>' +                            /* 镜筒所指的星 */
+        '<path class="wv" d="M88,47 v5 M85.5,49.5 h5" style="opacity:.8"/>' +
+        '<path class="wv" d="M42,36 v5 M39.5,38.5 h5" style="opacity:.8"/>' +
+        '<circle class="sil" cx="55" cy="29" r="1.2"/>' +                         /* 三粒星点 */
+        '<circle class="sil" cx="92" cy="58" r="1.2"/>' +
+        '<circle class="sil" cx="34" cy="52" r="1.2"/>' +
+        '<path class="sil" d="M48.8,56.8 L70.8,34.8 L77.2,41.2 L55.2,63.2 Z"/>' + /* 指向星空的镜筒 */
+        '<path class="sil" d="M64.9,39.9 L69.9,34.9 L68.1,33.2 L63.2,38.2 Z"/>' + /* 寻星镜 */
+        '<path class="sil" d="M61,49 h4 v14 h-4 Z"/>' +                           /* 赤道仪立柱 */
+        '<path class="wv" d="M63,63 L50,82 M63,63 L76,82 M63,63 V83"/>' +         /* 三脚架 */
+        '<path class="wv" d="M40,88 q7,-3.4 14,0 t14,0 t14,0"/>' +                /* 蒂卡波湖 */
+        '<path class="wv" d="M46,94 q5.3,-2.8 10.6,0 t10.6,0 t10.6,0"/>',
+      note:
+        /* 一万英尺上的一跃：伞衣悬着小小的人，脚下是云、雪山连脊和湖 */
+        '<path style="fill:rgba(51,69,94,.1);stroke:var(--ink);stroke-width:1.7;stroke-linejoin:round;stroke-linecap:round;opacity:.8" d="M58,30 Q78,14 98,30 Q78,23 58,30 Z"/>' +   /* 伞衣 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.55" d="M58,30 L74,50 M98,30 L82,50 M71,25.8 L77,50 M85,25.8 L79,50"/>' +             /* 伞绳 */
+        '<circle style="fill:var(--ink);opacity:.7" cx="78" cy="52.6" r="1.9"/>' +                                                                                                    /* 悬着的人 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.7" d="M78,54.5 V61"/>' +
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.7" d="M78,56 L74.6,51.4 M78,56 L81.4,51.4"/>' +
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.7" d="M78,61 L74.6,66.5 M78,61 L81.4,66.5"/>' +
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round;opacity:.5" d="M140,50 q-3.4,0 -3.4,-2.9 q0,-2.7 3,-3 q0.6,-3.6 4.6,-3.6 q3,0 4.2,2.3 q0.9,-0.7 2.2,-0.7 q2.9,0 3.3,2.8 q2.8,0.3 2.8,2.5 q0,2.6 -3.2,2.6 Z"/>' +   /* 脚下的云 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round;opacity:.45" d="M32,64 q-3.4,0 -3.4,-2.9 q0,-2.7 3,-3 q0.6,-3.6 4.6,-3.6 q3,0 4.2,2.3 q0.9,-0.7 2.2,-0.7 q2.9,0 3.3,2.8 q2.8,0.3 2.8,2.5 q0,2.6 -3.2,2.6 Z"/>' +
+        '<path style="fill:rgba(51,69,94,.1);stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round;opacity:.65" d="M2,106 V96 L18,86 L30,91 L46,77 L60,89 L74,84 L92,90 L110,78 L121,87 L136,82 L152,92 L168,86 L188,95 V106 Z"/>' +                     /* 雪山连脊 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.5" d="M40,112 q9,-3.6 18,0 t18,0 t18,0"/>' +                                          /* 山脚的湖 */
+        '<path style="fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;opacity:.4" d="M104,116 q8,-3.2 16,0 t16,0"/>'
     }
   };
 

@@ -17,7 +17,7 @@ window.DIARY = {
            en: "Between mountains and sea, collecting the gentle and the vast" },
     intro: {
       zh: "从罗弗敦群岛的渔村到默斯肯岛外的漩涡，\n从清晨的海雾到午夜的阳光，\n每一段路都是风景，每一次停留都是故事。",
-      en: "From Lofoten’s fishing villages to the maelstrom off Mosken,\nfrom morning sea fog to the midnight sun—\nevery mile is scenery; every stop, a story."
+      en: "From Lofoten’s fishing villages to the maelstrom off Mosken,\nfrom morning sea fog to the midnight sun,\nevery mile is scenery; every stop, a story."
     },
     cover:    { src: "../assets/travel/norway/norway-01", ar: "2000/1500", cap: "Reine, Lofoten ♡" },
     polaroid: { src: "../assets/travel/norway/norway-06", ar: "1523/2000", cap: "Hamnøy" },
@@ -35,18 +35,18 @@ window.DIARY = {
       label: { zh: "旅行日记", en: "Travel Diary" },
       place: "Lofoten · Moskenes",
       title: { zh: "“赫尔辛根山和莫斯肯岛”", en: "“Helseggen and Mosken”" },
-      date:  { zh: "2024 年夏 · 罗弗敦群岛", en: "Summer 2024 · Lofoten, Norway" },
+      date:  { zh: "2025 年 7 月 · 罗弗敦群岛", en: "July 2025 · Lofoten, Norway" },
       body: {
         zh: [
           "上高一那年，借着同学的 Kindle，花了一周的晚自习偷偷看完了《三体》。那段时间，晚自习下课的我总喜欢走到操场的看台上发呆，看着天上若有若无的星星，幻想着程心如何在世界尽头的赫尔辛根山和莫斯肯岛上，找到了云天明留给人类的秘密。",
           "多年以后",
-          "当渡轮驶向北极圈内的罗弗敦群岛，我坐在甲板上吹着凛冽的风，又一次翻开了《三体》。当冻红的指尖抚过熟悉的名字时，我抬起头——甲板旁的浪正拍打着书中的幻影。",
+          "当渡轮驶向北极圈内的罗弗敦群岛，我坐在甲板上吹着凛冽的风，又一次翻开了《三体》。当冻红的指尖抚过熟悉的名字时，我抬起头，甲板旁的浪正拍打着书中的幻影。",
           "我看见渡轮正慢慢驶过那曾经有些遥不可及的赫尔辛根山和莫斯肯岛。"
         ],
         en: [
-          "In my first year of high school, I borrowed a classmate’s Kindle and secretly read The Three-Body Problem over a week of evening study halls. In those days, after class, I liked to sit up in the bleachers and drift—looking at the faint stars, imagining Cheng Xin at the end of the world, on Mount Helseggen above the isle of Mosken, finding the secret Yun Tianming had left for humanity.",
+          "In my first year of high school, I borrowed a classmate’s Kindle and secretly read The Three-Body Problem over a week of evening study halls. In those days, after class, I liked to sit up in the bleachers and drift, looking at the faint stars, imagining Cheng Xin at the end of the world, on Mount Helseggen above the isle of Mosken, finding the secret Yun Tianming had left for humanity.",
           "Years later",
-          "As the ferry sailed for the Lofoten Islands, inside the Arctic Circle, I sat on deck in the biting wind and opened The Three-Body Problem once more. When my cold-reddened fingertips brushed those familiar names, I looked up—the waves beside the deck were beating against the phantoms of the book.",
+          "As the ferry sailed for the Lofoten Islands, inside the Arctic Circle, I sat on deck in the biting wind and opened The Three-Body Problem once more. When my cold-reddened fingertips brushed those familiar names, I looked up. The waves beside the deck were beating against the phantoms of the book.",
           "And I watched the ferry slowly pass the Helseggen and the Mosken that had once seemed impossibly far away."
         ]
       },
@@ -86,7 +86,7 @@ window.DIARY = {
       label: { zh: "旅行日记", en: "Travel Diary" },
       place: "Snæfellsnes · Vík",
       title: { zh: "“寻找 25 号底片”", en: "“Negative No.25”" },
-      date:  { zh: "盛夏 · 环岛一号公路", en: "High summer · Ring Road, Iceland" },
+      date:  { zh: "2025 年 6 月 · 环岛一号公路", en: "June 2025 · Ring Road, Iceland" },
       body: {
         zh: [
           "《白日梦想家》里，沃特在杂志社洗了十六年底片，也做了十六年白日梦。直到 25 号底片失踪，他才第一次真正出发，一路跌进冰岛的公路与海。肖恩说，那张底片是“生命的精髓”。",
@@ -136,7 +136,7 @@ window.DIARY = {
       label: { zh: "夏日记事", en: "Summer Notes" },
       place: "Hangzhou · West Lake",
       title: { zh: "“那道彩虹”", en: "“That Rainbow”" },
-      date:  { zh: "盛夏 · 杭州", en: "High summer · Hangzhou" },
+      date:  { zh: "2024 年夏 · 杭州", en: "Summer 2024 · Hangzhou" },
       body: {
         zh: [
           "离开杭州的最后一天，走在出租小屋门口的路上，不经意回头看见日落时分的天边挂着一道彩虹。散步回家，收拾完行李已经是凌晨两点。",
@@ -206,7 +206,7 @@ window.DIARY = {
       body: {
         zh: [
           "2021 年 11 月，大一的第一个深秋。秋日的阳光温暖地穿进宿舍的窗户，玻璃外的树叶黄得正好。那时我刚到这个小村两个多月，还常常觉得它安静得有些无聊。",
-          "十一月初的一个晚上，我走过球场边的坡道去天文台看星星。圆顶裂开一道缝，红色的灯光里，望远镜正指向夜空。我透过镜筒看到了一颗流星——虽然没有来得及许愿，但想起蓝天、暖阳、即将到来的冬雪，和在这里遇到的超级好的朋友们，忽然觉得没什么好遗憾的。",
+          "十一月初的一个晚上，我走过球场边的坡道去天文台看星星。圆顶裂开一道缝，红色的灯光里，望远镜正指向夜空。我透过镜筒看到了一颗流星。虽然没有来得及许愿，但想起蓝天、暖阳、即将到来的冬雪，和在这里遇到的超级好的朋友们，忽然觉得没什么好遗憾的。",
           "回宿舍的路上，星星安静地传递着百万年前的光。我渐渐开始期待起未来的日子了，即使那会是赶不完的 due 和掉不停的头发。",
           "一晃，四年过去",
           "离毕业只剩最后两周。那个曾经觉得无聊的小村子，如今竟也开始让我有些不舍。",
@@ -216,8 +216,8 @@ window.DIARY = {
         ],
         en: [
           "November 2021, the first deep autumn of freshman year. The fall sun came warm through my dorm window, and the leaves outside the glass were exactly the right shade of gold. I had been in this little town for barely two months, and I still found it quiet to the point of boring.",
-          "One night in early November, I walked up past the playing field to the observatory. The dome stood open a crack; in the red light inside, the telescope was pointing at the night sky. Through the eyepiece I caught a shooting star—no time to make a wish, but I thought of the blue skies, the warm sun, the winter snow on its way, and the ridiculously good friends I had met here, and suddenly there seemed to be nothing to regret.",
-          "On the way back to the dorm, the stars went on quietly delivering light from a million years ago. Little by little, I began to look forward to the days ahead—even if they would be deadlines I could never finish and hair that would not stop falling.",
+          "One night in early November, I walked up past the playing field to the observatory. The dome stood open a crack; in the red light inside, the telescope was pointing at the night sky. Through the eyepiece I caught a shooting star. There was no time to make a wish, but I thought of the blue skies, the warm sun, the winter snow on its way, and the ridiculously good friends I had met here, and suddenly there seemed to be nothing to regret.",
+          "On the way back to the dorm, the stars went on quietly delivering light from a million years ago. Little by little, I began to look forward to the days ahead, even if they would be deadlines I could never finish and hair that would not stop falling.",
           "Four years passed, just like that",
           "Two weeks left before graduation. The little town I used to find so boring has, somehow, become hard to leave.",
           "I finished the ninety-page thesis. I sat through the last class in a room I knew by heart. I walked into the crowd at bar night for the first time, and the last. And in the spring wind I watched the blossoms open, brief and bright.",
@@ -260,7 +260,7 @@ window.DIARY = {
       label: { zh: "海边手记", en: "Seaside Notes" },
       place: "부산 · Haeundae",
       title: { zh: "“부산의 여름”", en: "“Busan, in Summer”" },
-      date:  { zh: "盛夏 · 釜山", en: "High summer · Busan" },
+      date:  { zh: "2024 年 8 月 · 釜山", en: "August 2024 · Busan" },
       body: {
         zh: [
           "从海云台出发，沿着海岸线一直往东。列车开得很慢，慢到可以看清每一朵浪花碎在礁石上的样子。",
@@ -316,27 +316,27 @@ window.DIARY = {
       label: { zh: "山城夜记", en: "Mountain City Nights" },
       place: "Chongqing · Jiefangbei",
       title: { zh: "“霓虹与烟火”", en: "“Neon and Smoke”" },
-      date:  { zh: "冬夜 · 山城重庆", en: "Winter nights · Chongqing" },
+      date:  { zh: "2023 年 1 月 · 山城重庆", en: "January 2023 · Chongqing" },
       body: {
         zh: [
           "到重庆的第一晚，我站在江对岸，看洪崖洞把灯一层一层点亮。十一层吊脚楼金灿灿地叠上去，千厮门大桥横在它前面，游船拖着一身光，慢慢驶过嘉陵江。",
-          "我们带了一副会发光的面具——谁戴上，谁就是那晚照片的主角。解放碑的霓虹一路亮过去，得意世界的招牌换着颜色，黄色的出租车在街口排成一列。我举着相机，快门声很快被人声淹没。",
+          "我们带了一副会发光的面具：谁戴上，谁就是那晚照片的主角。解放碑的霓虹一路亮过去，得意世界的招牌换着颜色，黄色的出租车在街口排成一列。我举着相机，快门声很快被人声淹没。",
           "深夜的二号线出口还亮着灯。我们从台阶爬上来，上坡，下坡，坡顶立着限速三十的牌子。路边的摊子冒着热气，摊主的川话，和我小时候听到的一模一样。",
           "突然在充满烟火气的街道里",
           "找回了记忆深处的童年",
           "我记得放学路上的小面摊，矮矮的塑料凳，红油的香气隔着半条街就闻得到。",
           "我记得夏天傍晚的街沿，竹椅、蒲扇、冒着白气的蒸笼，大人们摆龙门阵，一直摆到路灯亮起来。",
-          "内江就在隔壁。二十年过去，我在另一座城市的街头闻到了同一种烟火气。原来它从来没有熄过——只是换了一条街，继续亮着。"
+          "内江就在隔壁。二十年过去，我在另一座城市的街头闻到了同一种烟火气。原来它从来没有熄过，只是换了一条街，继续亮着。"
         ],
         en: [
-          "On our first night in Chongqing I stood across the river and watched Hongya Cave light up floor by floor—eleven storeys of stilt houses stacked in gold, Qiansimen Bridge stretched out in front, a cruise boat trailing its lights slowly up the Jialing.",
-          "We had brought a light-up mask with us—whoever wore it became the lead of that night's photos. The neon of Jiefangbei ran on and on, the signboards changing colours, yellow taxis lined up at the corner. I held the camera; the shutter was soon drowned out by the crowd.",
-          "Past midnight, the Line 2 exit was still lit. We climbed the steps—uphill, downhill, a speed-limit sign that said 30 at the top of the slope. The street stalls were steaming, and the vendors' Sichuan dialect sounded exactly like the one I grew up hearing.",
+          "On our first night in Chongqing I stood across the river and watched Hongya Cave light up floor by floor: eleven storeys of stilt houses stacked in gold, Qiansimen Bridge stretched out in front, a cruise boat trailing its lights slowly up the Jialing.",
+          "We had brought a light-up mask with us: whoever wore it became the lead of that night's photos. The neon of Jiefangbei ran on and on, the signboards changing colours, yellow taxis lined up at the corner. I held the camera; the shutter was soon drowned out by the crowd.",
+          "Past midnight, the Line 2 exit was still lit. We climbed the steps, uphill, downhill, past a speed-limit sign that said 30 at the top of the slope. The street stalls were steaming, and the vendors' Sichuan dialect sounded exactly like the one I grew up hearing.",
           "Then suddenly, in a street full of the smoke and warmth of everyday life,",
           "I found my childhood.",
           "I remember the noodle stall on the way home from school, the low plastic stools, the smell of chilli oil you could catch from half a street away.",
-          "I remember summer evenings on the kerb—bamboo chairs, cattail fans, steamers puffing white—the grown-ups trading stories until the street lamps came on.",
-          "Neijiang is just next door. Twenty years on, in another city's streets, I caught the same warm smoke of life. It had never gone out—it had only moved to a different street, and kept on glowing."
+          "I remember summer evenings on the kerb: bamboo chairs, cattail fans, steamers puffing white, the grown-ups trading stories until the street lamps came on.",
+          "Neijiang is just next door. Twenty years on, in another city's streets, I caught the same warm smoke of life. It had never gone out. It had only moved to a different street, and kept on glowing."
         ]
       },
       quote: "Neon for the eyes,\nsmoke for the heart,\nand a street that leads home."
@@ -355,7 +355,7 @@ window.DIARY = {
            en: "Eleven days through the whole history of Hong Kong cinema" },
     intro: {
       zh: "从邵氏的摄影棚到银河映像的酒杯，\n从叮叮车的上层到影展的小桌子，\n十一天，像一场不愿散场的电影。",
-      en: "From a soundstage at Shaw Studios to a raised glass at Milkyway,\nfrom the top deck of a tram to a small table at FILMART—\neleven days, like a film I didn’t want to end."
+      en: "From a soundstage at Shaw Studios to a raised glass at Milkyway,\nfrom the top deck of a tram to a small table at FILMART,\neleven days, like a film I didn’t want to end."
     },
     cover:    { src: "../assets/travel/hongkong/hongkong-01", ar: "1617/1080", cap: "FILMART ♡" },
     polaroid: { src: "../assets/travel/hongkong/hongkong-02", ar: "1617/1080", cap: "Badge, 20/3" },
@@ -374,7 +374,7 @@ window.DIARY = {
       label: { zh: "影展手记", en: "Festival Notes" },
       place: "Hong Kong · Wan Chai",
       title: { zh: "“一帧美好的瞬间”", en: "“One Beautiful Frame”" },
-      date:  { zh: "三月 · 香港", en: "March · Hong Kong" },
+      date:  { zh: "2025 年 3 月 · 香港", en: "March 2025 · Hong Kong" },
       body: {
         zh: [
           "三月的香港总在下雨。我坐在叮叮车的上层，隔着起雾的车窗，看街上的伞在黄色斑马线上开开合合。",
@@ -389,14 +389,14 @@ window.DIARY = {
         ],
         en: [
           "It rained and rained in Hong Kong that March. I sat on the upper deck of a ding ding tram, watching through a fogged window as umbrellas opened and closed over the yellow crossings.",
-          "From the Shaw Brothers studio to Milkyway Image, then Golden Scene, mm2 and the Hong Kong FILMART—in those short eleven days, I seemed to travel through the entire history of Hong Kong cinema.",
+          "From the Shaw Brothers studio to Milkyway Image, then Golden Scene, mm2 and the Hong Kong FILMART. In those short eleven days, I seemed to travel through the entire history of Hong Kong cinema.",
           "At Shaw Studios I stood a long while under the big orange letters of Stage 2. In the corridor at mm2 I went down the wall of signed posters, naming them one by one. The iced milk tea from Lan Fong Yuen in my hand was still half full.",
           "I remember squeezing around one small table with the directors of Fly Me to the Moon, Time Still Turns the Pages, Drifting and In Broad Daylight, talking about how, as new directors, they held on to what they first believed through all the uncertainty, and told the stories that were theirs to tell.",
-          "I remember being invited to a gathering thrown by Milkyway Image, drinking with an arm around Johnnie To’s shoulder, laughing and shouting “to dreams”—and, at the end of the night, being helped home by friends.",
+          "I remember being invited to a gathering thrown by Milkyway Image, drinking with an arm around Johnnie To’s shoulder, laughing and shouting “to dreams”, and, at the end of the night, being helped home by friends.",
           "I remember talking with Korean directors and actors: we shared no language, yet with gestures and eye contact we traced out a burning love of film, and the laughter kept rising.",
           "And at the market, producers and distributors who heard my story would suggest, gently and half in jest, that I go study computer science first.",
           "I laughed and agreed.",
-          "Looking back, the whole stretch feels like one beautiful frame caught by accident. I am sure that many years from now, I will smile when it comes back to me, and miss this memory that Hong Kong left me—one of a kind."
+          "Looking back, the whole stretch feels like one beautiful frame caught by accident. I am sure that many years from now, I will smile when it comes back to me, and miss this memory that Hong Kong left me, one of a kind."
         ]
       },
       quote: "Eleven days,\none long take,\nto dreams."
@@ -415,7 +415,7 @@ window.DIARY = {
            en: "Back where I grew up, everything is one size smaller" },
     intro: {
       zh: "梯坎还是那段梯坎，灯还是那盏灯，\n炒饭的锅气飘过老街的夜，\n只是看什么，都小了一号。",
-      en: "The same stone steps, the same lamp under the eaves,\nwok-breath drifting through the old town at night—\nonly everything looks one size smaller."
+      en: "The same stone steps, the same lamp under the eaves,\nwok-breath drifting through the old town at night;\nonly everything looks one size smaller."
     },
     cover:    { src: "../assets/travel/neijiang/neijiang-01", ar: "1080/1616", cap: "The steps home ♡" },
     polaroid: { src: "../assets/travel/neijiang/neijiang-02", ar: "1616/1080", cap: "Dusk, one lamp" },
@@ -434,7 +434,7 @@ window.DIARY = {
       label: { zh: "还乡手记", en: "Homecoming Notes" },
       place: "Neijiang · Sichuan",
       title: { zh: "“小了一号的故乡”", en: "“One Size Smaller”" },
-      date:  { zh: "夏夜 · 内江", en: "A summer night · Neijiang" },
+      date:  { zh: "2022 年 8 月 · 内江", en: "August 2022 · Neijiang" },
       body: {
         zh: [
           "回来的那个晚上，天刚擦黑。屋檐下的灯一盏一盏亮起来，天边还剩最后一小块橘色。我放下行李出门，去走小时候放学走的那条路。",
@@ -444,7 +444,7 @@ window.DIARY = {
           "我记得巷口炒饭的锅气。火一旺，半条街都是蛋炒饭的香味。",
           "我记得夏天的傍晚，跟着大人在卤菜摊前排队，玻璃柜里那盏灯，把每张脸都照得黄黄的。",
           "这些摊子都还在。炒饭的师傅在铁锅前抬头看了我一眼；馄饨店里，系围裙的店员弯着腰，和坐着的婆婆说话；卤菜摊的阿姨还在玻璃柜后忙着。我说不清它们是不是当年那几家，可锅气和灯光，和记忆里的一模一样。",
-          "夜深了往回走，宾馆的霓虹把人行道照成红色，摆零食摊的师傅在石狮子脚下码好最后一排泡面，一条狗跟着主人，慢悠悠走进网咖的绿光里。谁都不着急，这里的夜和小时候一样长——只有我是明天要走的那个。后来，我把这条回家的路，拍成了自己的短片。"
+          "夜深了往回走，宾馆的霓虹把人行道照成红色，摆零食摊的师傅在石狮子脚下码好最后一排泡面，一条狗跟着主人，慢悠悠走进网咖的绿光里。谁都不着急，这里的夜和小时候一样长，只有我是明天要走的那个。后来，我把这条回家的路，拍成了自己的短片。"
         ],
         en: [
           "The evening I came back, the sky had just gone dark. Under the eaves the lamps came on one by one, and a last scrap of orange still hung at the edge of the sky. I dropped my bags and went out, to walk the road I used to take home from school.",
@@ -453,8 +453,8 @@ window.DIARY = {
           "I remember these steps. The straps of my schoolbag cutting into my shoulders, counting each one on the way up, losing count halfway.",
           "I remember the breath of the wok at the corner stall. When the fire roared, half the street smelled of egg-fried rice.",
           "I remember summer evenings, queuing with the grown-ups at the braised-food stall, the lamp in the glass case turning every face yellow.",
-          "The stalls are all still there. The cook looked up at me from behind his iron wok; in the wonton shop, a woman in an apron bent down to talk with a grandmother in her chair; the auntie at the braised-food stall was still busy behind her glass case. I cannot say whether they are the same ones from back then—but the steam and the lamplight are exactly as I remember.",
-          "Walking back late, hotel neon washed the pavement red; a vendor laid out the last row of instant noodles at the foot of a pair of stone lions; a dog followed its owner, unhurried, into the green glow of an internet café. Nobody here is in a hurry—the nights are as long as they were when I was small. I was the only one leaving in the morning. Later, I made this road home into a short film of my own."
+          "The stalls are all still there. The cook looked up at me from behind his iron wok; in the wonton shop, a woman in an apron bent down to talk with a grandmother in her chair; the auntie at the braised-food stall was still busy behind her glass case. I cannot say whether they are the same ones from back then, but the steam and the lamplight are exactly as I remember.",
+          "Walking back late, hotel neon washed the pavement red; a vendor laid out the last row of instant noodles at the foot of a pair of stone lions; a dog followed its owner, unhurried, into the green glow of an internet café. Nobody here is in a hurry; the nights are as long as they were when I was small. I was the only one leaving in the morning. Later, I made this road home into a short film of my own."
         ]
       },
       quote: "Hometowns never grow up;\nthey simply wait for you,\none size smaller."
@@ -474,7 +474,7 @@ window.DIARY = {
            en: "In Qatar, watching a day turn dark" },
     intro: {
       zh: "从帐篷屋顶下的棕榈树，到夜里亮起的老市集，\n太阳一路把人晒黑，黄昏一点点把城市调暗，\n一天，刚好看完多哈从白到黑。",
-      en: "From palms under a tent roof to the old souq lighting up at night,\nthe sun tanning me all the way, dusk slowly dimming the city—\none day, just enough to watch Doha go from white to black."
+      en: "From palms under a tent roof to the old souq lighting up at night,\nthe sun tanning me all the way, dusk slowly dimming the city,\none day, just enough to watch Doha go from white to black."
     },
     cover:    { src: "../assets/travel/qatar/qatar-04", ar: "1619/1080", cap: "Dhow harbour at dusk ♡" },
     polaroid: { src: "../assets/travel/qatar/qatar-02", ar: "1080/1440", cap: "Sun-proof" },
@@ -491,7 +491,7 @@ window.DIARY = {
       label: { zh: "一日手记", en: "One-Day Notes" },
       place: "Doha · Corniche",
       title: { zh: "“一天变黑”", en: "“Dark in a Day”" },
-      date:  { zh: "路过的一天 · 多哈", en: "One day, passing through · Doha" },
+      date:  { zh: "2023 年 8 月 · 路过多哈", en: "August 2023 · Doha, passing through" },
       body: {
         zh: [
           "飞机落在多哈的时候刚过正午。阳光白得发狠，我把渔夫帽压低，围脖一直拉到眼睛下面，全副武装，只留一条缝看这个陌生的国家。",
@@ -501,17 +501,17 @@ window.DIARY = {
           "天开始变黑。",
           "黄昏把海湾调成灰蓝色。木壳的老帆船一艘挨一艘泊在岸边，桅杆安安静静；螺旋塔最先亮起来，一圈一圈的暖黄，像有人提着灯从塔顶走到塔底。",
           "夜里的瓦其夫市集刚刚醒来。粗糙的白墙、露木梁的顶、一盏接一盏的吊灯，香料和坚果堆在店门口。我跟着人流在窄巷里慢慢走，谁也不急。",
-          "睡前照镜子才发现，变黑的不只是天——全副武装了一整天，我还是比早上黑了一号。不过也值：一天之内，看完一座城市从白亮走到全黑。"
+          "睡前照镜子才发现，变黑的不只是天。全副武装了一整天，我还是比早上黑了一号。不过也值：一天之内，看完一座城市从白亮走到全黑。"
         ],
         en: [
-          "The plane touched down in Doha just past noon. The sunlight was a fierce white; I pulled my bucket hat low and my neck gaiter up to my eyes—fully armoured, one slit left open to look at a country I didn't know.",
+          "The plane touched down in Doha just past noon. The sunlight was a fierce white; I pulled my bucket hat low and my neck gaiter up to my eyes, fully armoured, one slit left open to look at a country I didn't know.",
           "In Qatar, I watched a day turn dark.",
           "Noon in Doha does not belong to the outdoors. Inside the mall grew a whole row of real palm trees, a tent-like roof filtering the sun into warm gold, the air-conditioning strong enough to be another season.",
           "In the afternoon the car rolled down the Corniche, where every streetlight was shaped like a palm frond, curving with the road toward the sea. The glass towers of West Bay stood behind the dust haze, their outlines faint as a pencil sketch.",
           "The day went dark.",
           "Dusk turned the bay grey-blue. The old wooden dhows moored side by side along the shore, masts quiet; the spiral tower lit up first, ring after warm ring, as if someone were carrying a lamp from the top of the tower down to the bottom.",
           "At night, Souq Waqif was just waking up. Rough white walls, timber beams overhead, hanging lamps one after another, spices and nuts piled at the shop doors. I drifted with the crowd through the narrow lanes, and nobody hurried.",
-          "Only in the mirror before bed did I see that the day wasn't the only thing that had gone dark—after a whole day in full armour, I was still a shade darker than in the morning. Worth it, though: in a single day, I had watched a city go from blinding white all the way to black."
+          "Only in the mirror before bed did I see that the day wasn't the only thing that had gone dark. After a whole day in full armour, I was still a shade darker than in the morning. Worth it, though: in a single day, I had watched a city go from blinding white all the way to black."
         ]
       },
       quote: "One day in Doha:\nthe city went dark,\nand so did I."
@@ -530,7 +530,7 @@ window.DIARY = {
            en: "A scene at every step, a river of lanterns at night" },
     intro: {
       zh: "清晨的河道，午后的园林，\n漏窗里取好的景，山塘街点亮的灯，\n在苏州，一天可以走过两座城。",
-      en: "A canal at dawn, gardens in the afternoon,\na view composed inside a lattice window, lanterns lit along Shantang—\nin Suzhou, one day walks through two cities."
+      en: "A canal at dawn, gardens in the afternoon,\na view composed inside a lattice window, lanterns lit along Shantang;\nin Suzhou, one day walks through two cities."
     },
     cover:    { src: "../assets/travel/suzhou/suzhou-04", ar: "1479/1080", cap: "Through the lattice ♡" },
     polaroid: { src: "../assets/travel/suzhou/suzhou-03", ar: "1619/1080", cap: "An egret, passing" },
@@ -548,7 +548,7 @@ window.DIARY = {
       label: { zh: "姑苏手记", en: "Gusu Notes" },
       place: "Suzhou · Gusu",
       title: { zh: "“漏窗里的塔”", en: "“The Pagoda in the Lattice”" },
-      date:  { zh: "盛夏 · 苏州", en: "High summer · Suzhou" },
+      date:  { zh: "2023 年 7 月 · 苏州", en: "July 2023 · Suzhou" },
       body: {
         zh: [
           "在苏州，一天是从水边开始的。清晨的河道还没有游人，白墙沿着水一路排开，树影浮在河面上，几乎不动。",
@@ -566,7 +566,7 @@ window.DIARY = {
           "One step, one scene.",
           "Outside the garden I looked up into another picture: ridgelines of dark tiles curling toward the sky, clouds inching past behind them. A white egret crossed over a gable, impossibly bright against all that blue.",
           "The moment it got dark, Shantang Street switched on everything it had. Red lanterns ran from the eaves down to the water, the stone arch bridge filled with people, and tour boats slid out from under it, stirring a river of lights apart and back together.",
-          "On the way back I turned for one more look: a lantern swayed in the wind, a single character on it—Tang, for Shantang. Suzhou is two cities, one by day and one by night, and I had seen them both."
+          "On the way back I turned for one more look: a lantern swayed in the wind, a single character on it: Tang, for Shantang. Suzhou is two cities, one by day and one by night, and I had seen them both."
         ]
       },
       quote: "Centuries ago,\nsomeone composed this view,\nand left it waiting for me."
@@ -586,7 +586,7 @@ window.DIARY = {
            en: "Collecting every pink cloud at Sayram Lake" },
     intro: {
       zh: "出口 145，驶往赛里木湖方向，\n雪山把整面湖染成蓝色，\n云朵在傍晚变成粉红色。",
-      en: "Exit 145, toward Sayram Lake—\nsnow mountains turning the water blue,\nclouds turning pink at dusk."
+      en: "Exit 145, toward Sayram Lake;\nsnow mountains turning the water blue,\nclouds turning pink at dusk."
     },
     cover:    { src: "../assets/travel/xinjiang/xinjiang-05", ar: "1619/1080", cap: "Sayram Lake ♡" },
     polaroid: { src: "../assets/travel/xinjiang/xinjiang-02", ar: "1619/1080", cap: "A pink cloud, collected" },
@@ -605,7 +605,7 @@ window.DIARY = {
       label: { zh: "湖边手记", en: "Lakeside Notes" },
       place: "Sayram Lake · Xinjiang",
       title: { zh: "“收集粉红色的云朵”", en: "“Collecting Pink Clouds”" },
-      date:  { zh: "盛夏 · 赛里木湖", en: "High summer · Sayram Lake, Xinjiang" },
+      date:  { zh: "2022 年 8 月 · 赛里木湖", en: "August 2022 · Sayram Lake, Xinjiang" },
       body: {
         zh: [
           "导航说，前方出口 145，驶往赛里木湖方向。连霍高速一路向西，雪山从挡风玻璃的尽头一点点升起来。",
@@ -615,7 +615,7 @@ window.DIARY = {
           "傍晚，雨在很远的山前落下来，没有走到我们这边。落日把整幅雨幕染成粉紫色，像天边挂了一层纱。",
           "在赛里木湖，收集每一片粉红色的云朵。",
           "夜里云都散了。银河从湖的这一头横到那一头，我们关掉车灯，星星多得像要溢出来。",
-          "回程的路上我想，云大概是带不走的。但没关系——它们都被收在这一页里了。"
+          "回程的路上我想，云大概是带不走的。但没关系，它们都被收在这一页里了。"
         ],
         en: [
           "The navigation said: Exit 145 ahead, toward Sayram Lake. The Lianhuo Expressway ran west, and the snow mountains rose, little by little, at the end of the windshield.",
@@ -625,10 +625,10 @@ window.DIARY = {
           "In the evening, rain fell against the far mountains and never reached us. The sunset dyed the whole curtain of it pink and violet, like a veil hung at the edge of the sky.",
           "At Sayram Lake, collecting every pink cloud.",
           "By night the clouds were gone. The Milky Way stretched from one end of the lake to the other; we turned off the headlights, and the stars felt close to overflowing.",
-          "On the road back I thought: you can't really take a cloud with you. But that's all right—they are all kept here, on this page."
+          "On the road back I thought: you can't really take a cloud with you. But that's all right: they are all kept here, on this page."
         ]
       },
-      quote: "The clouds turned pink\nonly for a moment—\nlong enough to keep."
+      quote: "The clouds turned pink\nonly for a moment,\nlong enough to keep."
     }
   }
   ,
@@ -645,7 +645,7 @@ window.DIARY = {
            en: "Heading west, where the land opens and time slows" },
     intro: {
       zh: "雨后的柏油路一直伸向天边，\n峡谷裂开，河流转弯，巨石站成街道，\n最后，荒原用一道彩虹送我们离开。",
-      en: "Wet asphalt running to the horizon,\ncanyons cracking open, a river turning, stones standing like a street—\nand at the end, the desert saw us off with a rainbow."
+      en: "Wet asphalt running to the horizon,\ncanyons cracking open, a river turning, stones standing like a street,\nand at the end, the desert saw us off with a rainbow."
     },
     cover:    { src: "../assets/travel/route66/route66-04", ar: "1619/1080", cap: "The open road ♡" },
     polaroid: { src: "../assets/travel/route66/route66-03", ar: "1080/1619", cap: "Under the arch" },
@@ -664,30 +664,208 @@ window.DIARY = {
       label: { zh: "公路手记", en: "Road Notes" },
       place: "Route 66 · Arizona",
       title: { zh: "“一直往西”", en: "“Keep Driving West”" },
-      date:  { zh: "夏末 · 美国西南", en: "Late summer · The American Southwest" },
+      date:  { zh: "2023 年 8 月 · 美国西南", en: "August 2023 · The American Southwest" },
       body: {
         zh: [
           "沿着 66 号公路往西，出发那天刚下过雨。柏油路还亮着水光，黄色的分道线一直伸向天边，路的尽头浮着几座青灰色的山。很长一段路上，只有电线杆陪着我们。",
           "大地开阔得没有回声。",
           "羚羊谷像大地裂开的一道缝。光从头顶漏下来，砂岩被水和风磨成波浪的形状；有一束光正好停在岩壁中间的一截枯木上，像有人替它打了一盏追光。",
-          "大峡谷的边缘站满了云的影子。岩层一层压着一层，谷底的科罗拉多河细得像一根线。我举着相机站了很久，才按下第一张——有些尺度，取景框其实装不下。",
+          "大峡谷的边缘站满了云的影子。岩层一层压着一层，谷底的科罗拉多河细得像一根线。我举着相机站了很久，才按下第一张。有些尺度，取景框其实装不下。",
           "在马蹄湾，河水绕着一整块岩石转了一个近乎完整的圆，然后不慌不忙地继续往前。原来河也会绕路。绕完这一圈，它还是那条河。",
           "拱门国家公园里，红色的巨石排成一条街道。有人沿着岩坡爬到拱门底下，站在一朵云旁边，变成一个很小的剪影。在那里，人小得刚刚好。",
           "傍晚开回镇上，餐馆屋檐的霓虹先亮了，山背后的云还烧着最后一点落日。我把车停在路边，看那堆火一点点暗下去，谁也没有催谁。",
-          "离开荒原的那天下了一场太阳雨，两道彩虹落在彩绘沙漠上——一道很清楚，一道很淡，底下只有一根孤零零的电线杆。我把车开得很慢。路还长，但我忽然不着急了。"
+          "离开荒原的那天下了一场太阳雨，两道彩虹落在彩绘沙漠上，一道很清楚，一道很淡，底下只有一根孤零零的电线杆。我把车开得很慢。路还长，但我忽然不着急了。"
         ],
         en: [
           "We set out west along Route 66, just after the rain. The asphalt was still shining, the yellow line ran all the way to the horizon, and a few grey-blue mountains floated at the end of the road. For long stretches, the telephone poles were our only company.",
           "Too wide for echoes.",
           "Antelope Canyon is a crack the earth opened. Light leaked in from above, over sandstone that water and wind had worn into waves; one beam rested exactly on a dead log lodged in the rock, as if someone had aimed a spotlight at it.",
-          "At the rim of the Grand Canyon, cloud shadows drifted across the strata, and the Colorado at the bottom thinned to a single thread. I stood with the camera raised for a long while before taking the first frame—some scales simply don’t fit in a viewfinder.",
+          "At the rim of the Grand Canyon, cloud shadows drifted across the strata, and the Colorado at the bottom thinned to a single thread. I stood with the camera raised for a long while before taking the first frame. Some scales simply don’t fit in a viewfinder.",
           "At Horseshoe Bend the river wraps around one great rock, drawing an almost perfect circle, then moves on, unhurried. So rivers take detours too. After the whole long loop, it is still the same river.",
           "In Arches the red monoliths line up like a street. Someone climbed the slope to stand beneath the arch, next to a single cloud, and became a very small silhouette. Out there, feeling small is exactly the right size.",
           "In the evening we drove back into town. The neon along the diner’s roofline came on first, while the clouds behind the mountains still burned with the last of the sunset. I parked by the road and watched the fire go out slowly, and nobody hurried anybody.",
-          "On the day we left the badlands it sun-showered, and a double rainbow dropped onto the Painted Desert—one arc sharp, one faint, nothing beneath them but a lone telephone pole. I slowed the car right down. The road was still long, and suddenly I was in no hurry at all."
+          "On the day we left the badlands it sun-showered, and a double rainbow dropped onto the Painted Desert: one arc sharp, one faint, nothing beneath them but a lone telephone pole. I slowed the car right down. The road was still long, and suddenly I was in no hurry at all."
         ]
       },
       quote: "The road was long,\nthe land was wide,\nand nobody was in a hurry."
+    }
+  }
+  ,
+  /* 黄金海岸：十六岁的放映（徽记＝冲浪海岸天际线 + 观景台玻璃前的少年） */
+  goldcoast: {
+    geo: {
+      emblem: "goldcoast",
+      vb: "0 2 190 110",
+      stampTop: "GOLD COAST", stampBottom: "QUEENSLAND"
+    },
+    name: { zh: "黄金海岸", en: "Gold Coast" },
+    region: "Queensland",
+    sub: { zh: "十六岁那年，故事开始的地方",
+           en: "Sixteen, and the beginning of the story" },
+    intro: {
+      zh: "因为一个视频，第一次飞过赤道，\n在陌生的市政厅看自己的画面亮起，\n南半球的春天，故事从这里开始。",
+      en: "One video, and a first flight across the equator;\nmy own frames lighting up in an unfamiliar city hall;\nspring in the southern hemisphere, where the story begins."
+    },
+    cover:    { src: "../assets/travel/goldcoast/goldcoast-01", ar: "2000/1334", cap: "Surfers Paradise ♡" },
+    polaroid: { src: "../assets/travel/goldcoast/goldcoast-02", ar: "2000/1334", cap: "Sixteen, looking out" },
+    momentsLabel: "Spring on the Gold Coast ♡",
+    strip: [
+      { src: "../assets/travel/goldcoast/goldcoast-03", ar: "2000/1334", cap: { zh: "在水上写字的快艇", en: "A boat writing on the water" } },
+      { src: "../assets/travel/goldcoast/goldcoast-04", ar: "2000/1334", cap: { zh: "弯进城市的内河", en: "The river bending through the city" } },
+      { src: "../assets/travel/goldcoast/goldcoast-05", ar: "2000/1334", cap: { zh: "起风的内湾", en: "A windy bay" } },
+      { src: "../assets/travel/goldcoast/goldcoast-06", ar: "2000/1334", cap: { zh: "海边的六边形石柱", en: "Hexagons by the sea" } },
+      { src: "../assets/travel/goldcoast/goldcoast-07", ar: "2000/1334", cap: { zh: "红黄旗下的海滩", en: "Under the red-and-yellow flag" } }
+    ],
+    tapeLabel: { zh: "十六岁 · 放映 · 海", en: "Sixteen · A screening · The sea" },
+    diary: {
+      label: { zh: "少年手记", en: "Notes at Sixteen" },
+      place: "Gold Coast · Surfers Paradise",
+      title: { zh: "“十六岁的放映”", en: "“A Screening at Sixteen”" },
+      date:  { zh: "2019 年 10 月 · 黄金海岸的春天", en: "October 2019 · Springtime on the Gold Coast" },
+      body: {
+        zh: [
+          "2019 年，因为一个视频比赛获得了成都市第一名，和一群高中生踏上了黄金海岸文化交流大使的路程。那年我十六岁，第一次飞到赤道的另一边。十月的黄金海岸，正是春天。",
+          "我们去到了黄金海岸市政厅，见到了市长，他还在市政厅播放了我的视频。放映之前，我坐在台下，手心一直在出汗。",
+          "灯暗下来，屏幕亮起。",
+          "那几分钟长得不像话。我听着自己剪进去的音乐在陌生的大厅里响起来，看着字幕滚到最后一行，掌声从身后传过来。我不太敢回头，只是把背悄悄挺直了一点。",
+          "我们住在了黄金海岸当地的一对老夫妻的家里。清晨的厨房里有烤面包的香味，他们把我们的中文名字念得磕磕绊绊，又一遍一遍地练；晚饭后摊开地图，指给我们看明天要去的海。",
+          "我记得观景台的玻璃前，整条海岸线弯成一道长长的弧，楼的影子落在沙滩上；内河里有快艇拖出雪白的水线，像在蓝绿色的水面上写字。",
+          "我记得清晨的海滩，雾还没散，救生员把红黄两色的旗子插进沙里，孩子们已经先跑进了浪里。也记得海角上那些六边形的黑色石柱，一根挨着一根，被海浪打得发亮。",
+          "回程的飞机往北飞，海岸线在舷窗外慢慢收成一条金线。懵懂的我，对大洋彼岸的世界多了一份了解。",
+          "很多年后回头看，故事大概就是从市政厅那个下午开始的。十六岁的我还不知道什么是电影节，也没见过真正的片场，只是模模糊糊地想：也许可以一直拍下去。",
+          "后来我真的去拍电影了"
+        ],
+        en: [
+          "In 2019, a video contest brought me first place in the whole city of Chengdu, and put me on the road to the Gold Coast with a group of high-school students, as young ambassadors of cultural exchange. I was sixteen, flying across the equator for the first time. October on the Gold Coast, and it was spring.",
+          "We visited Gold Coast City Hall and met the mayor, and there, in City Hall, he played my video. Before the screening I sat in the audience, my palms sweating the whole time.",
+          "Lights down, screen up.",
+          "Those few minutes felt impossibly long. I listened to the music I had cut into the film ring through an unfamiliar hall, watched the credits roll to the last line, and heard the applause arrive from behind me. I didn't quite dare to turn around; I only straightened my back, a little.",
+          "We stayed in the home of an elderly local couple. In the mornings their kitchen smelled of toast; they stumbled over our Chinese names and practised them again and again, and after dinner they would spread out a map and point to the sea we were going to see tomorrow.",
+          "I remember standing at the glass of the observation deck: the whole coastline bent into one long arc, tower shadows lying on the sand, and down in the canals a speedboat trailing a snow-white wake, like handwriting on blue-green water.",
+          "I remember the beach in the early morning, the haze not yet lifted, lifeguards planting red-and-yellow flags in the sand while the children had already run into the waves. And I remember the black hexagonal columns on the headland, packed one against another, polished bright by the sea.",
+          "On the flight home we turned north, and the coastline outside the window slowly narrowed into a thin gold line. Naive as I was, I came away knowing a little more about the world on the far side of the ocean.",
+          "Looking back years later, I suppose the story began on that afternoon in City Hall. At sixteen I didn't know what a film festival was, and I had never seen a real set. I only had a vague thought: maybe I could keep filming.",
+          "Later, I really did."
+        ]
+      },
+      quote: "The film was short,\nthe ocean was wide,\nand the story had just begun."
+    }
+  }
+  ,
+  /* 南非：十一岁的冬天（徽记＝桌山上的滑翔伞 + 好望角指向全世界的路牌） */
+  southafrica: {
+    geo: {
+      emblem: "southafrica",
+      vb: "0 0 190 120",
+      stampTop: "CAPE TOWN", stampBottom: "TABLE MOUNTAIN"
+    },
+    name: { zh: "南非", en: "South Africa" },
+    region: "Cape Town",
+    sub: { zh: "第一次飞起来，也第一次知道家有多远",
+           en: "The first time I flew, and the first time I knew how far home was" },
+    intro: {
+      zh: "南半球的八月，桌山顶上的风，\n滑翔伞把十一岁的我端上天空，\n而北京，在 12933 公里之外。",
+      en: "August in the southern hemisphere, the wind on Table Mountain,\na paraglider lifting my eleven-year-old self into the sky,\nand Beijing, 12,933 kilometres away."
+    },
+    cover:    { src: "../assets/travel/southafrica/southafrica-01", ar: "2000/1335", cap: "Camps Bay ♡" },
+    polaroid: { src: "../assets/travel/southafrica/southafrica-02", ar: "2000/1500", cap: "First flight" },
+    momentsLabel: "Moments in South Africa ♡",
+    strip: [
+      { src: "../assets/travel/southafrica/southafrica-03", ar: "2000/1335", cap: { zh: "系好装备，等风来", en: "Geared up, waiting for wind" } },
+      { src: "../assets/travel/southafrica/southafrica-04", ar: "2000/1335", cap: { zh: "压在小镇头顶的岩壁", en: "The wall above the town" } },
+      { src: "../assets/travel/southafrica/southafrica-05", ar: "1805/1205", cap: { zh: "冬天的海也很蓝", en: "Blue, even in winter" } },
+      { src: "../assets/travel/southafrica/southafrica-06", ar: "1805/1205", cap: { zh: "穿过葡萄园的林荫道", en: "An oak avenue through the vineyards" } },
+      { src: "../assets/travel/southafrica/southafrica-07", ar: "2000/2000", cap: { zh: "北京，在 12933 公里外", en: "Beijing, 12,933 km away" } },
+      { src: "../assets/travel/southafrica/southafrica-08", ar: "2000/1335", cap: { zh: "晨光里的白犀牛", en: "White rhinos in the first light" } }
+    ],
+    tapeLabel: { zh: "起飞 · 海角 · 草原", en: "Takeoff · Cape · Savanna" },
+    diary: {
+      label: { zh: "童年手记", en: "Childhood Notes" },
+      place: "Cape Town · Cape Point",
+      title: { zh: "“12933 公里”", en: "“12,933 Kilometres”" },
+      date:  { zh: "2014 年 8 月 · 开普敦的冬天", en: "August 2014 · A Cape Town winter" },
+      body: {
+        zh: [
+          "2014 年 8 月，我十一岁。家里正是最热的暑假，十几个小时的飞机，却把我们送进了南半球的冬天。开普敦的冬天不下雪，草是绿的，风很大，太阳晃眼。",
+          "在桌山上第一次滑翔伞，去到了好望角。",
+          "起飞场上摊着几顶粉红色的伞翼，风一阵一阵掀起它们的角。教练替我扣好银色的头盔，把每一道背带都收紧，说：一直往前跑，别停。跑出去几步，脚下忽然一空，白色的房子缩成一粒一粒，沿着海岸线排开，大西洋在脚下摊开，蓝得没有边。风呼呼地从耳边过，像有人在身后轻轻推着秋千。我不敢喊，也舍不得喊。",
+          "原来这就是飞。",
+          "落地之后的几天，我们沿着海慢慢开。十二使徒岩一字排开，把白房子的小镇拢在山脚下；冬天的葡萄园只剩下光秃秃的枝条，两排老橡树夹着一条路，笔直地伸向山的方向。",
+          "去好望角那天风很大。木头柱子上钉满了指向全世界的箭头：里约热内卢、柏林、巴黎、纽约。我一眼就认出了最亮的那块：beijing，居然在12933km外。十一岁的我对一万两千公里没有什么概念，只是站在牌子底下想：原来我已经离家这么远了。",
+          "看了纪录片里的非洲大草原。清晨的草浪是金色的，两头白犀牛从灌木后面慢慢踱出来，低着头吃草，谁也不抬眼看我们。那是我在电视里看过无数遍的画面，忽然就在眼前呼吸。",
+          "很多年后翻出这些照片，那阵风还在。它教我的事情很简单：往前跑，别停。脚下一空的时候，就是飞起来的时候。"
+        ],
+        en: [
+          "August 2014. I was eleven. Back home it was the hottest stretch of the summer holidays, but a dozen hours of flying dropped us into a southern-hemisphere winter. Winter in Cape Town has no snow: the grass stays green, the wind blows hard, and the sun is bright enough to squint at.",
+          "On Table Mountain I flew a paraglider for the first time, and we made it to the Cape of Good Hope.",
+          "Pink wings lay spread out on the launch field, the wind flipping up their corners again and again. The instructor buckled a silver helmet onto my head, pulled every strap tight, and said: keep running, don't stop. A few steps out, the ground was suddenly gone. White houses shrank into little grains strung along the coastline, and the Atlantic opened out beneath my feet, blue without an edge. The wind roared past my ears like someone behind me, gently, steadily pushing a swing. I didn't dare shout, and I didn't want to.",
+          "So this is flying.",
+          "In the days that followed we drove slowly along the sea. The Twelve Apostles stood in a long row, holding a town of white houses at their feet; the winter vineyards were down to bare vines, and two lines of old oaks held a road that ran straight toward the mountains.",
+          "The wind was strong the day we reached the Cape of Good Hope. A wooden post stood studded with arrows pointing to everywhere in the world: Rio de Janeiro, Berlin, Paris, New York. I picked out the brightest blade at once: BEIJING, somehow 12,933 km away. At eleven I had no real sense of what twelve thousand kilometres meant. I just stood under the sign and thought: so this is how far from home I've come.",
+          "And I saw the African savanna from the documentaries. The grass ran gold in the early light; two white rhinos ambled out from behind the bushes, heads down, grazing, never once looking up at us. A scene I had watched countless times on television was suddenly breathing right in front of me.",
+          "Many years later, going back through these photos, that wind is still there. What it taught me is simple: keep running, don't stop. The moment the ground lets go is the moment you begin to fly."
+        ]
+      },
+      quote: "Keep running, don't stop.\nWhen the ground lets go,\nyou are flying."
+    }
+  }
+  ,
+  /* 新西兰：一个人、一台望远镜（徽记＝暗夜里的望远镜与星 + 雪山湖上空的降落伞） */
+  newzealand: {
+    geo: {
+      emblem: "newzealand",
+      vb: "0 8 190 110",
+      stampTop: "TEKAPO", stampBottom: "DARK SKY"
+    },
+    name: { zh: "新西兰", en: "New Zealand" },
+    region: "Tekapo · Queenstown",
+    sub: { zh: "一个人，一台望远镜，和整个南半球的星空",
+           en: "One person, one telescope, and the whole southern sky" },
+    intro: {
+      zh: "背着 20 公斤的望远镜降落在南半球，\n白天沿着雪山与冰川湖赶路，\n夜里，把镜筒对准银河。",
+      en: "Landing in the southern hemisphere with a twenty-kilo telescope,\ndriving between snow mountains and glacial lakes by day,\nand pointing the tube at the Milky Way by night."
+    },
+    cover:    { src: "../assets/travel/newzealand/newzealand-01", ar: "2000/1234", cap: "Dawn over the Remarkables ♡" },
+    polaroid: { src: "../assets/travel/newzealand/newzealand-02", ar: "750/1001", cap: "My 20kg companion" },
+    momentsLabel: "Under the Southern Sky ♡",
+    strip: [
+      { src: "../assets/travel/newzealand/newzealand-03", ar: "2000/1335", cap: { zh: "普卡基湖尽头的库克山", en: "Aoraki at the end of Lake Pukaki" } },
+      { src: "../assets/travel/newzealand/newzealand-04", ar: "2000/1351", cap: { zh: "好牧羊人教堂的窗", en: "The Good Shepherd's window" } },
+      { src: "../assets/travel/newzealand/newzealand-05", ar: "2000/1335", cap: { zh: "约翰山顶的热巧克力", en: "Hot chocolate on Mt John" } },
+      { src: "../assets/travel/newzealand/newzealand-06", ar: "2000/1335", cap: { zh: "雪线上最后一点晚霞", en: "Last light on the snowline" } },
+      { src: "../assets/travel/newzealand/newzealand-07", ar: "1001/750",  cap: { zh: "一万英尺上的一跃", en: "The leap at ten thousand feet" } },
+      { src: "../assets/travel/newzealand/newzealand-08", ar: "2000/1567", cap: { zh: "舷窗里的雪山", en: "Snow mountains in a porthole" } },
+      { src: "../assets/travel/newzealand/newzealand-09", ar: "2000/1335", cap: { zh: "阴天的夏尔", en: "The Shire on a grey day" } }
+    ],
+    tapeLabel: { zh: "独行 · 仰望 · 坠落", en: "Solo · Skyward · Freefall" },
+    diary: {
+      label: { zh: "南半球手记", en: "Southern Notes" },
+      place: "Tekapo · Queenstown",
+      title: { zh: "“仰望与坠落”", en: "“Looking Up, Falling Down”" },
+      date:  { zh: "2016 年 8 月 · 新西兰的冬天", en: "August 2016 · A New Zealand winter" },
+      body: {
+        zh: [
+          "一个人背着20kg的望远镜，去到了蒂卡波湖旁的暗夜星空保护区看星星，从皇后镇10000英尺上空跳下。",
+          "出发那天，三脚架和赤道仪塞进了托运的箱子，镜筒被我抱在怀里过安检。有人问里面装的是什么，我说：望远镜。",
+          "在蒂卡波的小屋里，我先把它在客厅架了起来。窗外就是湖，湖对岸是雪山；天一黑，头顶就是整个南半球，那些在北半球永远升不上地平线的星星，都在那里等我。",
+          "冬天的夜来得很早。",
+          "暗夜保护区里没有一盏路灯。我把望远镜支在湖边，呵出的气在寻星镜上结了霜。银河从雪山背后升起来，横过整个天顶；大小麦哲伦云像两小片擦不掉的雾，南十字就挂在湖的那一头。快门一次次打开，我在一旁跺着脚，不敢开白光的头灯。",
+          "白天沿着湖慢慢走。好牧羊人教堂的窗框住十字架，也框住远处的雪线；约翰山顶就是天文台，白色圆顶一座挨着一座，我捧着一杯热巧克力，把方位盘上山峰的名字一个个认过去。普卡基湖蓝得不太真实，湖的尽头站着库克山。",
+          "到皇后镇的那个清晨，天边烧了起来，卓越山脉压着一湖紫红色的光。后来的一个上午，机舱门在一万英尺打开，脚下是云，云下面是雪山和湖。我们坠了三十几秒，那点时间不够想任何事，只够看。",
+          "现在回想，那趟旅行是两种姿势：整夜的仰望，和一次很短的坠落。百万年前出发的星光落到湖面，人从一万英尺回到地面只要几分钟。望远镜和降落伞之间，其实是同一片天空，我只是换了一头，去看了看它。"
+        ],
+        en: [
+          "Alone, with a twenty-kilogram telescope on my back, I went to the dark-sky reserve beside Lake Tekapo to watch the stars, and jumped from ten thousand feet above Queenstown.",
+          "On the day I left, the tripod and the equatorial mount went into the checked suitcase; the tube I carried through security in my arms. Someone asked what was inside. A telescope, I said.",
+          "In the little house at Tekapo I set it up in the living room first. The lake was right outside, snow mountains on the far shore; once night fell, overhead hung the entire southern hemisphere: stars that never climb above the horizon back north, all waiting there for me.",
+          "Winter nights come early.",
+          "There is not a single streetlamp in the dark-sky reserve. I planted the telescope by the lake, my breath frosting over the finder scope. The Milky Way rose from behind the snow mountains and crossed the whole zenith; the two Magellanic Clouds sat like smudges of fog that would not wipe away, and the Southern Cross hung low over the far end of the lake. The shutter opened again and again while I stamped my feet beside it, not daring to switch on a white light.",
+          "By day I walked the lakeshore. The window of the Church of the Good Shepherd framed a cross, and behind it the snowline; the summit of Mt John belongs to the observatory, white domes standing shoulder to shoulder, and I held a hot chocolate up there, reading the names of the peaks off the direction plate one by one. Lake Pukaki was a blue that did not look quite real, and at the end of it stood Aoraki, Mount Cook.",
+          "On the morning I reached Queenstown the sky caught fire, the Remarkables pressing down on a lake of violet light. Then, on a later morning, the cabin door opened at ten thousand feet: below were clouds, and below the clouds, snow mountains and lakes. We fell for some thirty seconds, not enough time to think anything, only enough to look.",
+          "Looking back, that trip was two postures: a whole night of looking up, and one short fall. Starlight that set out a million years ago settles on the lake; a person falls from ten thousand feet back to earth in a few minutes. Between the telescope and the parachute is one and the same sky. I had only gone around to its other side, to see it."
+        ]
+      },
+      quote: "A whole night looking up,\nthirty seconds falling down,\nthe same southern sky."
     }
   }
 };

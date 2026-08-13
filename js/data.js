@@ -24,7 +24,7 @@ i18n: {
     resumeCta:{zh:"查看完整简历",en:"View full résumé"} },
   astro: { title:{zh:"星空",en:"Astronomy"}, alt:{zh:"ASTRONOMY",en:"星空"},
     intro:{zh:"这些，是我仰望星空时拍下的画面。我幻想有一天能抵达宇宙的尽头，看看这个世界更广阔的样子。旅程还在继续，少年将继续探索这个世界。",
-           en:"These are the frames I caught while looking up. I dream that one day I will reach the far end of the universe, and see how much wider this world can be. The journey goes on — and the boy keeps exploring."},
+           en:"These are the frames I caught while looking up. I dream that one day I will reach the far end of the universe, and see how much wider this world can be. The journey goes on, and the boy keeps exploring."},
     empty:{zh:"银河与极光，整理中",en:"Galaxies and aurorae, coming soon"} },
   travel: {
     title:{zh:"旅行",en:"Travel"}, alt:{zh:"TRAVEL",en:"旅行"},
@@ -58,8 +58,8 @@ films: [
     badges:[{zh:"罗马棱镜电影奖 月度最佳动画短片",en:"Rome Prisma Film Awards · Monthly Best Animation Short"},
             {zh:"AI 电影大奖 官方入围 · 西班牙 2026",en:"AI Movie Awards · Official Selection · Spain 2026"},
             {zh:"首尔国际 AI 电影节 官方入围 2026",en:"Seoul Int’l AI Film Festival · Official Selection 2026"}],
-    synopsis:{zh:"跨年夜，男孩在梦中回到了战前的故乡。他穿过温暖的街道，欢庆的人群，追逐一颗微光闪烁的小球——那是他仅存的希望。梦境与现实交织，在隐隐不安中走向破碎。当钟声响起，烟花与炮弹一同炸裂……这不只是一个关于战争的故事，而是关于那些在战争中没能等到明天的孩子。近年来，平民儿童在战争中受害的事件屡屡发生。人类至今无法避免通过战争解决内部矛盾——唯愿岁岁平安，战火不再烧及文明的未来。",
-      en:"On New Year’s Eve, a boy returns to his homeland before the war—in a dream. He runs through warm streets and festive crowds, chasing a flickering sphere of light—the last glimmer of hope he has left. Dream and reality intertwine, quietly unsettled, moving toward collapse. As the bells ring out, fireworks and shells explode together… This is more than a story about war. It is about the children who, in war, never lived to see the next year. In recent years, civilian children have too often fallen victim to conflict. Humanity has yet to find a way to resolve its internal struggles without war—if only the flames of battle would never again consume the future of civilization."},
+    synopsis:{zh:"跨年夜，男孩在梦中回到了战前的故乡。他穿过温暖的街道，欢庆的人群，追逐一颗微光闪烁的小球，那是他仅存的希望。梦境与现实交织，在隐隐不安中走向破碎。当钟声响起，烟花与炮弹一同炸裂……这不只是一个关于战争的故事，而是关于那些在战争中没能等到明天的孩子。近年来，平民儿童在战争中受害的事件屡屡发生。人类至今无法避免通过战争解决内部矛盾。唯愿岁岁平安，战火不再烧及文明的未来。",
+      en:"On New Year’s Eve, a boy returns to his homeland before the war, in a dream. He runs through warm streets and festive crowds, chasing a flickering sphere of light, the last glimmer of hope he has left. Dream and reality intertwine, quietly unsettled, moving toward collapse. As the bells ring out, fireworks and shells explode together… This is more than a story about war. It is about the children who, in war, never lived to see the next year. In recent years, civilian children have too often fallen victim to conflict. Humanity has yet to find a way to resolve its internal struggles without war. If only the flames of battle would never again consume the future of civilization."},
     specs:[
       { k:{zh:"摄制时间",en:"Production"}, v:{zh:"2026.02.22 – 03.30",en:"Feb 22 – Mar 30, 2026"} },
       { k:{zh:"摄制国家",en:"Country"},   v:{zh:"中国",en:"China"} },
@@ -184,6 +184,9 @@ locations: [
   { id:"suzhou",     name:{zh:"苏州",en:"Suzhou"},         lat:31.30, lon:120.62, items:[], diary:true },
   { id:"xinjiang",   name:{zh:"赛里木湖",en:"Sayram Lake"}, lat:44.60, lon:81.20, items:[], diary:true },
   { id:"route66",    name:{zh:"66 号公路",en:"Route 66"},  lat:35.19, lon:-111.66, items:[], diary:true },
+  { id:"goldcoast",  name:{zh:"黄金海岸",en:"Gold Coast"},  lat:-28.02, lon:153.40, items:[], diary:true },
+  { id:"southafrica", name:{zh:"南非",en:"South Africa"}, lat:-33.96, lon:18.40, items:[], diary:true },
+  { id:"newzealand", name:{zh:"新西兰",en:"New Zealand"}, lat:-44.00, lon:170.48, items:[], diary:true },
   { id:"iceland",    name:{zh:"冰岛",en:"Iceland"},        lat:64.15, lon:-21.94, items:[], diary:true },
   { id:"norway",     name:{zh:"挪威",en:"Norway"},         lat:60.39, lon:5.32,  items:[], diary:true }
 ],
