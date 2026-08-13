@@ -635,6 +635,72 @@
       if(img.complete && img.naturalWidth) img.classList.add("ld");
       else img.addEventListener("load", function(){ img.classList.add("ld"); }, { once: true });
     });
+    wireLightbox();
+  }
+
+  /* ---- 灯箱：手账里的每张照片都能点开 ----
+     桌面：←/→ 翻页、Esc 或点空白关闭；触屏：横滑翻页、竖滑关闭、底部返回 */
+  var lb = null, lbList = [], lbIdx = 0;
+  function lbBuild(){
+    lb = document.createElement("div");
+    lb.className = "dlb";
+    lb.hidden = true;
+    lb.innerHTML =
+      '<button class="dlb-x" aria-label="Close">&times;</button>' +
+      '<button class="dlb-nav dlb-prev" aria-label="Previous">&#8249;</button>' +
+      '<button class="dlb-nav dlb-next" aria-label="Next">&#8250;</button>' +
+      '<figure class="dlb-print"><img alt=""><figcaption class="dlb-cap"></figcaption></figure>' +
+      '<button class="dlb-back"></button>';
+    document.body.appendChild(lb);
+    lb.querySelector(".dlb-x").addEventListener("click", lbClose);
+    lb.querySelector(".dlb-back").addEventListener("click", lbClose);
+    lb.querySelector(".dlb-prev").addEventListener("click", function(e){ e.stopPropagation(); lbNav(-1); });
+    lb.querySelector(".dlb-next").addEventListener("click", function(e){ e.stopPropagation(); lbNav(1); });
+    lb.addEventListener("click", function(e){ if(e.target === lb) lbClose(); });
+    document.addEventListener("keydown", function(e){
+      if(lb.hidden) return;
+      if(e.key === "Escape") lbClose();
+      else if(e.key === "ArrowLeft") lbNav(-1);
+      else if(e.key === "ArrowRight") lbNav(1);
+    });
+    var sw = null;
+    lb.addEventListener("pointerdown", function(e){ sw = { x: e.clientX, y: e.clientY }; }, { passive: true });
+    lb.addEventListener("pointerup", function(e){
+      if(!sw) return;
+      var dx = e.clientX - sw.x, dy = e.clientY - sw.y;
+      sw = null;
+      if(Math.abs(dy) > 80 && Math.abs(dy) > Math.abs(dx) * 1.5) lbClose();
+      else if(Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) lbNav(dx < 0 ? 1 : -1);
+    }, { passive: true });
+  }
+  function lbOpen(i){
+    if(!lb) lbBuild();
+    lbIdx = (i + lbList.length) % lbList.length;
+    var it = lbList[lbIdx];
+    var img = lb.querySelector("img");
+    img.src = it.src + ".webp";
+    img.alt = it.cap || "";
+    lb.querySelector(".dlb-cap").textContent = it.cap || "";
+    lb.querySelector(".dlb-back").textContent = (lang === "zh") ? "← 返回" : "← Back";
+    lb.hidden = false;
+    document.body.style.overflow = "hidden";
+    requestAnimationFrame(function(){ lb.classList.add("show"); });
+  }
+  function lbClose(){
+    if(!lb || lb.hidden) return;
+    lb.classList.remove("show");
+    document.body.style.overflow = "";
+    setTimeout(function(){ lb.hidden = true; }, 280);
+  }
+  function lbNav(d){ lbOpen(lbIdx + d); }
+  function wireLightbox(){
+    lbList = [{ src: D.cover.src, cap: t(D.cover.cap) }, { src: D.polaroid.src, cap: t(D.polaroid.cap) }]
+      .concat(D.strip.map(function(s){ return { src: s.src, cap: t(s.cap) }; }));
+    /* DOM 顺序 = 列表顺序：主相纸、拍立得、照片墙 */
+    document.querySelectorAll(".dhero-photos .print, .dwall .snap").forEach(function(f, i){
+      f.classList.add("openable");
+      f.addEventListener("click", function(){ lbOpen(i); });
+    });
   }
 
   document.addEventListener("DOMContentLoaded", function(){

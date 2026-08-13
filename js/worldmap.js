@@ -194,10 +194,17 @@
       if(zoomed && outline) outline.setAttribute("d", WORLD_MAP_PATH_DETAIL);
     });
   }
-  /* 沉浸态切换：放大时容器展开到近全屏，地图延续到屏幕底部 */
+  /* 沉浸态切换：放大时容器展开到近全屏，地图延续到屏幕底部。
+     容器高度是瞬时跳变的，必须同帧把当前视野改成新纵横比——
+     否则 slice 视口先猛放大再被补间缩回（手机上"先放大后缩小"的泵效应） */
   function immersive(on){
     var wrap = document.getElementById("mapWrap");
-    if(wrap) wrap.classList.toggle("immersive", !!on);
+    if(!wrap || wrap.classList.contains("immersive") === !!on) return;
+    wrap.classList.toggle("immersive", !!on);
+    var asp = boxAspect(!!on);
+    var nh = view.w / asp;
+    view = { x: view.x, y: view.y + (view.h - nh) / 2, w: view.w, h: nh };
+    setViewBox(view);
   }
   function resetZoom(){
     zoomed = false;
@@ -210,9 +217,10 @@
     animateTo({ x: DEFAULT.x, y: DEFAULT.y, w: DEFAULT.w, h: DEFAULT.h }, function(){ renderPins(); });
   }
 
-  /* 全图状态下点击任意位置：放大到该处 */
+  /* 全图状态下点击任意位置：放大到该处。
+     目标宽相对当前视野取（手机默认视野本就只有 ~300 宽，固定 300 等于没放大） */
   function zoomToPoint(cx, cy){
-    var w = 300, h = w / boxAspect(true);
+    var w = Math.min(300, view.w * 0.5), h = w / boxAspect(true);
     var target = {
       x: Math.max(-40, Math.min(1040 - w, cx - w/2)),
       y: Math.max(-10, Math.min(430 - h,  cy - h/2)),
@@ -468,7 +476,8 @@
     var dx = -Math.min(60, home.x + 20);
     var t0 = performance.now(), DUR = 1900;
     function step(now){
-      if(userTouched || zoomed){ view = home; setViewBox(view); return; }
+      /* 被真实交互打断：直接让位（缩放/拖拽已接管视野，绝不能拉回全图） */
+      if(userTouched || zoomed) return;
       var u = Math.min(1, (now - t0) / DUR);
       view = { x: home.x + dx * Math.sin(Math.PI * u), y: home.y, w: home.w, h: home.h };
       setViewBox(view);
@@ -503,7 +512,8 @@
       });
     }
     var wrapEl = document.getElementById("mapWrap");
-    if(wrapEl && innerWidth < 760){
+    /* 从手账页返回（#mapWrap）的人刚用过地图，不再演拖动提示 */
+    if(wrapEl && innerWidth < 760 && location.hash !== "#mapWrap"){
       /* 地图划到位就直接开演（不等手停）；没真演成（被接管藏住等）保留机会，回来再演 */
       var mo = new IntersectionObserver(function(en){
         if(en[0].isIntersecting && en[0].intersectionRatio >= 0.6){
